@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Nunito";
+    src: url("../assets/fonts/Nunito-VariableFont_wght.ttf");
+    font-weight: 200 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("../assets/fonts/Montserrat-VariableFont_wght.ttf");
+    font-weight: 200 800;
+    font-style: normal;
+}
+
+:root {
+    --font-primary: "Nunito", sans-serif;
+    --font-secondary: "Montserrat", sans-serif;
+
+    /* COLORES */
+    /* Escala del color principal */
+    --color-teal-50: #E9FBF7;
+    --color-teal-100: #C2F4E9;
+    --color-teal-200: #9BEDDA;
+    --color-teal-300: #74E7CC;
+    --color-teal-400: #4DE0BD;
+    --color-teal-500: #26D9AF;
+    --color-teal-600: #20B290;
+    --color-teal-700: #188B70;
+    --color-teal-800: #126451;
+    --color-teal-900: #0B3D31;
+    --color-teal-950: #041612;
+
+    /* Verdes */
+    /* --color-green-50: #F4F9F4;
+    --color-green-100: #D7E9D7;
+    --color-green-200: #B9D8B9;
+    --color-green-300: #9AC89A;
+    --color-green-400: #7CB77C;
+    --color-green-500: #5EA65E;
+    --color-green-600: #4C8A4C;
+    --color-green-700: #3B6B3B;
+    --color-green-800: #2A4D2A;
+    --color-green-900: #1A2F1A;
+    --color-green-950: #091009; */
+
+    --color-green-900: #22351A;
+    --color-green-800: #355026;
+    --color-green-700: #476B33;
+    --color-green-600: #59853F;
+    --color-green-500: #6F994F;
+    --color-green-400: #92B56E;
+    --color-green-300: #BBD3A1;
+    --color-green-200: #DAEBCC;
+    --color-green-100: #E9F1DF;
+    --color-green-50: #F0F6EA;
+
+    /* Gris */
+    --color-gray-900: #141414;
+    --color-gray-800: #4D4D4D;
+    --color-gray-700: #737373;
+    --color-gray-600: #999999;
+    --color-gray-500: #A6A6A6;
+    --color-gray-400: #C4C4C4;
+    --color-gray-300: #D9D9D9;
+    --color-gray-200: #E5E5E5;
+    --color-gray-100: #F2F2F2;
+    --color-gray-50: #FAFAFA;
+
+    --color-prueba1: #8FAD88;
+    --color-prueba2: #CBDF90;
+    --color-prueba3: #D7E2D5;
+
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-primary: var(--color-green-700);
+    --color-secondary: var(--color-700);
+}
