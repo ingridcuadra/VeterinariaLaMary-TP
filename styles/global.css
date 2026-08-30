@@ -109,7 +109,7 @@ h1 {
 
 /* Página inicio */
 .contenedor-principal {
-    background-color: var(--color-green-100);
+    background-color: var(--color-green-200);
     height: 100vh;
     /* evaluar si dejamos sombra */
     /* box-shadow: 0 4px 6px 0 rgba(215, 233, 215, 0.9),
