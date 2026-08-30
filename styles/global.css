@@ -7,12 +7,12 @@
 }
 
 body {
-    background-color: var(--color-green-50);
+    background-color: var(--color-turquoise-50);
     font-family: var(--font-secondary);
 }
 
 ::selection {
-    background-color: var(--color-green-400);
+    background-color: var(--color-turquoise-400);
     color: var(--color-white);
 }
 
@@ -37,7 +37,7 @@ a {
     align-items: center;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    background-color: var(--color-green-50);
+    background-color: var(--color-turquoise-50);
     box-shadow:
         0 .093px .669px #00000003,
         0 .407px 1.385px #00000005,
@@ -68,35 +68,35 @@ a {
 }
 
 .btn-primary {
-    background-color: var(--color-green-500);
-    color: var(--color-green-50);
+    background-color: var(--color-turquoise-500);
+    color: var(--color-turquoise-50);
 
     &:hover,
     &:focus,
     &:active {
-        background-color: var(--color-green-600);
+        background-color: var(--color-turquoise-600);
     }
 }
 
 .btn-secondary {
-    background-color: var(--color-green-100);
-    color: var(--color-green-700);
+    background-color: var(--color-turquoise-100);
+    color: var(--color-turquoise-700);
 
     &:hover,
     &:focus,
     &:active {
-        background-color: var(--color-green-200);
+        background-color: var(--color-turquoise-200);
     }
 }
 
 .btn-link {
     background-color: transparent;
-    color: var(--color-green-500);
+    color: var(--color-turquoise-500);
 
     &:hover,
     &:focus,
     &:active {
-        color: var(--color-green-700);
+        color: var(--color-turquoise-700);
     }
 }
 
@@ -109,7 +109,7 @@ h1 {
 
 /* Página inicio */
 .contenedor-principal {
-    background-color: var(--color-green-200);
+    background-color: var(--color-turquoise-200);
     height: 100vh;
     /* evaluar si dejamos sombra */
     /* box-shadow: 0 4px 6px 0 rgba(215, 233, 215, 0.9),

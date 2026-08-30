@@ -17,18 +17,18 @@
     --font-secondary: "Montserrat", sans-serif;
 
     /* COLORES */
-    /* Escala del color principal */
-    --color-teal-50: #E9FBF7;
-    --color-teal-100: #C2F4E9;
-    --color-teal-200: #9BEDDA;
-    --color-teal-300: #74E7CC;
-    --color-teal-400: #4DE0BD;
-    --color-teal-500: #26D9AF;
-    --color-teal-600: #20B290;
-    --color-teal-700: #188B70;
-    --color-teal-800: #126451;
-    --color-teal-900: #0B3D31;
-    --color-teal-950: #041612;
+    /* Verde menta */
+    --color-mint-50: #E9FBF7;
+    --color-mint-100: #C2F4E9;
+    --color-mint-200: #9BEDDA;
+    --color-mint-300: #74E7CC;
+    --color-mint-400: #4DE0BD;
+    --color-mint-500: #26D9AF;
+    --color-mint-600: #20B290;
+    --color-mint-700: #188B70;
+    --color-mint-800: #126451;
+    --color-mint-900: #0B3D31;
+    --color-mint-950: #041612;
 
     /* Verdes */
     /* --color-green-50: #F4F9F4;
@@ -66,12 +66,24 @@
     --color-gray-100: #F2F2F2;
     --color-gray-50: #FAFAFA;
 
-    --color-prueba1: #8FAD88;
-    --color-prueba2: #CBDF90;
-    --color-prueba3: #D7E2D5;
+    /* Turquesa */
+    --color-turquoise-900: #24424C;
+    --color-turquoise-800: #315A68;
+    --color-turquoise-700: #3B6C7D;
+    --color-turquoise-600: #468195;
+    --color-turquoise-500: #5093AA;
+    --color-turquoise-400: #6AA5B9;
+    --color-turquoise-300: #93BECC;
+    --color-turquoise-200: #CEE6EE;
+    --color-turquoise-100: #DEEDF2;
+    --color-turquoise-50: #F4F7FA;
+
+    --color-prueba-1: #8FAD88;
+    --color-prueba-2: #CBDF90;
+    --color-prueba-3: #D7E2D5;
 
     --color-white: #FFFFFF;
     --color-black: #000000;
-    --color-primary: var(--color-green-700);
-    --color-secondary: var(--color-700);
+    --color-primary: var(--color-turquoise-700);
+    --color-secondary: var(--color-turquoise-300);
 }
