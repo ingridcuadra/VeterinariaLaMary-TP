@@ -150,6 +150,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+/* enlaces de contacto y redes */
 .footer-contacto, .footer-enlaces {
     display: flex;
     flex-direction: column;
