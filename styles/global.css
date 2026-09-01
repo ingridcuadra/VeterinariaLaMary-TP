@@ -110,20 +110,78 @@ h1 {
 /* Página inicio */
 .contenedor-principal {
     background-color: var(--color-turquoise-200);
-    height: 100vh;
-    /* evaluar si dejamos sombra */
-    /* box-shadow: 0 4px 6px 0 rgba(215, 233, 215, 0.9),
-        0 12px 20px 0 rgba(215, 233, 215, 0.6),
-        0 24px 38px 0 rgba(215, 233, 215, 0.3); */
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 80px;
+    padding-inline: 8%;
+}
+
+.texto-principal {
+    width: 60%;
+    position: relative;
+    z-index: 1;
+
+    /* globalizar estos estilos */
+    h1 {
+        font-size: 3rem;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.25rem;
+        line-height: 1.5;
+    }
 }
 
 .imagen-pricipal {
-    width: 600px;
-    height: 600px;
-    background: url("https://images.pexels.com/photos/19807191/pexels-photo-19807191.jpeg") left / cover;
-    mask-image: radial-gradient(circle 390px at 50% 50%, black 75%, transparent 76%);
+    width: min(60vw, 38rem);
+    aspect-ratio: 1 / 1;
+    background: url("https://images.pexels.com/photos/19807191/pexels-photo-19807191.jpeg") center / cover;
+    -webkit-mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
+    mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
+    position: absolute;
+    top: -27%;
+    right: -5%;
+}
 
-    /* &:hover {
-        mask-image: none;
-    } */
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .contenedor-principal {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 32.2rem;
+        padding: 3.75rem 1.5rem 0;
+    }
+
+    .texto-principal {
+        width: 100%;
+        max-width: 34rem;
+        text-align: center;
+        margin-bottom: 2.75rem;
+        flex: 0 0 auto;
+
+        h1 {
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+    }
+
+    .imagen-pricipal {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: calc(100% + 3rem);
+        max-width: none;
+        flex: 0 0 auto;
+    }
 }
