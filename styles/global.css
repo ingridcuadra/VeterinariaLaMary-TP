@@ -185,3 +185,39 @@ h1 {
         flex: 0 0 auto;
     }
 }
+
+/* Footer */
+.footer {
+    background-color: var(--color-turquoise-200);
+    padding: 40px;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.footer h2, .footer h3 {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.footer p {
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+/* enlaces de contacto y redes */
+.footer-contacto, .footer-enlaces {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--color-turquoise-400);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+}
