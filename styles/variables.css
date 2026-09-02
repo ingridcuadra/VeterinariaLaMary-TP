@@ -16,6 +16,20 @@
     --font-primary: "Nunito", sans-serif;
     --font-secondary: "Montserrat", sans-serif;
 
+    /* HEADINGS / TEXTOS Mobile */
+    --font-size-h1: 1.5rem;
+    --font-size-h2: 1.25rem;
+    --font-size-h3: 1.125rem;
+    --font-size-h4: 1.065rem;
+    --font-size-h5: 1rem;
+    --font-size-h6: 1rem;
+    --font-size-base: 1rem;
+    --font-size-lead: 1.125rem;
+    --font-size-italic: 1rem;
+    --font-size-small: 0.875rem;
+    --font-size-label: 0.75rem;
+    --font-size-caption: 0.75rem;
+
     /* COLORES */
     /* Verde menta */
     --color-mint-50: #E9FBF7;
@@ -31,18 +45,6 @@
     --color-mint-950: #041612;
 
     /* Verdes */
-    /* --color-green-50: #F4F9F4;
-    --color-green-100: #D7E9D7;
-    --color-green-200: #B9D8B9;
-    --color-green-300: #9AC89A;
-    --color-green-400: #7CB77C;
-    --color-green-500: #5EA65E;
-    --color-green-600: #4C8A4C;
-    --color-green-700: #3B6B3B;
-    --color-green-800: #2A4D2A;
-    --color-green-900: #1A2F1A;
-    --color-green-950: #091009; */
-
     --color-green-900: #22351A;
     --color-green-800: #355026;
     --color-green-700: #476B33;
@@ -78,12 +80,26 @@
     --color-turquoise-100: #DEEDF2;
     --color-turquoise-50: #F4F7FA;
 
-    --color-prueba-1: #8FAD88;
-    --color-prueba-2: #CBDF90;
-    --color-prueba-3: #D7E2D5;
-
     --color-white: #FFFFFF;
     --color-black: #000000;
     --color-primary: var(--color-turquoise-700);
     --color-secondary: var(--color-turquoise-300);
+}
+
+@media (min-width: 768px) {
+    :root {
+        /* Fonts size Desktop */
+        --font-size-h1: 2.75rem;
+        --font-size-h2: 2rem;
+        --font-size-h3: 1.55rem;
+        --font-size-h4: 1.375rem;
+        --font-size-h5: 1.125rem;
+        --font-size-h6: 1rem;
+        --font-size-base: 1rem;
+        --font-size-lead: 1.25rem;
+        --font-size-italic: 1.125rem;
+        --font-size-small: 0.875rem;
+        --font-size-label: 0.875rem;
+        --font-size-caption: 0.75rem;
+    }
 }
