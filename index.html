@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/inicio.css">
     <title>Veterinaria La Mary</title>
 </head>
 
@@ -17,6 +18,7 @@
             </a>
         </div>
 
+        <!-- nav responsive con css, mejorar en futuras entregas -->
         <input type="checkbox" id="menu-toggle" class="menu-toggle">
         <label for="menu-toggle" class="hamburger">
             <span></span>
@@ -33,50 +35,99 @@
                     <a href="" class="btn btn-md btn-link">Contacto</a>
                 </li>
                 <li>
-                    <button class="btn btn-md btn-primary">Ingresar</button>
+                    <a href="" class="btn btn-md btn-primary">Ingresar</a>
                 </li>
             </ul>
         </nav>
     </header>
     <main>
-        <div class="contenedor-principal">
-            <div class="texto-principal">
-                <h1>El mejor cuidado para tu mascota</h1>
-                <p class="lead">En <strong>Veterinaria La Mary</strong> cuidamos a tu mejor amigo con el amor y la
-                    profesionalidad
-                    que se merece.</p>
+        <section class="contenedor-hero">
+            <div class="texto-hero">
+                <h1>Cuidamos a quienes más querés</h1>
+                <p class="lead">
+                    Atención veterinaria profesional para el <strong>cuidado y bienestar</strong> de tu mascota.
+                </p>
+                <button class="btn btn-md btn-primary btn-hero">Pedir turno</button>
             </div>
-            <div class="imagen-pricipal"></div>
-        </div>
+            <div class="imagen-hero"></div>
+        </section>
 
-        <div class="prueba-contenido">
-            <h3>Contenido principal de prueba</h3>
-        </div>
+        <!-- servicios ? -->
 
-        <footer class="footer">
-            <div class="footer-contenido">
-                <div class="footer-info">
-                    <h2>Veterinaria La Mary</h2>
-                    <p>Estamos para cuidar a tus mascotas.</p>
-                </div>
+        <!-- listado de profesionales? -->
 
-                <div class="footer-contacto">
-                    <h3>Contacto</h3>
-                    <a>📞 11 4567-8900</a>
-                    <a>📧 contacto@veterinarialamary.com</a>
-                </div>
-
-                <div class="footer-enlaces">
-                    <h3>Seguinos</h3>
-                    <a href="#" class="btn btn-md btn-primary">Instagram</a>
-                </div>
+        <section class="sucursales">
+            <div class="textos-sucursales">
+                <h2>Nuestras sucursales</h2>
+                <p>Encontrá la sucursal más cercana y consultá su dirección y horarios de atención.</p>
             </div>
 
-            <div class="footer-bottom">
-                <p>© 2026 Veterinaria La Mary.</p>
+            <div class="lista-sucursales">
+                <div class="card-sucursal">
+                    <div class="imagen-sucursal">
+                        <span class="badge badge-primary">Sede central</span>
+                        <img src="./assets/imgs/sucursal-imagen-1.jpg" alt="Imagen ilustrativa de sucursal 1">
+                    </div>
+
+                    <div class="card-info">
+                        <p class="lead">Veterinaria La Mary - Flores</p>
+                        <p>Av. Rivadavia 3181, CABA.</p>
+                        <p>Lun. a Sáb. - 08:00 a 20:00</p>
+                        <button class="btn btn-md btn-primary-darker">Contactar</button>
+                    </div>
+                </div>
+                <div class="card-sucursal">
+                    <div class="imagen-sucursal">
+                        <span class="badge badge-primary">Veterinaria y estética</span>
+                        <img src="./assets/imgs/sucursal-imagen-2.jpg" alt="Imagen ilustrativa de sucursal 2">
+                    </div>
+
+                    <div class="card-info">
+                        <p class="lead">Veterinaria La Mary - Parque Patricios</p>
+                        <p>Juan Carlos Gomez 253, CABA.</p>
+                        <p>Lun. a Vie. - 09:00 a 16hs</p>
+                        <button class="btn btn-md btn-primary-darker">Contactar</button>
+                    </div>
+                </div>
+                <div class="card-sucursal">
+                    <div class="imagen-sucursal">
+                        <span class="badge badge-primary">Guardia</span>
+                        <img src="./assets/imgs/sucursal-imagen-3.jpg" alt="Imagen ilustrativa de sucursal 3">
+                    </div>
+
+                    <div class="card-info">
+                        <p class="lead">Veterinaria La Mary - Villa del Parque</p>
+                        <p>Cuenca 3479, CABA.</p>
+                        <p>Abierto 24hs</p>
+                        <button class="btn btn-md btn-primary-darker">Contactar</button>
+                    </div>
+                </div>
             </div>
-        </footer>
+        </section>
     </main>
+    <footer class="footer">
+        <div class="footer-contenido">
+            <div class="footer-info">
+                <h2>Veterinaria La Mary</h2>
+                <p>Estamos para cuidar a tus mascotas.</p>
+            </div>
+
+            <div class="footer-contacto">
+                <h3>Contacto</h3>
+                <a>📞 11 4567-8900</a>
+                <a>📧 contacto@veterinarialamary.com</a>
+            </div>
+
+            <div class="footer-enlaces">
+                <h3>Seguinos</h3>
+                <a href="#" class="btn btn-md btn-primary">Instagram</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Veterinaria La Mary.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

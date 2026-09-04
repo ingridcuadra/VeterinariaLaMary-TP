@@ -1,0 +1,121 @@
+@import "../styles/variables.css";
+
+/* HERO */
+.contenedor-hero {
+    background-color: var(--color-turquoise-200);
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 80px;
+    padding-inline: 8%;
+}
+
+.texto-hero {
+    width: 60%;
+    position: relative;
+    z-index: 1;
+
+    h1 {
+        margin-left: 0.30em;
+    }
+
+    .btn-hero {
+        margin-left: 0.5em;
+    }
+}
+
+.imagen-hero {
+    width: min(60vw, 38rem);
+    aspect-ratio: 1 / 1;
+    background: url("../assets/imgs/image-hero.avif") center / cover;
+    -webkit-mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
+    mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
+    position: absolute;
+    top: -27%;
+    right: -5%;
+}
+
+/* SUCURSALES */
+.sucursales {
+    margin-top: 1rem;
+    margin-bottom: 2.25rem;
+}
+
+.textos-sucursales {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        margin-bottom: 0;
+    }
+}
+
+.lista-sucursales {
+    margin: 2rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.card-sucursal {
+    background-color: var(--color-gray-100);
+    box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.05), 0 2.4px 2.275px 0 rgba(0, 0, 0, 0.03);
+    border-radius: 1.5rem;
+}
+
+.imagen-sucursal {
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 1.5rem 1.5rem 0 0;
+        display: block;
+    }
+
+    .badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 10;
+    }
+}
+
+.card-info {
+    padding: 0.5rem 0.75rem 1.25rem 0.75rem;
+
+    .btn {
+        margin-top: 0.5rem;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .contenedor-hero {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 32.2rem;
+        padding: 3.75rem 1.5rem 0;
+    }
+
+    .texto-hero {
+        width: 100%;
+        max-width: 34rem;
+        text-align: center;
+        margin-bottom: 2.75rem;
+        flex: 0 0 auto;
+    }
+
+    .imagen-hero {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: calc(100% + 3rem);
+        max-width: none;
+        flex: 0 0 auto;
+    }
+}

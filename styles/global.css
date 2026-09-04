@@ -76,7 +76,6 @@ h6 {
 .lead,
 p,
 label,
-.caption,
 .caption {
     font-family: var(--font-secondary);
     line-height: 1.5;
@@ -136,7 +135,120 @@ label,
     color: var(--color-gray-700);
 }
 
-/* SECCIONES */
+/* Botones */
+.btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 2.5rem;
+}
+
+.btn-md {
+    font-size: var(--font-size-base);
+    padding: 0.75rem 1rem;
+}
+
+.btn-sm {
+    font-size: var(--font-size-small);
+    padding: 0.5rem 1rem;
+}
+
+.btn-primary {
+    background-color: var(--color-turquoise-500);
+    color: var(--color-turquoise-50);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-turquoise-700);
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+
+
+        &:hover {
+            background-color: var(--color-turquoise-500);
+        }
+    }
+}
+
+.btn-primary-darker {
+    background-color: var(--color-turquoise-700);
+    color: var(--color-white);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-turquoise-900);
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+
+
+        &:hover {
+            background-color: var(--color-turquoise-700);
+        }
+    }
+}
+
+.btn-secondary {
+    background-color: var(--color-turquoise-200);
+    color: var(--color-turquoise-900);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-turquoise-300);
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+
+
+        &:hover {
+            background-color: var(--color-turquoise-200);
+        }
+    }
+}
+
+.btn-link {
+    background-color: transparent;
+    color: var(--color-turquoise-500);
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: var(--color-turquoise-700);
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+
+
+        &:hover {
+            color: var(--color-turquoise-500);
+        }
+    }
+}
+
+/* Badges */
+.badge {
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 4rem;
+}
+
+.badge-primary {
+    background-color: var(--color-turquoise-700);
+    color: var(--color-white);
+}
+
 /* Navbar */
 .navbar {
     height: 80px;
@@ -193,86 +305,6 @@ label,
     }
 }
 
-/* Botones */
-.btn {
-    cursor: pointer;
-    border: none;
-    border-radius: 0.5rem;
-}
-
-.btn-md {
-    font-size: var(--font-size-base);
-    padding: 0.75rem 1rem;
-}
-
-.btn-sm {
-    font-size: var(--font-size-small);
-    padding: 0.5rem 1rem;
-}
-
-.btn-primary {
-    background-color: var(--color-turquoise-500);
-    color: var(--color-turquoise-50);
-
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: var(--color-turquoise-700);
-    }
-
-    &:disabled {
-        opacity: 55%;
-        cursor: not-allowed;
-
-
-        &:hover {
-            background-color: var(--color-turquoise-500);
-        }
-    }
-}
-
-.btn-secondary {
-    background-color: var(--color-turquoise-100);
-    color: var(--color-turquoise-700);
-
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: var(--color-turquoise-200);
-    }
-
-    &:disabled {
-        opacity: 55%;
-        cursor: not-allowed;
-
-
-        &:hover {
-            background-color: var(--color-turquoise-100);
-        }
-    }
-}
-
-.btn-link {
-    background-color: transparent;
-    color: var(--color-turquoise-500);
-
-    &:hover,
-    &:focus,
-    &:active {
-        color: var(--color-turquoise-700);
-    }
-
-    &:disabled {
-        opacity: 55%;
-        cursor: not-allowed;
-
-
-        &:hover {
-            color: var(--color-turquoise-500);
-        }
-    }
-}
-
 /* Footer */
 .footer {
     background-color: var(--color-turquoise-200);
@@ -309,40 +341,6 @@ label,
     margin-top: 2rem;
     padding-top: 1rem;
     text-align: center;
-}
-
-/* Página inicio */
-.contenedor-principal {
-    background-color: var(--color-turquoise-200);
-    height: 30rem;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    margin-top: 80px;
-    padding-inline: 8%;
-}
-
-.texto-principal {
-    width: 60%;
-    position: relative;
-    z-index: 1;
-}
-
-.imagen-pricipal {
-    width: min(60vw, 38rem);
-    aspect-ratio: 1 / 1;
-    background: url("https://images.pexels.com/photos/19807191/pexels-photo-19807191.jpeg") center / cover;
-    -webkit-mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
-    mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
-    position: absolute;
-    top: -27%;
-    right: -5%;
-}
-
-/* Prueba de contenido - eliminar después */
-.prueba-contenido {
-    height: 100vh;
 }
 
 /* Responsive - Mobile */
@@ -383,29 +381,5 @@ label,
         .menu-toggle:checked~nav {
             display: flex;
         }
-    }
-
-    .contenedor-principal {
-        flex-direction: column;
-        justify-content: flex-start;
-        height: 32.2rem;
-        padding: 3.75rem 1.5rem 0;
-    }
-
-    .texto-principal {
-        width: 100%;
-        max-width: 34rem;
-        text-align: center;
-        margin-bottom: 2.75rem;
-        flex: 0 0 auto;
-    }
-
-    .imagen-pricipal {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: calc(100% + 3rem);
-        max-width: none;
-        flex: 0 0 auto;
     }
 }
