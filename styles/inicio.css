@@ -39,8 +39,8 @@
 
 /* SUCURSALES */
 .sucursales {
-    margin-top: 1rem;
-    margin-bottom: 2.25rem;
+    margin-top: 4rem; /* ajuste del margin, avisar a ingrid */
+    margin-bottom: 5rem; /* ajuste del margin, avisar a ingrid */
 }
 
 .textos-sucursales {
@@ -117,5 +117,188 @@
         width: calc(100% + 3rem);
         max-width: none;
         flex: 0 0 auto;
+    }
+}
+
+/* SERVICIOS */
+.servicios {
+    padding: 4rem 3rem;
+    background-color: var(--color-turquoise-50);
+}
+
+.textos-servicios {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+}
+
+.lista-servicios {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.card-servicio {
+    background-color: var(--color-gray-100);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    min-height: 220px;
+    box-shadow:
+        0 12px 14px 0 rgba(0, 0, 0, 0.05),
+        0 24px 2.25px 0 rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    h3 {
+        color: var(--color-primary);
+        margin: 1rem 0 0.5rem;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow:
+            0 16px 20px 0 rgba(0, 0, 0, 0.08),
+            0 4px 5px 0 rgba(0, 0, 0, 0.04);
+    }
+}
+
+.icono-servicio {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-turquoise-100);
+}
+
+.card-destacada {
+    grid-column: span 2;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    background-color: var(--color-turquoise-500);
+
+    h3,
+    p {
+        color: var(--color-turquoise-50);
+    }
+
+    .icono-servicio {
+        background-color: var(--color-turquoise-50);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .servicios {
+        padding: 3rem 1.5rem;
+    }
+
+    .lista-servicios {
+        grid-template-columns: 1fr;
+    }
+
+    .card-destacada {
+        grid-column: span 1;
+    }
+}
+
+/* ESPECIALIDADES */
+.especialidades {
+    padding: 5rem 3rem;
+    background-color: var(--color-turquoise-200);
+}
+
+.textos-especialidades {
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+
+    h2 {
+        margin-bottom: 0.75rem;
+    }
+}
+
+.lista-especialidades {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.card-especialidad {
+    background-color: var(--color-gray-100);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    min-height: 220px;
+    box-shadow:
+        0 12px 14px 0 rgba(0, 0, 0, 0.05),
+        0 2.4px 2.275px 0 rgba(0, 0, 0, 0.03);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    h3 {
+        color: var(--color-primary);
+        margin: 1rem 0 0.5rem;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 16px 20px 0 rgba(0, 0, 0, 0.08),
+            0 4px 5px 0 rgba(0, 0, 0, 0.04);
+    }
+}
+
+.icono-especialidad {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-turquoise-100);
+}
+
+.card-especialidad-destacada {
+    grid-column: span 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background-color: var(--color-turquoise-500);
+
+    h3,
+    p {
+        color: var(--color-turquoise-50);
+    }
+
+    .icono-especialidad {
+        background-color: var(--color-turquoise-50);
+    }
+}
+
+.btn-especialidades {
+    display: block;
+    width: fit-content;
+    margin: 2.5rem auto 0;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .especialidades {
+        padding: 3rem 1.5rem;
+    }
+
+    .lista-especialidades {
+        grid-template-columns: 1fr;
+    }
+
+    .card-especialidad-destacada {
+        grid-column: span 1;
     }
 }

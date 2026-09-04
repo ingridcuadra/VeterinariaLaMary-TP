@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/inicio.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <title>Veterinaria La Mary</title>
 </head>
 
@@ -14,7 +15,8 @@
         <div>
             <a href="#">
                 <!-- logo -->
-                Veterinaria La Mary
+                <img src="./assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+                <!--Veterinaria La Mary-->
             </a>
         </div>
 
@@ -52,7 +54,151 @@
             <div class="imagen-hero"></div>
         </section>
 
-        <!-- servicios ? -->
+        <!-- seccion servicios -->
+       <section class="servicios">
+            <div class="textos-servicios">
+                <p>Todo lo que tu mascota necesita</p>
+                <h2>Nuestros servicios</h2>
+                <p>
+                    Contamos con profesionales y servicios especializados
+                    para cuidar su salud y bienestar.
+                </p>
+            </div>
+
+            <div class="lista-servicios">
+
+                <article class="card-servicio">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-house-medical"></i>
+                    </div>
+                    <h3>Cirugía</h3>
+                    <p>
+                        Procedimientos quirúrgicos realizados por profesionales especializados.
+                    </p>
+                </article>
+
+                <article class="card-servicio">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-syringe"></i>
+                    </div>
+                    <h3>Vacunación</h3>
+                    <p>
+                        Planes de vacunación y prevención para mantener a tu mascota protegida.
+                    </p>
+                </article>
+
+                <article class="card-servicio">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3>Diagnóstico</h3>
+                    <p>
+                        Estudios y controles para detectar y tratar diferentes afecciones.
+                    </p>
+                </article>
+
+                <article class="card-servicio card-destacada">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-truck-medical"></i>
+                    </div>
+
+                    <div>
+                        <span class="badge badge-primary">Atención 24 hs</span>
+                        <h3>Guardia veterinaria</h3>
+                        <p>
+                            Atención inmediata para emergencias y situaciones que requieren atención urgente.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="card-servicio">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-scissors"></i>
+                    </div>
+                    <h3>Peluquería y estética</h3>
+                    <p>
+                        Baño, corte y cuidado estético para que tu mascota se sienta cómoda y saludable.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+          
+        <!-- seccion especialidades-->
+        <section class="especialidades">
+
+            <div class="textos-especialidades">
+                <p>Atención especializada</p>
+                <h2>Nuestras especialidades</h2>
+                <p>
+                    Contamos con profesionales especializados para acompañar
+                    a tu mascota en cada etapa de su vida.
+                </p>
+            </div>
+
+            <div class="lista-especialidades">
+
+                <article class="card-especialidad card-especialidad-destacada">
+                <div class="icono-especialidad">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <div>
+                    <h3>Cardiología</h3>
+                    <p>
+                        Evaluación y seguimiento de la salud cardiovascular
+                        de perros y gatos.
+                    </p>
+                </div>
+            </article>
+
+            <article class="card-especialidad">
+                <div class="icono-especialidad">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3>Neurología</h3>
+                <p>
+                    Diagnóstico y tratamiento de enfermedades neurológicas.
+                </p>
+            </article>
+
+            <article class="card-especialidad">
+                <div class="icono-especialidad">
+                    <i class="fa-solid fa-microscope"></i>
+                </div>
+                <h3>Dermatología</h3>
+                <p>
+                    Atención de enfermedades y afecciones de la piel.
+                </p>
+            </article>
+
+            <article class="card-especialidad">
+                <div class="icono-especialidad">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <h3>Oftalmología</h3>
+                <p>
+                    Prevención, diagnóstico y tratamiento de problemas oculares.
+                </p>
+            </article>
+
+            <article class="card-especialidad">
+                <div class="icono-especialidad">
+                    <i class="fa-solid fa-bone"></i>
+                </div>
+                <h3>Traumatología</h3>
+                <p>
+                    Atención especializada para lesiones y problemas
+                    musculoesqueléticos.
+                </p>
+            </article>
+                        
+
+            </div>
+                <a href="#" class="btn btn-md btn-primary btn-especialidades">
+                Ver todas las especialidades
+                 </a>
+
+        </section>
 
         <!-- listado de profesionales? -->
 
@@ -105,17 +251,19 @@
             </div>
         </section>
     </main>
+
     <footer class="footer">
         <div class="footer-contenido">
             <div class="footer-info">
-                <h2>Veterinaria La Mary</h2>
+                <!-- <h2>Veterinaria La Mary</h2> -->
+                <img src="./assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
                 <p>Estamos para cuidar a tus mascotas.</p>
             </div>
 
             <div class="footer-contacto">
                 <h3>Contacto</h3>
-                <a>📞 11 4567-8900</a>
-                <a>📧 contacto@veterinarialamary.com</a>
+                <a><i class="fa-solid fa-phone"></i> 11 4567-8900</a>
+                <a><i class="fa-solid fa-envelope"></i> contacto@veterinarialamary.com</a>
             </div>
 
             <div class="footer-enlaces">

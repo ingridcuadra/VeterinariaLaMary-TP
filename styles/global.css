@@ -287,6 +287,11 @@ label,
         display: none;
     }
 
+    img{
+        width: 70px;
+        height: 70px;
+    }
+
     .hamburger {
         display: none;
         cursor: pointer;
@@ -309,6 +314,11 @@ label,
 .footer {
     background-color: var(--color-turquoise-200);
     padding: 40px;
+}
+
+.footer-info img{
+    width: 80px;
+    height: 80px;
 }
 
 .footer-contenido {
