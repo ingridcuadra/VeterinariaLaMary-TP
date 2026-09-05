@@ -1,0 +1,97 @@
+
+.btn-link.active {
+    color: var(--color-turquoise-900);
+    font-weight: bold;
+}
+
+.imagen-somos {
+    width: min(60vw, 38rem);
+    height:fit-content;
+    aspect-ratio: 1 / 1;
+    background: url("../assets/imgs/La_Mary.png") center / cover;
+    -webkit-mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
+    mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
+    position: absolute;
+    top: -17%;
+    right: -5%;
+}
+
+/* HISTORIA */
+.historia {
+    padding: 4rem 3rem;
+    background-color: var(--color-turquoise-50);
+}
+
+.textos-historia {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+}
+
+.lista-historia {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 1.5rem;
+}
+
+.card-historia {
+    background-color: var(--color-gray-100);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    min-height: 220px;
+    box-shadow:
+        0 12px 14px 0 rgba(0, 0, 0, 0.05),
+        0 24px 2.25px 0 rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    h3 {
+        color: var(--color-primary);
+        margin: 1rem 0 0.5rem;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow:
+            0 16px 20px 0 rgba(0, 0, 0, 0.08),
+            0 4px 5px 0 rgba(0, 0, 0, 0.04);
+    }
+}
+
+.card-historia.imagen {
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    
+    .imagen-crescimiento {
+        width: 100%;
+        height:fit-content;
+        aspect-ratio: 1 / 1;
+        margin-top: 1rem;
+        margin-left: 1rem;
+        background: url("../assets/imgs/vets_1985.png") center / cover;
+        border-radius: 1rem;
+    }
+
+    .imagen-actualidad {
+        width: 100%;
+        height:fit-content;
+        aspect-ratio: 4 / 3;
+        margin-top: 2rem;
+        margin-left: 1rem;
+        background: url("../assets/imgs/vets_2026.png") center / cover;
+        border-radius: 1rem;
+    }
+}
+
+.somos {
+    text-align: justify;
+}
+
+.inst-text {
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-base);
+    text-align: justify;
+    line-height: 1.5;
+    margin: 0.5em 0.7em;
+}
