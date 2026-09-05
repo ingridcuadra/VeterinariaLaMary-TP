@@ -31,31 +31,6 @@
     --font-size-caption: 0.75rem;
 
     /* COLORES */
-    /* Verde menta */
-    --color-mint-50: #E9FBF7;
-    --color-mint-100: #C2F4E9;
-    --color-mint-200: #9BEDDA;
-    --color-mint-300: #74E7CC;
-    --color-mint-400: #4DE0BD;
-    --color-mint-500: #26D9AF;
-    --color-mint-600: #20B290;
-    --color-mint-700: #188B70;
-    --color-mint-800: #126451;
-    --color-mint-900: #0B3D31;
-    --color-mint-950: #041612;
-
-    /* Verdes */
-    --color-green-900: #22351A;
-    --color-green-800: #355026;
-    --color-green-700: #476B33;
-    --color-green-600: #59853F;
-    --color-green-500: #6F994F;
-    --color-green-400: #92B56E;
-    --color-green-300: #BBD3A1;
-    --color-green-200: #DAEBCC;
-    --color-green-100: #E9F1DF;
-    --color-green-50: #F0F6EA;
-
     /* Gris */
     --color-gray-900: #141414;
     --color-gray-800: #4D4D4D;

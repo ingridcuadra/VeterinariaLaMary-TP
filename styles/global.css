@@ -287,6 +287,18 @@ label,
         display: none;
     }
 
+    .logo-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            font-weight: 600;
+            font-size: var(--font-size-h5);
+            color: var(--color-primary);
+        }
+    }
+
     img{
         width: 70px;
         height: 70px;

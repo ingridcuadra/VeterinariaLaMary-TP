@@ -6,19 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/inicio.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>Veterinaria La Mary</title>
 </head>
 
 <body>
     <header class="navbar">
-        <div>
-            <a href="#">
-                <!-- logo -->
-                <img src="./assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
-                <!--Veterinaria La Mary-->
-            </a>
-        </div>
+        <a href="#" class="logo-nav">
+            <img src="./assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+            <span>Veterinaria La Mary</span>
+        </a>
 
         <!-- nav responsive con css, mejorar en futuras entregas -->
         <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -49,13 +47,13 @@
                 <p class="lead">
                     Atención veterinaria profesional para el <strong>cuidado y bienestar</strong> de tu mascota.
                 </p>
-                <button class="btn btn-md btn-primary btn-hero">Pedir turno</button>
+                <button class="btn btn-md btn-primary-darker btn-hero">Pedir turno</button>
             </div>
             <div class="imagen-hero"></div>
         </section>
 
         <!-- seccion servicios -->
-       <section class="servicios">
+        <section class="servicios">
             <div class="textos-servicios">
                 <p>Todo lo que tu mascota necesita</p>
                 <h2>Nuestros servicios</h2>
@@ -123,7 +121,7 @@
 
             </div>
         </section>
-          
+
         <!-- seccion especialidades-->
         <section class="especialidades">
 
@@ -139,64 +137,64 @@
             <div class="lista-especialidades">
 
                 <article class="card-especialidad card-especialidad-destacada">
-                <div class="icono-especialidad">
-                    <i class="fa-solid fa-heart-pulse"></i>
-                </div>
-                <div>
-                    <h3>Cardiología</h3>
+                    <div class="icono-especialidad">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <div>
+                        <h3>Cardiología</h3>
+                        <p>
+                            Evaluación y seguimiento de la salud cardiovascular
+                            de perros y gatos.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="card-especialidad">
+                    <div class="icono-especialidad">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3>Neurología</h3>
                     <p>
-                        Evaluación y seguimiento de la salud cardiovascular
-                        de perros y gatos.
+                        Diagnóstico y tratamiento de enfermedades neurológicas.
                     </p>
-                </div>
-            </article>
+                </article>
 
-            <article class="card-especialidad">
-                <div class="icono-especialidad">
-                    <i class="fa-solid fa-brain"></i>
-                </div>
-                <h3>Neurología</h3>
-                <p>
-                    Diagnóstico y tratamiento de enfermedades neurológicas.
-                </p>
-            </article>
+                <article class="card-especialidad">
+                    <div class="icono-especialidad">
+                        <i class="fa-solid fa-microscope"></i>
+                    </div>
+                    <h3>Dermatología</h3>
+                    <p>
+                        Atención de enfermedades y afecciones de la piel.
+                    </p>
+                </article>
 
-            <article class="card-especialidad">
-                <div class="icono-especialidad">
-                    <i class="fa-solid fa-microscope"></i>
-                </div>
-                <h3>Dermatología</h3>
-                <p>
-                    Atención de enfermedades y afecciones de la piel.
-                </p>
-            </article>
+                <article class="card-especialidad">
+                    <div class="icono-especialidad">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h3>Oftalmología</h3>
+                    <p>
+                        Prevención, diagnóstico y tratamiento de problemas oculares.
+                    </p>
+                </article>
 
-            <article class="card-especialidad">
-                <div class="icono-especialidad">
-                    <i class="fa-solid fa-eye"></i>
-                </div>
-                <h3>Oftalmología</h3>
-                <p>
-                    Prevención, diagnóstico y tratamiento de problemas oculares.
-                </p>
-            </article>
+                <article class="card-especialidad">
+                    <div class="icono-especialidad">
+                        <i class="fa-solid fa-bone"></i>
+                    </div>
+                    <h3>Traumatología</h3>
+                    <p>
+                        Atención especializada para lesiones y problemas
+                        musculoesqueléticos.
+                    </p>
+                </article>
 
-            <article class="card-especialidad">
-                <div class="icono-especialidad">
-                    <i class="fa-solid fa-bone"></i>
-                </div>
-                <h3>Traumatología</h3>
-                <p>
-                    Atención especializada para lesiones y problemas
-                    musculoesqueléticos.
-                </p>
-            </article>
-                        
 
             </div>
-                <a href="#" class="btn btn-md btn-primary btn-especialidades">
+            <a href="#" class="btn btn-md btn-primary btn-especialidades">
                 Ver todas las especialidades
-                 </a>
+            </a>
 
         </section>
 
@@ -209,45 +207,77 @@
             </div>
 
             <div class="lista-sucursales">
-                <div class="card-sucursal">
+                <article class="card-sucursal">
                     <div class="imagen-sucursal">
                         <span class="badge badge-primary">Sede central</span>
-                        <img src="./assets/imgs/sucursal-imagen-1.jpg" alt="Imagen ilustrativa de sucursal 1">
+                        <img src="./assets/imgs/sucursal-imagen-1.jpg"
+                            alt="Veterinario asistiendo a un perro senior en la camilla de consulta médica.">
                     </div>
 
                     <div class="card-info">
-                        <p class="lead">Veterinaria La Mary - Flores</p>
-                        <p>Av. Rivadavia 3181, CABA.</p>
-                        <p>Lun. a Sáb. - 08:00 a 20:00</p>
+                        <h5>Veterinaria La Mary - Flores</h5>
+
+                        <div class="card-detalle">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                            <p>Av. Rivadavia 3181, CABA.</p>
+                        </div>
+
+                        <div class="card-detalle">
+                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                            <p>Lun. a Sáb. - 08:00 a 20:00</p>
+                        </div>
+
                         <button class="btn btn-md btn-primary-darker">Contactar</button>
                     </div>
-                </div>
-                <div class="card-sucursal">
+                </article>
+
+                <article class="card-sucursal">
                     <div class="imagen-sucursal">
                         <span class="badge badge-primary">Veterinaria y estética</span>
-                        <img src="./assets/imgs/sucursal-imagen-2.jpg" alt="Imagen ilustrativa de sucursal 2">
+                        <img src="./assets/imgs/sucursal-imagen-2.jpg"
+                            alt="Servicio de peluquería y estética canina para un perro de raza pequeña.">
                     </div>
 
                     <div class="card-info">
-                        <p class="lead">Veterinaria La Mary - Parque Patricios</p>
-                        <p>Juan Carlos Gomez 253, CABA.</p>
-                        <p>Lun. a Vie. - 09:00 a 16hs</p>
+                        <h5>Veterinaria La Mary - Parque Patricios</h5>
+
+                        <div class="card-detalle">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                            <p>Juan Carlos Gomez 253, CABA.</p>
+                        </div>
+
+                        <div class="card-detalle">
+                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                            <p>Lun. a Vie. - 09:00 a 16:00</p>
+                        </div>
+
                         <button class="btn btn-md btn-primary-darker">Contactar</button>
                     </div>
-                </div>
-                <div class="card-sucursal">
+                </article>
+
+                <article class="card-sucursal">
                     <div class="imagen-sucursal">
                         <span class="badge badge-primary">Guardia</span>
-                        <img src="./assets/imgs/sucursal-imagen-3.jpg" alt="Imagen ilustrativa de sucursal 3">
+                        <img src="./assets/imgs/sucursal-imagen-3.jpg"
+                            alt="Equipo de profesionales veterinarios realizando un chequeo de salud a una mascota.">
                     </div>
 
                     <div class="card-info">
-                        <p class="lead">Veterinaria La Mary - Villa del Parque</p>
-                        <p>Cuenca 3479, CABA.</p>
-                        <p>Abierto 24hs</p>
+                        <h5>Veterinaria La Mary - Villa del Parque</h5>
+
+                        <div class="card-detalle">
+                            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                            <p>Cuenca 3479, CABA.</p>
+                        </div>
+
+                        <div class="card-detalle">
+                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                            <p>Abierto 24hs</p>
+                        </div>
+
                         <button class="btn btn-md btn-primary-darker">Contactar</button>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
     </main>
