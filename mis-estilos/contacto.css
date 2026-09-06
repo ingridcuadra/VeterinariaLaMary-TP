@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden; /* Evita que aparezca la barra horizontal */
+}
+body {
+    background-color: var(--color-green-50);
+    font-family: var(--font-secondary);
+}
+/* RESET BÁSICO Y FUENTES */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #aec7df;
+    color: #454444;
+}
+
+
+/* El contenedor de la foto */
+.banner-foto, .imagen-pricipal {
+    width: 100vw;              /* Fuerza el contenedor a ocupar el 100% de la pantalla */
+    margin-left: calc(-50vw + 50%); /* Si está dentro de un contenedor centrado, esto lo saca hacia los bordes */
+    height: 450px;             /* Ajustá la altura a tu gusto (ej: 400px a 500px) */
+    overflow: hidden;
+}
+
+/* La etiqueta img dentro */
+.banner-foto img, .imagen-pricipal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         /* Hace que la foto llene el espacio sin estirarse ni deformarse */
+    display: block;
+}
+/* MENÚ DE NAVEGACIÓN */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #aec7df;
+    padding: 1rem 3rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.brand-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #4a2e80;
+    text-decoration: underline;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Botones */
+.btn {
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--color-turquoise-500);
+    color: var(--color-turquoise-50);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-turquoise-600);
+    }
+}
+
+.btn-secondary {
+    background-color: var(--color-turquoise-100);
+    color: var(--color-turquoise-700);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-turquoise-200);
+    }
+}
+
+.btn-link {
+    background-color: transparent;
+    color: var(--color-turquoise-500);
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: var(--color-turquoise-700);
+    }
+}
+/* ENCABEZADO DE SECCIÓN */
+.contacto-header {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.contacto-header h1 {
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+}
+
+.contacto-header p {
+    color: #555;
+    font-size: 1.05rem;
+}
+
+
+/* Footer */
+.footer {
+    background-color: var(--color-turquoise-200);
+    padding: 40px;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.footer h2, .footer h3 {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.footer p {
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.footer-contacto, .footer-enlaces {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--color-turquoise-400);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+}
