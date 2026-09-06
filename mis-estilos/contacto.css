@@ -1,159 +1,159 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ==========================================================================
+   FOOTER PRINCIPAL
+   ========================================================================== */
 
-body {
-    overflow-x: hidden; /* Evita que aparezca la barra horizontal */
-}
-body {
-    background-color: var(--color-green-50);
-    font-family: var(--font-secondary);
-}
-/* RESET BÁSICO Y FUENTES */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #aec7df;
-    color: #454444;
-}
-
-
-/* El contenedor de la foto */
-.banner-foto, .imagen-pricipal {
-    width: 100vw;              /* Fuerza el contenedor a ocupar el 100% de la pantalla */
-    margin-left: calc(-50vw + 50%); /* Si está dentro de un contenedor centrado, esto lo saca hacia los bordes */
-    height: 450px;             /* Ajustá la altura a tu gusto (ej: 400px a 500px) */
-    overflow: hidden;
-}
-
-/* La etiqueta img dentro */
-.banner-foto img, .imagen-pricipal img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;         /* Hace que la foto llene el espacio sin estirarse ni deformarse */
-    display: block;
-}
-/* MENÚ DE NAVEGACIÓN */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #aec7df;
-    padding: 1rem 3rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.brand-title {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #4a2e80;
-    text-decoration: underline;
-}
-
-.navbar ul {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-    align-items: center;
-}
-
-/* Botones */
-.btn {
-    cursor: pointer;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
-}
-
-.btn-primary {
-    background-color: var(--color-turquoise-500);
-    color: var(--color-turquoise-50);
-
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: var(--color-turquoise-600);
-    }
-}
-
-.btn-secondary {
-    background-color: var(--color-turquoise-100);
-    color: var(--color-turquoise-700);
-
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: var(--color-turquoise-200);
-    }
-}
-
-.btn-link {
-    background-color: transparent;
-    color: var(--color-turquoise-500);
-
-    &:hover,
-    &:focus,
-    &:active {
-        color: var(--color-turquoise-700);
-    }
-}
-/* ENCABEZADO DE SECCIÓN */
-.contacto-header {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-}
-
-.contacto-header h1 {
-    font-size: 2rem;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-}
-
-.contacto-header p {
-    color: #555;
-    font-size: 1.05rem;
-}
-
-
-/* Footer */
 .footer {
-    background-color: var(--color-turquoise-200);
-    padding: 40px;
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 2.5rem 2rem 1.5rem 2rem;
+    padding-bottom: 110px !important; /* Espacio de reserva para el botón flotante */
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.footer-contenido {
+/* Contenedor alineado horizontalmente */
+.footer-contenido-lineal {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-around;
-    
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-.footer h2, .footer h3 {
-    color: var(--color-primary);
-    margin-bottom: 1rem;
+/* --- Columna Izquierda: Marca --- */
+.footer-info-lineal h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.25rem 0;
 }
 
-.footer p {
-    color: var(--color-primary);
-    margin-bottom: 10px;
+.footer-info-lineal p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 0;
 }
 
-.footer-contacto, .footer-enlaces {
+/* --- Columna Central: Contacto y Redes --- */
+.footer-contacto-lineal {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.footer-contacto-lineal a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+}
+
+.footer-contacto-lineal a:hover {
+    color: #38bdf8;
+}
+
+.btn-instagram {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #e1306c;
+    color: #ffffff !important;
+    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-instagram:hover {
+    background-color: #c13584;
+}
+
+/* --- Columna Derecha: Tarjeta Destacada de Emergencia (Grande) --- */
+.footer-urgencia-destacada {
     display: flex;
     flex-direction: column;
-    cursor: pointer;
+    align-items: flex-end; /* Alineación hacia la derecha */
+    background: rgba(239, 68, 68, 0.12);
+    border: 2px solid #ef4444;
+    padding: 1.2rem 1.8rem;
+    border-radius: 12px;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.15);
 }
 
+.badge-emergencia {
+    background-color: #ef4444;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.footer-urgencia-destacada h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.btn-llamar-emergencia {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: #dc2626;
+    color: #ffffff !important;
+    font-size: 1.35rem; /* Letra destacada y visible */
+    font-weight: 800;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-llamar-emergencia:hover {
+    background-color: #b91c1c;
+    transform: scale(1.04);
+}
+
+/* --- Copyright Inferior --- */
 .footer-bottom {
-    border-top: 1px solid var(--color-turquoise-400);
-    margin-top: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto 0 auto;
     padding-top: 1rem;
+    border-top: 1px solid #334155;
     text-align: center;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+/* --- Adaptación Responsive --- */
+@media (max-width: 900px) {
+    .footer-contenido-lineal {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .footer-contacto-lineal {
+        justify-content: center;
+    }
+
+    .footer-urgencia-destacada {
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
 }

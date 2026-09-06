@@ -4,21 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="mis-estilos/contacto.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>Veterinaria La Mary</title>
 </head>
 
 <body>
+    <!-- NAVEGACIÓN PRINCIPAL -->
     <header class="navbar">
         <div>
             <a href="index.html" class="brand-title">
-                <!-- logo -->
                 Veterinaria La Mary
             </a>
         </div>
 
         <input type="checkbox" id="menu-toggle" class="menu-toggle">
-        <label for="menu-toggle" class="hamburger">
+        <label for="menu-toggle" class="hamburger" aria-label="Menú de navegación">
             <span></span>
             <span></span>
             <span></span>
@@ -39,43 +42,85 @@
         </nav>
     </header>
 
+    <!-- CONTENIDO PRINCIPAL -->
     <main>
         <div class="contenedor-principal">
-            <div class="texto-principal">
+            
+            <div class="texto-principal" style="text-align: center; margin-bottom: 1.5rem;">
                 <h1>El mejor cuidado para tu mascota</h1>
                 <p class="lead">En <strong>Veterinaria La Mary</strong> cuidamos a tu mejor amigo con el amor y la profesionalidad que se merece.</p>
             </div>
-            
-            <!-- ACÁ ESTÁ LA FOTO CREADA/CARGADA -->
-            <div class="imagen-pricipal">
-                <img src="assets/imagen/veterinaria.jpg" alt="Veterinaria La Mary">
+
+            <section class="seccion-bienvenida-contacto" style="margin-bottom: 2rem; text-align: center;">
+                <!-- Texto de presentación -->
+                <div class="texto-bienvenida" style="max-width: 600px; margin: 0 auto 1rem auto; padding: 0 1rem;">
+                    
+                    <marquee behavior="scroll" direction="left" scrollamount="5" style="font-size: 1.5rem; color: #1e293b; font-weight: bold;">
+                        Estamos para ayudarte a cuidar a tu mascota
+                    </marquee>
+                    
+                    <p style="font-size: 0.95rem; color: #475569; line-height: 1.5; margin-top: 0.5rem;">
+                        En <strong>Veterinaria La Mary</strong> tu tranquilidad y el bienestar de tus animales son nuestra prioridad. 
+                        Si querés coordinar una consulta, solicitar información sobre nuestros servicios o ante cualquier duda, 
+                        escribinos o llamanos. ¡Nuestro equipo está listo para atenderte!
+                    </p>
+                </div>
+
+                <!-- Imagen destacada -->
+                <div class="contenedor-imagen-contacto" style="width: 100%; max-width: 500px; height: 400px; margin: 0 auto; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <img 
+                        src="assets/imagen/vet.png"
+                        alt="Atención médica en Veterinaria La Mary" 
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
+                    >
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+        <div class="footer-contenido-lineal">
+            <!-- Columna Izquierda -->
+            <div class="footer-info-lineal">
+                <h2>Veterinaria La Mary</h2>
+                <p>Estamos para cuidar a tus mascotas.</p>
+            </div>
+
+            <!-- Columna Central -->
+            <div class="footer-contacto-lineal">
+                <a href="tel:1145678900"><i class="fa-solid fa-phone"></i> 11 4567-8900</a>
+                <a href="mailto:contacto@veterinarialamary.com"><i class="fa-solid fa-envelope"></i> contacto@veterinarialamary.com</a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+            </div>
+
+            <!-- Columna Derecha Destacada -->
+            <div class="footer-urgencia-destacada">
+                <span class="badge-emergencia"><i class="fa-solid fa-bolt"></i> Atención 24 hs</span>
+                <h3>Urgencias y Turnos</h3>
+                <a href="btn-llamar-emergencia">
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <span>11 4567-8999</span>
+                </a>
             </div>
         </div>
 
-    </main>
-     <footer class="footer">
-            <div class="footer-contenido">
-                <div class="footer-info">
-                    <h2>Veterinaria La Mary</h2>
-                    <p>Estamos para cuidar a tus mascotas.</p>
-                </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Veterinaria La Mary.</p>
+        </div>
+    </footer>
 
-                <div class="footer-contacto">
-                    <h3>Contacto</h3>
-                    <a>📞 11 4567-8900</a>
-                    <a>📧 contacto@veterinarialamary.com</a>
-                </div>
-
-                <div class="footer-enlaces">
-                    <h3>Seguinos</h3>
-                    <a href="#" class="btn btn-primary">Instagram</a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2026 Veterinaria La Mary.</p>
-            </div>
-    <footer>
+    <!-- BOTÓN FLOTANTE DE EMERGENCIAS -->
+    <div class="contenedor-flotante">
+        <a href="btn-emergencia-flotante" aria-label="Llamar a Emergencias 24 hs">
+            <i class="fa-solid fa-truck-medical"></i>
+            <span>Turnos Emergencias 24 hs</span>
+        </a>
+    </div>
 </body>
 
 </html>

@@ -4,69 +4,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Ruta a tu carpeta de estilos -->
-    <link rel="stylesheet" href="../mis-estilos/contacto.css">
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
     <title>Contacto - Veterinaria La Mary</title>
 </head>
 
 <body>
-
-    <!-- MENÚ DE NAVEGACIÓN -->
+    <!-- NAVEGACIÓN PRINCIPAL -->
     <header class="navbar">
-        <div class="brand-title">
-            Veterinaria La Mary
-        </div>
+        <a href="../index.html" class="logo-nav">
+            <img src="../assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+            <span>Veterinaria La Mary</span>
+        </a>
+
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="hamburger" aria-label="Menú de navegación">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
         <nav>
             <ul>
-                <li><a href="../index.html" class="btn btn-link">Información institucional</a></li>
-                <li><a href="contacto.html" class="btn btn-link activo">Contacto</a></li>
-                <li><button class="btn btn-primary">Ingresar</button></li>
+                <li>
+                    <a href="../index.html" class="btn btn-md btn-link">Información institucional</a>
+                </li>
+                <li>
+                    <a href="contacto.html" class="btn btn-md btn-link activo">Contacto</a>
+                </li>
+                <li>
+                    <button class="btn btn-md btn-primary">Ingresar</button>
+                </li>
             </ul>
         </nav>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <main>
+        <!-- SECCIÓN DE BIENVENIDA -->
+        <section class="seccion-bienvenida-contacto" style="margin-bottom: 2rem; text-align: center;">
+            <div class="texto-bienvenida" style="max-width: 650px; margin: 0 auto 1.5rem auto; padding: 0 1rem;">
+                <marquee behavior="scroll" direction="left" scrollamount="5" style="font-size: 1.6rem; color: #1e293b; font-weight: bold;">
+                    Estamos para ayudarte a cuidar a tu mascota
+                </marquee>
+                
+                <p style="font-size: 0.95rem; color: #475569; line-height: 1.5; margin-top: 0.75rem;">
+                    En <strong>Veterinaria La Mary</strong> tu tranquilidad y el bienestar de tus animales son nuestra prioridad. 
+                    Si querés coordinar una consulta, solicitar información sobre nuestros servicios o ante cualquier duda, 
+                    escribinos o llamanos. ¡Nuestro equipo está listo para atenderte!
+                </p>
+            </div>
 
-     <main>
-    <!-- Ponelo directo acá para que ocupe toda la pantalla -->
-    <div class="banner-foto">
-        <img src="assets/imagen/veterinaria.jpg" alt="Veterinaria La Mary">
-    </div>
-
-    <div class="contenedor-principal">
-        <div class="texto-principal">
-            <h1>El mejor cuidado para tu mascota</h1>
-            ...
-        </div>
-    </div>
-</main>
-
-        <section class="contacto-header">
-            <h1>El mejor cuidado para tu mascota</h1>
-            <p>En <strong>Veterinaria La Mary</strong> cuidamos a tu mejor amigo con el amor y la profesionalidad que se merece.</p>
+            <!-- Imagen destacada -->
+            <div class="contenedor-imagen-contacto" style="width: 100%; max-width: 800px; height: 350px; margin: 0 auto; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <img 
+                    src="../assets/imagen/vet.png"
+                    alt="Atención médica en Veterinaria La Mary" 
+                    style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
+                >
+            </div>
         </section>
-   
-        </div>
-    </div>
-</main>
+
+        <!-- SECCIÓN TARJETAS DE CONTACTO -->
+        <section class="seccion-contacto">
+            <div class="textos-contacto">
+                <p class="subtitulo">Comunicate con nosotros</p>
+                <h2>Canales de contacto</h2>
+                <p>
+                    Ponete en contacto con nuestro equipo para consultas o atención médica.
+                </p>
+            </div>
+
+            <div class="lista-contacto">
+                <article class="card-contacto">
+                    <div class="icono-contacto">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <h3>Teléfono</h3>
+                    <p><a href="tel:1145678900">11 4567-8900</a></p>
+                </article>
+
+                <article class="card-contacto">
+                    <div class="icono-contacto">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p><a href="mailto:contacto@veterinarialamary.com">contacto@veterinarialamary.com</a></p>
+                </article>
+
+                <article class="card-contacto card-destacada">
+                    <div class="icono-contacto">
+                        <i class="fa-solid fa-truck-medical"></i>
+                    </div>
+                    <div>
+                        <span class="badge badge-primary">Atención 24 hs</span>
+                        <h3>Urgencias</h3>
+                        <p>
+                            Llamanos para atención médica inmediata al <a href="tel:1145678999"><strong>11 4567-8999</strong></a>.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECCIÓN FORMULARIO DE CONSULTAS Y MAPA -->
+        <section class="seccion-formulario-mapa">
+            <div class="contenedor-flex">
+                
+                <!-- Formulario -->
+                <div class="bloque-formulario">
+                    <h2>Envianos un mensaje</h2>
+                    <form action="#" method="POST" class="form-contacto">
+                        <div class="grupo-input">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej. Ana Pérez" required>
+                        </div>
+
+                        <div class="grupo-input">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                        </div>
+
+                        <div class="grupo-input">
+                            <label for="asunto">Motivo de consulta</label>
+                            <select id="asunto" name="asunto">
+                                <option value="consulta">Consulta general</option>
+                                <option value="turno">Solicitud de turno</option>
+                                <option value="vacunacion">Vacunación</option>
+                            </select>
+                        </div>
+
+                        <div class="grupo-input">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribí tu consulta acá..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-md btn-primary">Enviar mensaje</button>
+                    </form>
+                </div>
+
+                <!-- Mapa interactivo -->
+                <div class="bloque-mapa">
+                    <h2>Ubicación</h2>
+                    <div class="contenedor-mapa">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3393.303975001925!2d-60.5288!3d-31.7331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDQzJzfdOSIgUzYwwrAzMSc0My43Ilc!5e0!3m2!1ses!2sar!4v1620000000000!5m2!1es!2sar" 
+                            width="100%" 
+                            height="300" 
+                            style="border:0; border-radius: 8px;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </main>
 
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
-        <div class="footer-contenido">
-            <h2>Veterinaria La Mary</h2>
-            <p>Estamos para cuidar a tus mascotas.</p>
-            
-            <h3>Contacto</h3>
-            <p>📞 11 4567-8900 &nbsp;|&nbsp; 📧 contacto@veterinarialamary.com</p>
-            
-            <h3>Seguinos</h3>
-            <a href="#" class="btn btn-primary btn-instagram">Instagram</a>
-            
-            <p class="copyright">&copy; 2026 Veterinaria La Mary.</p>
+        <div class="footer-contenido-lineal">
+            <!-- Columna Izquierda: Información Marca -->
+            <div class="footer-info-lineal">
+                <h2>Veterinaria La Mary</h2>
+                <p>Estamos para cuidar a tus mascotas.</p>
+            </div>
+
+            <!-- Columna Centro: Contacto y Redes -->
+            <div class="footer-contacto-lineal">
+                <a href="tel:1145678900"><i class="fa-solid fa-phone"></i> 11 4567-8900</a>
+                <a href="mailto:contacto@veterinarialamary.com"><i class="fa-solid fa-envelope"></i> contacto@veterinarialamary.com</a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+            </div>
+
+            <!-- Columna Derecha: Turno de Emergencia Destacado -->
+            <div class="footer-urgencia-destacada">
+                <span class="badge-emergencia"><i class="fa-solid fa-bolt"></i> Atención 24 hs</span>
+                <h3>Urgencias y Turnos</h3>
+                <a="btn-llamar-emergencia">
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <span>11 4567-8999</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Veterinaria La Mary.</p>
         </div>
     </footer>
-
 </body>
 </html>
