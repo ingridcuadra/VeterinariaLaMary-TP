@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Contacto - Veterinaria La Mary</title>
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo-nav">
+            <img src="./assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+            <span>Veterinaria La Mary</span>
+        </a>
+
+        <!-- nav responsive con css, mejorar en futuras entregas -->
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html" class="btn btn-md btn-link">Información institucional</a>
+                </li>
+                <li>
+                    <a href="contacto.html" class="btn btn-md btn-link">Contacto</a>
+                </li>
+                <li>
+                    <a href="" class="btn btn-md btn-primary">Ingresar</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- seccion contacto (reutiliza exactamente la estructura de servicios) -->
+        <section class="servicios">
+            <div class="textos-servicios">
+                <p>Comunicate con nosotros</p>
+                <h2>Canales de contacto</h2>
+                <p>
+                    Ponete en contacto con nuestro equipo para consultas o atención médica.
+                </p>
+            </div>
+
+            <div class="lista-servicios">
+
+                <article class="card-servicio">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <h3>Teléfono</h3>
+                    <p>
+                        11 4567-8900
+                    </p>
+                </article>
+
+                <article class="card-servicio">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>
+                        contacto@veterinarialamary.com
+                    </p>
+                </article>
+
+                <article class="card-servicio card-destacada">
+                    <div class="icono-servicio">
+                        <i class="fa-solid fa-truck-medical"></i>
+                    </div>
+
+                    <div>
+                        <span class="badge badge-primary">Atención 24 hs</span>
+                        <h3>Urgencias</h3>
+                        <p>
+                            Llamanos para atención médica inmediata al 11 4567-8999.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-contenido">
+            <div class="footer-info">
+                <!-- <h2>Veterinaria La Mary</h2> -->
+                <img src="./assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+                <p>Estamos para cuidar a tus mascotas.</p>
+            </div>
+
+            <div class="footer-contacto">
+                <h3>Contacto</h3>
+                <a><i class="fa-solid fa-phone"></i> 11 4567-8900</a>
+                <a><i class="fa-solid fa-envelope"></i> contacto@veterinarialamary.com</a>
+            </div>
+
+            <div class="footer-enlaces">
+                <h3>Seguinos</h3>
+                <a href="#" class="btn btn-md btn-primary">Instagram</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Veterinaria La Mary.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
