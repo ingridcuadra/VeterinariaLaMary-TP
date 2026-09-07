@@ -305,3 +305,39 @@
         grid-column: span 1;
     }
 }
+
+/* botón navbar se activa la pagina donde estás*/
+.btn-link.active {
+    color: var(--color-turquoise-900);
+    font-weight: bold;
+}
+
+/* CONTACTO, pequeños cambios, padding top y cards de 3*/
+.contacto {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+
+.contacto .lista-servicios {
+    max-width: 900px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.contacto .card-destacada {
+    grid-column: span 2;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    /* ...todo lo que ya tienen... */
+
+    .contacto .lista-servicios {
+        grid-template-columns: 1fr;
+    }
+
+    .contacto .card-destacada {
+        grid-column: span 1;
+    }
+}

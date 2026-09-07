@@ -358,6 +358,10 @@ label,
     cursor: pointer;
 }
 
+.footer-enlaces {
+    text-align: center;
+}
+
 .footer-bottom {
     border-top: 1px solid var(--color-turquoise-400);
     margin-top: 2rem;
