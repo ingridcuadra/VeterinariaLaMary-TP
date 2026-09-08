@@ -314,8 +314,8 @@
 
 /* CONTACTO, pequeños cambios, padding top y cards de 3*/
 .contacto {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
 }
 
 .contacto .lista-servicios {
