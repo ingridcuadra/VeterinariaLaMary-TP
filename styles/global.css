@@ -251,17 +251,6 @@ label,
 
 /* Navbar */
 .navbar {
-    height: 80px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
     background-color: var(--color-turquoise-50);
     box-shadow:
         0 .093px .669px #00000003,
@@ -271,53 +260,16 @@ label,
         0 3.241px 9.956px #0000000a,
         0 5px 17px #0000000d;
 
-    nav {
-        ul {
-            display: flex;
-            flex-direction: row;
-            gap: 1.5rem;
-            align-items: center;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-    }
-
-    .menu-toggle {
-        display: none;
-    }
-
     .logo-nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        img {
+            width: 70px;
+            height: 70px;
+        }
 
         span {
             font-weight: 600;
             font-size: var(--font-size-h5);
             color: var(--color-primary);
-        }
-    }
-
-    img{
-        width: 70px;
-        height: 70px;
-    }
-
-    .hamburger {
-        display: none;
-        cursor: pointer;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 28px;
-        height: 18px;
-
-        span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: var(--color-primary);
-            border-radius: 3px;
         }
     }
 }
@@ -328,7 +280,7 @@ label,
     padding: 40px;
 }
 
-.footer-info img{
+.footer-info img {
     width: 80px;
     height: 80px;
 }
