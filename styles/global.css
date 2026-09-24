@@ -159,7 +159,7 @@ label,
     &:hover,
     &:focus,
     &:active {
-        background-color: var(--color-turquoise-700);
+        background-color: var(--color-turquoise-700) !important;
     }
 
     &:disabled {
@@ -168,7 +168,7 @@ label,
 
 
         &:hover {
-            background-color: var(--color-turquoise-500);
+            background-color: var(--color-turquoise-500) !important;
         }
     }
 }
@@ -180,7 +180,8 @@ label,
     &:hover,
     &:focus,
     &:active {
-        background-color: var(--color-turquoise-900);
+        background-color: var(--color-turquoise-900) !important;
+        color: var(--color-white) !important;
     }
 
     &:disabled {
@@ -189,7 +190,7 @@ label,
 
 
         &:hover {
-            background-color: var(--color-turquoise-700);
+            background-color: var(--color-turquoise-700) !important;
         }
     }
 }
@@ -201,7 +202,7 @@ label,
     &:hover,
     &:focus,
     &:active {
-        background-color: var(--color-turquoise-300);
+        background-color: var(--color-turquoise-300) !important;
     }
 
     &:disabled {
@@ -210,7 +211,7 @@ label,
 
 
         &:hover {
-            background-color: var(--color-turquoise-200);
+            background-color: var(--color-turquoise-200) !important;
         }
     }
 }
@@ -222,7 +223,7 @@ label,
     &:hover,
     &:focus,
     &:active {
-        color: var(--color-turquoise-700);
+        color: var(--color-turquoise-700) !important;
     }
 
     &:disabled {
@@ -231,7 +232,7 @@ label,
 
 
         &:hover {
-            color: var(--color-turquoise-500);
+            color: var(--color-turquoise-500) !important;
         }
     }
 }
@@ -247,6 +248,25 @@ label,
 .badge-primary {
     background-color: var(--color-turquoise-700);
     color: var(--color-white);
+}
+
+/* Cards | Tarjetas */
+.card {
+    background-color: var(--color-gray-100);
+    box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.05), 0 2.4px 2.275px 0 rgba(0, 0, 0, 0.03);
+    border-radius: 1.5rem;
+    border: none;
+
+    .img-card {
+        border-radius: 1.5rem 1.5rem 0 0;
+    }
+
+    .badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 10;
+    }
 }
 
 /* Navbar */
