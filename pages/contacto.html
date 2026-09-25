@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/contacto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <title>Contacto - Veterinaria La Mary</title>
 </head>
 
@@ -19,7 +20,7 @@
             <span>Veterinaria La Mary</span>
         </a>
 
-        <!-- nav responsive con css, mejorar en futuras entregas -->
+        <!-- nav responsive con css -->
         <input type="checkbox" id="menu-toggle" class="menu-toggle">
         <label for="menu-toggle" class="hamburger">
             <span></span>
@@ -57,18 +58,17 @@
                     En <strong>Veterinaria La Mary</strong> tu tranquilidad y el bienestar de tus animales son nuestra
                     prioridad.
                     Si querés coordinar una consulta, solicitar información sobre nuestros servicios o ante cualquier
-                    duda,
-                    escribinos o llamanos. ¡Nuestro equipo está listo para atenderte!
+                    duda, escribinos o llamanos. ¡Nuestro equipo está listo para atenderte!
                 </p>
             </div>
 
             <!-- Imagen destacada -->
             <div class="contenedor-imagen-contacto">
-                <img src="../assets/imgs/vet.png" alt="Atención médica en Veterinaria La Mary">
+                <img src="../assets/imgs/vet.png" class="img-fluid mi-foto-con-borde" alt="Imagen">        
             </div>
         </section>
 
-        <!-- seccion contacto (reutiliza exactamente la estructura de servicios) -->
+        <!-- SECCIÓN CONTACTO -->
         <section class="contacto">
             <div class="textos-servicios">
                 <p>Comunicate con nosotros</p>
@@ -100,17 +100,24 @@
                     </p>
                 </article>
 
+                <!-- CARD DE URGENCIAS -->
                 <article class="card-servicio card-destacada">
-                    <div class="icono-servicio">
-                        <i class="fa-solid fa-truck-medical"></i>
-                    </div>
+                    <div class="card p-3 mb-3 text-center">
+                        <div class="card-body">
+                            <div class="icono-servicio mb-2">
+                                <i class="fa-solid fa-truck-medical"></i>
+                            </div>
 
-                    <div>
-                        <span class="badge badge-primary">Atención 24 hs</span>
-                        <h3>Urgencias</h3>
-                        <p>
-                            Llamanos para atención médica inmediata al 11 4567-8999.
-                        </p>
+                            <!-- Badge de Bootstrap 5 -->
+                            <span class="badge text-bg-primary mb-2">Atención 24 hs</span>
+
+                            <p>Para consultas urgentes fuera de horario de atención, puedes enviarnos un mensaje prioritario.</p>
+
+                            <!-- Botón corregido -->
+                            <button type="button" class="btn btn-outline-danger">
+                                Urgencias
+                            </button>
+                        </div>
                     </div>
                 </article>
 
@@ -121,7 +128,6 @@
     <footer class="footer">
         <div class="footer-contenido">
             <div class="footer-info">
-                <!-- <h2>Veterinaria La Mary</h2> -->
                 <img src="../assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
                 <p>Estamos para cuidar a tus mascotas.</p>
             </div>
@@ -142,6 +148,9 @@
             <p>© 2026 Veterinaria La Mary.</p>
         </div>
     </footer>
+
+    <!-- Bootstrap JS Script -->
+    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
