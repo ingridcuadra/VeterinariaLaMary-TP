@@ -123,29 +123,6 @@
     gap: 1.5rem;
 }
 
-.card-servicio {
-    background-color: var(--color-gray-100);
-    border-radius: 1.5rem;
-    padding: 2rem;
-    min-height: 220px;
-    box-shadow:
-        0 12px 14px 0 rgba(0, 0, 0, 0.05),
-        0 24px 2.25px 0 rgba(0, 0, 0, 0.03);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    h3 {
-        color: var(--color-primary);
-        margin: 1rem 0 0.5rem;
-    }
-
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow:
-            0 16px 20px 0 rgba(0, 0, 0, 0.08),
-            0 4px 5px 0 rgba(0, 0, 0, 0.04);
-    }
-}
-
 .icono-servicio {
     width: 3.5rem;
     height: 3.5rem;
