@@ -3,104 +3,55 @@
 /* HERO */
 .contenedor-hero {
     background-color: var(--color-turquoise-200);
-    height: 30rem;
+    height: clamp(18rem, 30vw, 24rem);
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
     margin-top: 80px;
-    padding-inline: 8%;
+    padding-left: 9%;
 }
 
 .texto-hero {
-    width: 60%;
+    width: 42%;
     position: relative;
     z-index: 1;
 
     h1 {
-        margin-left: 0.30em;
+        margin: 0 0 0.75rem;
+    }
+
+    .lead {
+        margin: 0 0 1.25rem;
     }
 
     .btn-hero {
-        margin-left: 0.5em;
+        margin: 0;
     }
 }
 
 .imagen-hero {
-    width: min(60vw, 38rem);
-    aspect-ratio: 1 / 1;
+    width: 50%;
+    height: 100%;
     background: url("../assets/imgs/image-hero.avif") center / cover;
-    -webkit-mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
-    mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
     position: absolute;
-    top: -27%;
-    right: -5%;
+    top: 0;
+    right: 0;
 }
 
-/* SUCURSALES */
-.sucursales {
-    margin-top: 4rem;
-    margin-bottom: 5rem;
-}
-
-.textos-sucursales {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    h2 {
-        margin-bottom: 0;
-    }
-}
-
-.lista-sucursales {
-    margin: 2rem 3rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.card-sucursal {
-    background-color: var(--color-gray-100);
-    box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.05), 0 2.4px 2.275px 0 rgba(0, 0, 0, 0.03);
-    border-radius: 1.5rem;
-}
-
-.imagen-sucursal {
-    position: relative;
-
-    img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 1.5rem 1.5rem 0 0;
-        display: block;
-    }
-
-    .badge {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        z-index: 10;
-    }
-}
-
-.card-info {
-    padding: 1rem 0.75rem 1.25rem 0.75rem;
-
-    .btn {
-        margin: 0.75rem;
-    }
-}
-
-.card-detalle {
-    display: flex;
-    align-items: center;
-    padding-left: 1.25rem;
-
-    i {
-        font-size: var(--font-size-small);
-    }
+.imagen-hero::before {
+    content: "";
+    width: 1.5rem;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background:
+        radial-gradient(
+            circle at 0 1.5rem,
+            var(--color-turquoise-200) 0 1.45rem,
+            transparent 1.5rem
+        ) 0 0 / 3rem 3rem repeat-y;
 }
 
 /* SERVICIOS */
@@ -255,32 +206,48 @@
     margin: 2.5rem auto 0;
 }
 
-/* Responsive - Mobile */
-@media (max-width: 768px) {
+/* Hero - navegación colapsada */
+@media (max-width: 991.98px) {
     .contenedor-hero {
-        flex-direction: column;
-        justify-content: flex-start;
-        height: 32.2rem;
-        padding: 3.75rem 1.5rem 0;
+        height: calc(100svh - 70px);
+        min-height: 36rem;
+        max-height: 44rem;
+        display: block;
+        margin-top: 70px;
+        padding: 0;
     }
 
     .texto-hero {
         width: 100%;
-        max-width: 34rem;
-        text-align: center;
-        margin-bottom: 2.75rem;
-        flex: 0 0 auto;
+        max-width: 48rem;
+        padding: 3rem 1.75rem;
+        text-align: left;
     }
 
     .imagen-hero {
-        position: relative;
+        width: 100%;
+        height: 56%;
         top: auto;
         right: auto;
-        width: calc(100% + 3rem);
-        max-width: none;
-        flex: 0 0 auto;
+        bottom: 0;
     }
 
+    .imagen-hero::before {
+        width: 100%;
+        height: 1.5rem;
+        top: 0;
+        left: 0;
+        background:
+            radial-gradient(
+                circle at 1.5rem 0,
+                var(--color-turquoise-200) 0 1.45rem,
+                transparent 1.5rem
+            ) 0 0 / 3rem 3rem repeat-x;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
     .servicios {
         padding: 3rem 1.5rem;
     }
