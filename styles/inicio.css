@@ -260,6 +260,10 @@
         grid-column: span 1;
     }
 
+    .card-destacada .icono-servicio {
+        flex-shrink: 0;
+    }
+    
     .especialidades {
         padding: 3rem 1.5rem;
     }
@@ -270,6 +274,10 @@
 
     .card-especialidad-destacada {
         grid-column: span 1;
+    }
+
+    .card-especialidad-destacada .icono-especialidad{
+        flex-shrink: 0;
     }
 }
 
