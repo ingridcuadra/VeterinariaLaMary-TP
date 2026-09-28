@@ -109,7 +109,7 @@ em,
     color: var(--color-gray-800);
 }
 
-a {
+a, .text-link {
     font-weight: 500;
     font-size: var(--font-size-base);
     color: var(--color-primary);
@@ -133,6 +133,10 @@ label,
     font-weight: 400;
     font-size: var(--font-size-caption);
     color: var(--color-gray-700);
+}
+
+.text-primary {
+    color: var(--color-primary) !important;
 }
 
 /* Botones */
@@ -297,41 +301,11 @@ label,
 /* Footer */
 .footer {
     background-color: var(--color-turquoise-200);
-    padding: 40px;
 }
 
 .footer-info img {
     width: 80px;
     height: 80px;
-}
-
-.footer-contenido {
-    display: flex;
-    justify-content: space-around;
-
-}
-
-.footer h2,
-.footer h3 {
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-}
-
-.footer p {
-    color: var(--color-primary);
-    margin-bottom: 10px;
-}
-
-/* enlaces de contacto y redes */
-.footer-contacto,
-.footer-enlaces {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.footer-enlaces {
-    text-align: center;
 }
 
 .footer-bottom {
