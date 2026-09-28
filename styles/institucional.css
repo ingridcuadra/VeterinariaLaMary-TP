@@ -1,24 +1,27 @@
+@import "../styles/variables.css";
 
 .btn-link.active {
     color: var(--color-turquoise-900);
     font-weight: bold;
 }
 
+.hero-inst{
+    margin-top: 96px;
+}
+
 .imagen-somos {
-    width: min(60vw, 38rem);
-    height:fit-content;
-    aspect-ratio: 1 / 1;
-    background: url("../assets/imgs/La_Mary.png") center / cover;
-    -webkit-mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
-    mask-image: radial-gradient(circle, #000 69.5%, transparent 70%);
-    position: absolute;
-    top: -17%;
-    right: -5%;
+    border-radius: 1.5rem;
+    max-width: 600px;
+    
+}
+
+.imagen-inst {
+    border-radius: 1.5rem;    
 }
 
 /* HISTORIA */
 .historia {
-    padding: 4rem 3rem;
+    padding: 2.5rem 1.5rem;
     background-color: var(--color-turquoise-50);
 }
 
@@ -56,31 +59,6 @@
         box-shadow:
             0 16px 20px 0 rgba(0, 0, 0, 0.08),
             0 4px 5px 0 rgba(0, 0, 0, 0.04);
-    }
-}
-
-.card-historia.imagen {
-    grid-template-columns: 1fr 1fr;
-    display: grid;
-    
-    .imagen-crescimiento {
-        width: 100%;
-        height:fit-content;
-        aspect-ratio: 1 / 1;
-        margin-top: 1rem;
-        margin-left: 1rem;
-        background: url("../assets/imgs/vets_1985.png") center / cover;
-        border-radius: 1rem;
-    }
-
-    .imagen-actualidad {
-        width: 100%;
-        height:fit-content;
-        aspect-ratio: 4 / 3;
-        margin-top: 2rem;
-        margin-left: 1rem;
-        background: url("../assets/imgs/vets_2026.png") center / cover;
-        border-radius: 1rem;
     }
 }
 
