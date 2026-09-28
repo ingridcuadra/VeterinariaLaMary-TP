@@ -9,10 +9,14 @@
     margin-top: 96px;
 }
 
-.imagen-inst {
-    border-radius: 1rem;
+.imagen-somos {
+    border-radius: 1.5rem;
     max-width: 600px;
     
+}
+
+.imagen-inst {
+    border-radius: 1.5rem;    
 }
 
 /* HISTORIA */
