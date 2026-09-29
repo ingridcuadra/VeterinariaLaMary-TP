@@ -21,6 +21,7 @@ página. La opción correspondiente a la pantalla actual se destaca en el menú.
 
 - HTML5 para la estructura y el contenido.
 - CSS puro para estilos, componentes y diseño responsive.
+- Bootstrap
 - Variables CSS para colores, tipografías y tamaños.
 - CSS Grid y Flexbox para la distribución de los elementos.
 - Vite 8 como entorno de desarrollo.
@@ -93,8 +94,8 @@ VeterinariaLaMary-TP/
 ## Diseño responsive
 
 La interfaz utiliza media queries, CSS Grid y Flexbox para adaptar sus
-componentes a diferentes tamaños de pantalla. El menú móvil funciona únicamente
-con HTML y CSS mediante un checkbox, sin código JavaScript.
+componentes a diferentes tamaños de pantalla. También utilizamos componentes 
+nativos de Bootstrap, respentado el diseño.
 
 ## Organización de los estilos
 
@@ -106,6 +107,7 @@ con HTML y CSS mediante un checkbox, sin código JavaScript.
   las reglas específicas.
 - Algunos componentes visuales de inicio, como las tarjetas de servicios, se
   reutilizan en la pantalla de contacto.
+- Enlazamos Bootstrap a cada archivo HTML para su utilización.
 
 ## Consideraciones
 
