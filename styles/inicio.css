@@ -288,11 +288,6 @@
 }
 
 /* CONTACTO, pequeños cambios, padding top y cards de 3*/
-.contacto {
-    margin-top: 3rem;
-    margin-bottom: 5rem;
-}
-
 .contacto .lista-servicios {
     max-width: 900px;
     grid-template-columns: repeat(2, 1fr);

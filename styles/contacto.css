@@ -3,13 +3,6 @@
 .seccion-bienvenida-contacto {
     margin-top: 7rem;
     margin-bottom: 2rem;
-    text-align: center;
-}
-
-.texto-bienvenida {
-    max-width: 650px;
-    margin: 0 auto 1.5rem auto;
-    padding: 0 1rem;
 }
 
 marquee {
