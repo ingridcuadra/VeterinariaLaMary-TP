@@ -1,0 +1,39 @@
+@import "../styles/variables.css";
+
+.mascotas-page {
+    min-height: calc(100vh - 180px);
+    margin-top: 6.5rem;
+}
+
+.mascotas-page .card {
+    border-radius: 0.75rem;
+}
+
+.mascotas-page .form-label {
+    color: var(--color-gray-800);
+    font-weight: 600;
+}
+
+.mascotas-page .table th,
+.mascotas-page .table td {
+    padding: 0.9rem 1rem;
+}
+
+.mascotas-page .table thead th {
+    white-space: nowrap;
+}
+
+.mascotas-page .table-actions {
+    min-width: 9rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+    .mascotas-page {
+        margin-top: 5.5rem;
+    }
+
+    .mascotas-page .card-body {
+        padding: 1.25rem !important;
+    }
+}
