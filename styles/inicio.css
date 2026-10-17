@@ -281,12 +281,6 @@
     }
 }
 
-/* botón navbar se activa la pagina donde estás*/
-.btn-link.active {
-    color: var(--color-turquoise-900);
-    font-weight: bold;
-}
-
 /* CONTACTO, pequeños cambios, padding top y cards de 3*/
 .contacto .lista-servicios {
     max-width: 900px;

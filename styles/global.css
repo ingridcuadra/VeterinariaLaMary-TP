@@ -273,6 +273,16 @@ label,
     }
 }
 
+/* Breadcrumb */
+.breadcrumb-fa-angle .breadcrumb-item + .breadcrumb-item::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.breadcrumb-fa-angle {
+    --bs-breadcrumb-divider: "\f105";
+}
+
 /* Navbar */
 .navbar {
     background-color: var(--color-turquoise-50);
@@ -296,6 +306,12 @@ label,
             color: var(--color-primary);
         }
     }
+}
+
+/* botón navbar se activa la pagina donde estás*/
+.btn-link.active {
+    color: var(--color-turquoise-900);
+    font-weight: bold;
 }
 
 /* Footer */
