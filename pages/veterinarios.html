@@ -139,7 +139,7 @@
                             </button>
 
                             <button type="submit" class="btn btn-primary px-4">
-                                <i class="fa-solid fa-plus me-2" aria-hidden="true" class="icono-blanco"></i>Registrar veterinario
+                                <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Registrar veterinario
                             </button>
                         </div>
                     </div>
@@ -148,6 +148,81 @@
             </div>
         </section>
 
+        <!-- MODAL EDICION -->
+        <div class="modal fade" id="modalEditar" tabindex="-1"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5">
+                            <i class="fa-solid fa-pen-to-square me-2"></i>
+                            Editar veterinario
+                        </h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <form id="formEditarVeterinario">
+                        <div class="modal-body">
+
+                            <input type="hidden" id="editarIdVeterinario">
+
+                            <div class="mb-3">
+                                <label for="editarMatricula" class="form-label">
+                                    Matrícula
+                                </label>
+                                <input type="text" class="form-control" id="editarMatricula" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editarNombre" class="form-label">
+                                    Nombre
+                                </label>
+                                <input type="text" class="form-control" id="editarNombre" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editarEspecializacion" class="form-label">
+                                    Especialización
+                                </label>
+                                <select class="form-select" id="editarEspecializacion" required>
+                                    <option value="">Seleccioná una especialización</option>
+                                    <option value="Cirugía">Cirugía</option>
+                                    <option value="Medicina Interna">Medicina Interna</option>
+                                    <option value="Dermatología">Dermatología</option>
+                                    <option value="Oftalmología">Oftalmología</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editarValorConsulta" class="form-label">
+                                    Valor de consulta
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="editarValorConsulta" min="0" step="1"
+                                        required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-floppy-disk me-2"></i>
+                                Guardar cambios
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
 
         <!-- LISTA DE VETERINARIOS -->
         <section class="card border-0 shadow-sm veterinarios-listado m-5 mb-3">
@@ -169,7 +244,7 @@
 
                         <div class="total-veterinarios">
                             <span class="small">Total de veterinarios</span>
-                            <span class="fs-4 fw-semibold" id="total-veterinarios">0</span>
+                            <span class="fs-4 fw-semibold p-1" id="total-veterinarios">0</span>
                         </div>
                     </div>
                 </div>
