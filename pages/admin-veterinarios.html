@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/inicio.css">
+    <link rel="stylesheet" href="../styles/institucional.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <script defer src="../js/veterinarios.js"></script>
+    <title>Institucional - Veterinaria La Mary</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid me-3">
+                <a href="../index.html" class="navbar-brand  logo-nav">
+                    <img src="../assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+                    <span>Veterinaria La Mary</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon icon-nav-mobile"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                        <li class="nav-item">
+                            <a class="btn btn-md btn-link nav-link"
+                                href="../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-md btn-link nav-link active" aria-current="page"
+                                href="./institucional.html">Información
+                                institucional</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-md btn-link nav-link"
+                                href="./contacto.html">Contacto</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Administración
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="../pages/admin-veterinarios.html">
+                                        Veterinarios
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="../pages/admin-mascotas.html">
+                                        Mascotas
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item ms-lg-2 align-self-center">
+                            <a href="#" class="btn btn-sm btn-primary">Ingresar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="pt-5 m-5">Administración de Veterinarios</h1>
+
+        <form action="/action_page.php" class="p-5" id="form-veterinarios">
+            <div class="form-group">
+                <label for="email">Matrícula:</label>
+                <input type="email" class="form-control" id="matricula" name="matricula" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="password" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Especialización:</label>
+                <select name="especializacion" id="especializacion" class="form-control" required>
+                    <option value="">Seleccione una especialización</option>
+                    <option value="Cirugía">Cirugía</option>
+                    <option value="Medicina Interna">Medicina Interna</option>
+                    <option value="Dermatología">Dermatología</option>
+                    <option value="Oftalmología">Oftalmología</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="valorConsulta">Valor de Consulta:</label>
+                <input type="password" class="form-control" id="valorConsulta" name="valorConsulta" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary mt-5">Submit</button>
+        </form>
+
+        <div class="container">
+        <h2>Listado de Veterinarios
+            <span id="total-veterinarios">0</span>
+        </h2>          
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nombre</th>
+                    <th>Especialización</th> 
+                    <th>Valor de Consulta</th>
+                    <th>Acciones</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="lista-veterinarios">
+                </tbody>
+            </table>
+        </div>
+
+            
+
+
+    </main>
+
+    <footer class="footer p-5">
+        <div
+            class="d-flex flex-column flex-md-row justify-content-around align-items-center align-items-md-start text-center text-md-start gap-4 flex-wrap">
+            <div class="footer-info">
+                <img src="../assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+                <p class="text-primary mb-2">Estamos para cuidar a tus mascotas.</p>
+            </div>
+
+            <div class="d-flex flex-column gap-1 align-items-center align-items-md-start">
+                <h3>Contacto</h3>
+                <a class="text-link"><i class="fa-solid fa-phone"></i> 11 4567-8900</a>
+                <a class="text-link"><i class="fa-solid fa-envelope"></i> contacto@veterinarialamary.com</a>
+            </div>
+
+            <div class="text-center">
+                <h3>Seguinos</h3>
+                <a href="#" class="btn btn-md btn-primary">Instagram</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Veterinaria La Mary.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
