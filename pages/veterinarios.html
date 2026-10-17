@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/png" href="../favicon.png">
+    <script type="module" src="../scripts/veterinarios.js"></script>
     <title>Gestión de veterinarios - Veterinaria La Mary</title>
 </head>
 
@@ -63,6 +64,145 @@
                 <p class="text-secondary mb-0">Registrá y mantené actualizada la información de tus veterinarios.</p>
             </section>
         </div>
+
+
+        <!-- FORMULARIO -->
+        <section class="card border-0 shadow-sm mb-4 veterinarios-form m-5">
+
+            <div class="card-body p-4 p-lg-5">
+
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="veterinarios-icono">
+                        <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <h2 class="h4 mb-1">Registrar veterinario</h2>
+                        <p class="text-secondary mb-0">
+                            Completá los datos del profesional.
+                        </p>
+                    </div>
+
+                    <span id="estadoFormulario" class="badge rounded-pill text-bg-light px-3 py-2">
+                        Nuevo veterinario
+                    </span>
+                </div>
+
+                <form id="form-veterinarios" class="row g-4">
+
+                    <div class="col-12 col-md-6">
+                        <label for="matricula" class="form-label">
+                            Matrícula
+                        </label>
+                        <input type="text" class="form-control" id="matricula" name="matricula"
+                            placeholder="Ej. MP 1234" required>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="nombre" class="form-label">
+                            Nombre
+                        </label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                            placeholder="Ingresá el nombre completo" required>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="especializacion" class="form-label">
+                            Especialización
+                        </label>
+                        <select name="especializacion" id="especializacion" class="form-select" required>
+                            <option value="">Seleccioná una especialización</option>
+                            <option value="Cirugía">Cirugía</option>
+                            <option value="Medicina Interna">Medicina Interna</option>
+                            <option value="Dermatología">Dermatología</option>
+                            <option value="Oftalmología">Oftalmología</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="valorConsulta" class="form-label">
+                            Valor de consulta
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="valorConsulta" name="valorConsulta" min="0"
+                                step="1" placeholder="0" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <hr class="text-secondary opacity-25">
+
+                        <div class="d-flex flex-wrap gap-2 justify-content-end">
+                            <button type="button" class="btn btn-outline-secondary d-none" id="botonCancelar">
+                                Cancelar edición
+                            </button>
+
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fa-solid fa-plus me-2" aria-hidden="true" class="icono-blanco"></i>Registrar veterinario
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+
+        <!-- LISTA DE VETERINARIOS -->
+        <section class="card border-0 shadow-sm veterinarios-listado m-5 mb-3">
+
+            <div class="card-body p-0">
+
+                <div class="p-4 p-lg-5 pb-4">
+                    <div class="d-flex flex-wrap justify-content-between
+                align-items-center gap-3">
+
+                        <div>
+                            <h2 class="h4 mb-1">
+                                Veterinarios registrados
+                            </h2>
+                            <p class="text-secondary mb-0">
+                                Consultá y administrá los profesionales registrados.
+                            </p>
+                        </div>
+
+                        <div class="total-veterinarios">
+                            <span class="small">Total de veterinarios</span>
+                            <span class="fs-4 fw-semibold" id="total-veterinarios">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Matrícula</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Especialidad</th>
+                                <th scope="col">Valor de consulta</th>
+                                <th scope="col" class="pe-4">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="lista-veterinarios">
+                            <tr>
+                                <td class="text-center text-secondary py-5">
+                                    <i class="fa-solid fa-clipboard-list d-block mb-3 fs-2" aria-hidden="true"></i>
+                                    Todavía no hay veterinarios registrados.
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
     </main>
 
     <footer class="footer p-4 mt-5">

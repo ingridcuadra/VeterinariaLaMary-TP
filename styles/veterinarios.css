@@ -1,0 +1,111 @@
+
+/* Gestión de veterinarios */
+
+.veterinarios-form,
+.veterinarios-listado {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.veterinarios-form .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #344054;
+}
+
+.veterinarios-form .form-control,
+.veterinarios-form .form-select,
+.veterinarios-form .input-group-text {
+    min-height: 46px;
+    border-color: #dce3e9;
+    border-radius: 8px;
+}
+
+.veterinarios-form .input-group .input-group-text {
+    border-radius: 8px 0 0 8px;
+    background-color: #f5f8fa;
+    color: #526579;
+}
+
+.veterinarios-form .input-group .form-control {
+    border-radius: 0 8px 8px 0;
+}
+
+.veterinarios-form .form-control:focus,
+.veterinarios-form .form-select:focus {
+    border-color: #86b7d1;
+    box-shadow: 0 0 0 0.2rem rgba(49, 116, 153, 0.12);
+}
+
+.veterinarios-icono {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: #e7f1f8;
+    color: #285c7d;
+    font-size: 1.25rem;
+}
+
+.veterinarios-form .btn {
+    border-radius: 8px;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+}
+
+.veterinarios-contador {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background-color: #e7f1f8;
+    color: #285c7d;
+}
+
+.veterinarios-listado .table thead th {
+    background-color: #f3f7fa;
+    color: #465b6d;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+    padding: 16px;
+    border-bottom: 1px solid #e3e9ee;
+    white-space: nowrap;
+}
+
+.veterinarios-listado .table tbody td {
+    padding: 16px;
+    border-color: #edf0f3;
+}
+
+.veterinarios-listado .table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.veterinarios-listado .table tbody tr:hover > * {
+    --bs-table-bg-state: #f7fafc;
+}
+
+@media (max-width: 576px) {
+    .veterinarios-form .card-body {
+        padding: 1.25rem !important;
+    }
+
+    .veterinarios-form #estadoFormulario {
+        display: none;
+    }
+
+    .veterinarios-contador {
+        width: 100%;
+    }
+
+    .veterinarios-listado .table thead th,
+    .veterinarios-listado .table tbody td {
+        padding: 12px;
+    }
+}
