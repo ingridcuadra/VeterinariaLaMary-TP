@@ -37,3 +37,12 @@
         padding: 1.25rem !important;
     }
 }
+
+.badge.contador {
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent !important;
+    color: var(--bs-black);
+}
