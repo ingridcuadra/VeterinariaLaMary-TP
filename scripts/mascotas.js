@@ -20,8 +20,19 @@ btnAgregarMascota.addEventListener('click', () => {
 });
 
 function render() {
-   const mascotas = obtenerMascotas();
+   let mascotas = obtenerMascotas();
    const contadorMascotas = document.getElementById('contadorMascotas');
+   const inputBuscar = document.getElementById('inputBuscar');
+   const textoBusqueda = inputBuscar ? inputBuscar.value.toLowerCase().trim() : '';
+
+   if (textoBusqueda !== '') {
+      mascotas = mascotas.filter((m) => 
+         m.nombreMascota.toLowerCase().includes(textoBusqueda) ||
+         m.nombreDuenio.toLowerCase().includes(textoBusqueda) ||
+         m.especieMascota.toLowerCase().includes(textoBusqueda) ||
+         m.razaMascota.toLowerCase().includes(textoBusqueda)
+      );
+   }
   
    tablaMascotas.innerHTML = '';
     
@@ -205,5 +216,10 @@ formulario.addEventListener('submit', (event) => {
       render();
    }
 });
+
+const inputBuscar = document.getElementById('inputBuscar');
+if (inputBuscar) {
+   inputBuscar.addEventListener('input', render);
+}
 
 render();

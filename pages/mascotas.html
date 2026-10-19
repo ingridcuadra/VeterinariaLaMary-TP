@@ -78,6 +78,14 @@
                         <i class="fa-solid fa-plus me-1"></i> AGREGAR MASCOTA
                     </button>
 
+                    <div class="input-group" style="max-width: 420px;">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fa-solid fa-magnifying-glass text-secondary"></i>
+                        </span>
+                        <input type="search" id="inputBuscar" class="form-control border-start-0 ps-0"
+                            placeholder="Buscar por nombre, dueño, especie...">
+                    </div>
+
                     <div class="d-flex align-items-center gap-2 fw-semibold text-secondary fs-6">
                         <span>Total registradas:</span>
                         <span id="contadorMascotas" class="badge bg-primary fs-6 contador">0</span>
@@ -91,14 +99,22 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr style="cursor: pointer;">
-                                <th scope="col" data-columna="nombreMascota">Nombre <i class="fa-solid fa-sort text-muted small"></i></th>
-                                <th scope="col" data-columna="especieMascota">Especie <i class="fa-solid fa-sort text-muted small"></i></th>
-                                <th scope="col" data-columna="razaMascota">Raza <i class="fa-solid fa-sort text-muted small"></i></th>
-                                <th scope="col" data-columna="generoMascota">Género <i class="fa-solid fa-sort text-muted small"></i></th>
-                                <th scope="col" data-columna="colorMascota">Color <i class="fa-solid fa-sort text-muted small"></i></th>
-                                <th scope="col" data-columna="edadMascota">Edad <i class="fa-solid fa-sort text-muted small"></i></th>
-                                <th scope="col" data-columna="pesoMascota">Peso <i class="fa-solid fa-sort text-muted small"></i></th>
-                                <th scope="col" data-columna="nombreDuenio">Dueño/a <i class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="nombreMascota">Nombre <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="especieMascota">Especie <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="razaMascota">Raza <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="generoMascota">Género <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="colorMascota">Color <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="edadMascota">Edad <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="pesoMascota">Peso <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="nombreDuenio">Dueño/a <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
                                 <th scope="col" class="text-end" style="cursor: default;">Acciones</th>
                             </tr>
                         </thead>
