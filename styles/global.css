@@ -371,24 +371,3 @@ label,
         }
     }
 } 
-
-/* botones formulario veterinarios 
-Editar: icono blanco unicamente en el hover */
-.btn-outline-primary:hover .fa-pen,
-.btn-outline-primary:focus-visible .fa-pen {
-    color: #fff;
-}
-
-/* Eliminar: icono blanco unicamente en el hover */
-.btn-outline-danger:hover .fa-trash,
-.btn-outline-danger:focus-visible .fa-trash {
-    color: #fff;
-}
-
-.veterinarios-form .btn-primary .fa-plus {
-    color: white;
-}
-
-#modalEliminar .btn-danger .fa-trash-can {
-    color: white;
-}

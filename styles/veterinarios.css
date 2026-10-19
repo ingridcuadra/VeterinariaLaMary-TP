@@ -7,6 +7,19 @@
     white-space: nowrap;
 }
 
+.veterinarios-listado .table th,
+.veterinarios-listado .table td {
+    padding: 0.9rem 1rem;
+}
+
+.veterinarios-listado .table thead th {
+    white-space: nowrap;
+}
+
+.veterinarios-listado .table-actions {
+    min-width: 9rem;
+    white-space: nowrap;
+}
 
 /* Ícono del modal de eliminación */
 .icono-eliminar {
@@ -19,4 +32,26 @@
     background-color: #fce8e6;
     color: #c0392b;
     font-size: 1.7rem;
+}
+
+
+/* botones formulario veterinarios 
+Editar: icono blanco unicamente en el hover */
+.btn-outline-primary:hover .fa-pen,
+.btn-outline-primary:focus-visible .fa-pen {
+    color: #fff;
+}
+
+/* Eliminar: icono blanco unicamente en el hover */
+.btn-outline-danger:hover .fa-trash,
+.btn-outline-danger:focus-visible .fa-trash {
+    color: #fff;
+}
+
+.veterinarios-form .btn-primary .fa-plus {
+    color: white;
+}
+
+#modalEliminar .btn-danger .fa-trash-can {
+    color: white;
 }
