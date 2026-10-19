@@ -384,3 +384,11 @@ Editar: icono blanco unicamente en el hover */
 .btn-outline-danger:focus-visible .fa-trash {
     color: #fff;
 }
+
+.veterinarios-form .btn-primary .fa-plus {
+    color: white;
+}
+
+#modalEliminar .btn-danger .fa-trash-can {
+    color: white;
+}

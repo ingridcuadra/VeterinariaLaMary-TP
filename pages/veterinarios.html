@@ -51,7 +51,7 @@
         </nav>
     </header>
 
-    <main class="mt-5 mb-4 mx-4 flex-grow-1">
+    <main class="mt-5 mb-4 mx-2 mx-md-3 mx-lg-4 flex-grow-1">
         <div class="container mt-5 pt-5">
             <section class="mb-4">
                 <nav class="breadcrumb-fa-angle" aria-label="breadcrumb">
@@ -67,24 +67,24 @@
 
 
         <!-- FORMULARIO -->
-        <section class="card border-0 shadow-sm mb-4 veterinarios-form m-5">
+        <section class="card border-0 shadow-sm mb-4 veterinarios-form mx-2 mx-sm-3 mx-lg-5">
 
             <div class="card-body p-4 p-lg-5">
 
-                <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
                     <div class="veterinarios-icono">
                         <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
                     </div>
 
                     <div class="flex-grow-1">
-                        <h2 class="h4 mb-1">Registrar veterinario</h2>
+                        <h2 class="h4 mb-1">Registrar Veterinario</h2>
                         <p class="text-secondary mb-0">
                             Completá los datos del profesional.
                         </p>
                     </div>
 
-                    <span id="estadoFormulario" class="badge rounded-pill text-bg-light px-3 py-2">
-                        Nuevo veterinario
+                    <span class="rounded-pill text-bg-light px-3 py-2">
+                        Nuevo Veterinario
                     </span>
                 </div>
 
@@ -149,8 +149,7 @@
         </section>
 
         <!-- MODAL EDICION -->
-        <div class="modal fade" id="modalEditar" tabindex="-1"
-            aria-hidden="true">
+        <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -158,7 +157,7 @@
                     <div class="modal-header">
                         <h2 class="modal-title fs-5">
                             <i class="fa-solid fa-pen-to-square me-2"></i>
-                            Editar veterinario
+                            Editar Veterinario
                         </h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
@@ -215,7 +214,7 @@
 
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa-solid fa-floppy-disk me-2"></i>
-                                Guardar cambios
+                                Guardar Cambios
                             </button>
                         </div>
                     </form>
@@ -224,18 +223,60 @@
             </div>
         </div>
 
+
+        <!-- MODAL DE CONFIRMACIÓN DE ELIMINACION -->
+        <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="tituloModalEliminar"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+
+                    <div class="modal-body text-center p-4 p-md-5">
+
+                        <div class="icono-eliminar mx-auto mb-3">
+                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                        </div>
+
+                        <h2 class="h4 mb-2" id="tituloModalEliminar">
+                            ¿Eliminar veterinario?
+                        </h2>
+
+                        <p class="text-secondary mb-2">
+                            ¿Estás seguro de que deseas eliminar a este profesional?
+                        </p>
+
+                        <p class="fw-semibold mb-4" id="nombreVeterinarioEliminar"></p>
+
+                        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+
+                            <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+
+                            <button type="button" class="btn btn-danger px-4" id="confirmarEliminar">
+                                <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
+                                Sí, eliminar
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- LISTA DE VETERINARIOS -->
-        <section class="card border-0 shadow-sm veterinarios-listado m-5 mb-3">
+        <section class="card border-0 shadow-sm veterinarios-listado mx-2 mx-sm-3 mx-lg-5 mb-3">
 
             <div class="card-body p-0">
 
-                <div class="p-4 p-lg-5 pb-4">
-                    <div class="d-flex flex-wrap justify-content-between
-                align-items-center gap-3">
+                <div class="p-4 pb-4 p-lg-5">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
 
                         <div>
                             <h2 class="h4 mb-1">
-                                Veterinarios registrados
+                                Veterinarios Registrados
                             </h2>
                             <p class="text-secondary mb-0">
                                 Consultá y administrá los profesionales registrados.
@@ -243,7 +284,7 @@
                         </div>
 
                         <div class="total-veterinarios">
-                            <span class="small">Total de veterinarios</span>
+                            <span class="small">Total de Veterinarios</span>
                             <span class="fs-4 fw-semibold p-1" id="total-veterinarios">0</span>
                         </div>
                     </div>
@@ -251,13 +292,13 @@
 
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th scope="col">Matrícula</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Especialidad</th>
                                 <th scope="col">Valor de consulta</th>
-                                <th scope="col" class="pe-4">
+                                <th scope="col" class="text-end pe-4">
                                     Acciones
                                 </th>
                             </tr>

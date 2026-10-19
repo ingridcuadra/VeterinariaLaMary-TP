@@ -1,16 +1,14 @@
 const veterinarios = JSON.parse(localStorage.getItem("veterinarios") || "[]");
 
 const formulario = document.getElementById("form-veterinarios");
-
 const listadoVete = document.getElementById("lista-veterinarios");
-
 const total = document.getElementById("total-veterinarios");
-
 const modalEditar = new bootstrap.Modal(document.getElementById("modalEditar"));
-
 const formEditar = document.getElementById("formEditarVeterinario");
-
-let idVeterinarioEditar;
+const modalEliminar = new bootstrap.Modal(document.getElementById("modalEliminar"));
+const nombreVeterinarioEliminar = document.getElementById("nombreVeterinarioEliminar");
+const botonConfirmarEliminar = document.getElementById("confirmarEliminar");
+let idVeterinarioEliminar = null;
 
 function render(){
     listadoVete.innerHTML = "";
@@ -18,11 +16,11 @@ function render(){
     veterinarios.forEach((veterinario) =>  {
         listadoVete.innerHTML += `
             <tr>
-                <th>${veterinario.matricula}</th>
-                <th>${veterinario.nombre}</th>
-                <th>${veterinario.especializacion}</th> 
-                <th>${veterinario.valorConsulta}</th>
-                <th>
+                <td>${veterinario.matricula}</td>
+                <td>${veterinario.nombre}</td>
+                <td>${veterinario.especializacion}</td> 
+                <td>${veterinario.valorConsulta}</td>
+                <td scope="col" class="text-end pe-4">
                 <button class="btn btn-outline-primary" onclick="editarVeterinario('${veterinario.idVeterinario}')">
                     <i class="fa-solid fa-pen"></i>
                 </button>
@@ -45,14 +43,37 @@ function guardarVeterinario(){
     localStorage.setItem("veterinarios", JSON.stringify(veterinarios));
 }
 
-function eliminarVeterinario(id){
-    const indice = veterinarios.findIndex((veterinario)  => veterinario.idVeterinario === id);
+function eliminarVeterinario(id) {
+    const veterinario = veterinarios.find(
+        (veterinario) => veterinario.idVeterinario === id
+    );
+
+    if (!veterinario) return;
+
+    idVeterinarioEliminar = id;
+    nombreVeterinarioEliminar.textContent = veterinario.nombre;
+    modalEliminar.show();
+}
+
+window.eliminarVeterinario = eliminarVeterinario;
+
+botonConfirmarEliminar.addEventListener("click", () => {
+    if (!idVeterinarioEliminar) return;
+
+    const indice = veterinarios.findIndex(
+        (veterinario) =>
+            veterinario.idVeterinario === idVeterinarioEliminar
+    );
+
+    if (indice === -1) return;
+
     veterinarios.splice(indice, 1);
     guardarVeterinario();
     render();
-}
-// Hacer que la función sea accesible desde el onclick del htlm
-window.eliminarVeterinario = eliminarVeterinario;
+
+    idVeterinarioEliminar = null;
+    modalEliminar.hide();
+});
 
 
 function editarVeterinario(id) {
@@ -112,4 +133,3 @@ formulario.addEventListener("submit", (e) => {
     render();
     formulario.reset();
 })
-
