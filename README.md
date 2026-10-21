@@ -1,7 +1,8 @@
 # Veterinaria La Mary
 
 Sitio web para Veterinaria La Mary. Incluye una página de inicio y pantallas
-dedicadas a la información institucional y a los canales de contacto.
+dedicadas a la información institucional, los canales de contacto y la gestión
+de mascotas y veterinarios.
 
 El proyecto fue desarrollado como un sitio estático. Vite se usa únicamente
 como servidor de desarrollo y herramienta de compilación.
@@ -13,9 +14,19 @@ como servidor de desarrollo y herramienta de compilación.
   su historia, desde su fundación hasta la actualidad.
 - **Contacto:** bienvenida, imagen destacada y tarjetas con teléfono, correo
   electrónico y número para urgencias.
+- **Panel de administración:** acceso a las pantallas de gestión de mascotas y
+  veterinarios.
+- **Gestión de veterinarios:** permite registrar, consultar, editar y eliminar
+  veterinarios.
 
 Las páginas comparten la barra de navegación, el menú responsive y el pie de
 página. La opción correspondiente a la pantalla actual se destaca en el menú.
+
+## Gestión de veterinarios
+
+Los registros se guardan en el `localStorage` del navegador, bajo la clave
+`veterinarios`, por lo que permanecen disponibles en el mismo navegador y
+dispositivo.
 
 ## Tecnologías
 
@@ -73,18 +84,26 @@ Para detener el servidor, presionar `Ctrl + C`.
 ```text
 VeterinariaLaMary-TP/
 ├── assets/
-│   ├── fonts/          # Tipografías locales
-│   └── imgs/           # Logotipo e imágenes de las distintas pantallas
+│   ├── fonts/            # Tipografías locales
+│   └── imgs/             # Logotipo e imágenes de las distintas pantallas
 ├── pages/
-│   ├── contacto.html   # Canales de atención y urgencias
-│   └── institucional.html
+│   ├── contacto.html     # Canales de atención y urgencias
+│   ├── institucional.html
+│   ├── mascotas.html     # Gestión de mascotas
+│   ├── panel-admin.html  
+│   └── veterinarios.html # Gestión de veterinarios
+├── scripts/
+│   ├── mascotas.js
+│   └── veterinarios.js   # Validación y gestión de veterinarios
 ├── styles/
-│   ├── variables.css   # Variables de diseño y declaraciones de fuentes
-│   ├── global.css      # Estilos globales y componentes compartidos
-│   ├── inicio.css      # Inicio y componentes reutilizados
-│   ├── contacto.css    # Estilos de la pantalla de contacto
-│   └── institucional.css
-├── index.html          # Página principal
+│   ├── variables.css     # Variables de diseño y declaraciones de fuentes
+│   ├── global.css        # Estilos globales y componentes compartidos
+│   ├── inicio.css        # Inicio y componentes reutilizados
+│   ├── contacto.css      # Estilos de la pantalla de contacto
+│   ├── institucional.css
+│   ├── mascotas.css
+│   └── veterinarios.css
+├── index.html            # Página principal
 ├── favicon.png
 ├── package-lock.json
 ├── package.json
@@ -94,8 +113,8 @@ VeterinariaLaMary-TP/
 ## Diseño responsive
 
 La interfaz utiliza media queries, CSS Grid y Flexbox para adaptar sus
-componentes a diferentes tamaños de pantalla. También utilizamos componentes 
-nativos de Bootstrap, respentado el diseño.
+componentes a diferentes tamaños de pantalla. También utiliza componentes
+nativos de Bootstrap, respetando el diseño.
 
 ## Organización de los estilos
 

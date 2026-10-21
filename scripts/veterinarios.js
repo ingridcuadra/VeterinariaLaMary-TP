@@ -135,13 +135,19 @@ function render() {
                 <td>${veterinario.nombre}</td>
                 <td>${veterinario.especializacion}</td> 
                 <td>$${veterinario.valorConsulta}</td>
-                <td scope="col" class="text-center d-flex gap-3 justify-content-end">
-                    <button class="btn btn-icon btn-icon-primary" onclick="editarVeterinario('${veterinario.idVeterinario}')">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
-                    <button class="btn btn-icon btn-icon-danger" onclick="eliminarVeterinario('${veterinario.idVeterinario}')">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
+                <td class="table-actions text-end">
+                    <div class="d-flex gap-3 justify-content-end flex-nowrap">
+                        <button type="button" class="btn btn-icon btn-icon-primary"
+                            aria-label="Editar ${veterinario.nombre}"
+                            onclick="editarVeterinario('${veterinario.idVeterinario}')">
+                            <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-icon btn-icon-danger"
+                            aria-label="Eliminar ${veterinario.nombre}"
+                            onclick="eliminarVeterinario('${veterinario.idVeterinario}')">
+                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         `
