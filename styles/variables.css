@@ -59,6 +59,12 @@
     --color-black: #000000;
     --color-primary: var(--color-turquoise-700);
     --color-secondary: var(--color-turquoise-300);
+    --color-warning: #E7BA61;
+    --color-success: #2E7D33;
+    --color-danger: #C62828;
+    --color-danger-lighter: #F69896;
+    --color-danger-darker: #7C1C1C;
+    --color-info: var(--color-turquoise-500);
 }
 
 @media (min-width: 768px) {

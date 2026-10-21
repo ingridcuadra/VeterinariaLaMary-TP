@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/veterinarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <script type="module" src="../scripts/veterinarios.js"></script>
+    <script defer src="../scripts/veterinarios.js"></script>
     <title>Gestión de veterinarios - Veterinaria La Mary</title>
 </head>
 
@@ -66,7 +66,6 @@
             </section>
         </div>
 
-
         <!-- FORMULARIO -->
         <section class="card border-0 shadow-sm mb-4 veterinarios-form mx-2 mx-sm-3 mx-lg-5">
 
@@ -83,20 +82,16 @@
                             Completá los datos del profesional.
                         </p>
                     </div>
-
-                    <span class="rounded-pill text-bg-light px-3 py-2">
-                        Nuevo Veterinario
-                    </span>
                 </div>
 
-                <form id="form-veterinarios" class="row g-4">
-
+                <form id="form-veterinarios" class="row g-4" novalidate>
                     <div class="col-12 col-md-6">
                         <label for="matricula" class="form-label">
                             Matrícula
                         </label>
                         <input type="text" class="form-control" id="matricula" name="matricula"
-                            placeholder="Ej. MP 1234" required>
+                            placeholder="Ej. MP 1234" required aria-describedby="matricula-feedback">
+                        <div id="matricula-feedback" class="invalid-feedback"></div>
                     </div>
 
                     <div class="col-12 col-md-6">
@@ -104,20 +99,23 @@
                             Nombre
                         </label>
                         <input type="text" class="form-control" id="nombre" name="nombre"
-                            placeholder="Ingresá el nombre completo" required>
+                            placeholder="Ingresá el nombre completo" required aria-describedby="nombre-feedback">
+                        <div id="nombre-feedback" class="invalid-feedback"></div>
                     </div>
 
                     <div class="col-12 col-md-6">
                         <label for="especializacion" class="form-label">
                             Especialización
                         </label>
-                        <select name="especializacion" id="especializacion" class="form-select" required>
-                            <option value="">Seleccioná una especialización</option>
+                        <select name="especializacion" id="especializacion" class="form-select" required
+                            aria-describedby="especializacion-feedback">
+                            <option value="" hidden>Seleccionar...</option>
                             <option value="Cardiologia">Cardiología</option>
                             <option value="Medicina Interna">Medicina Interna</option>
                             <option value="Dermatologia">Dermatología</option>
                             <option value="Oftalmologia">Oftalmología</option>
                         </select>
+                        <div id="especializacion-feedback" class="invalid-feedback"></div>
                     </div>
 
                     <div class="col-12 col-md-6">
@@ -126,8 +124,9 @@
                         </label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
-                            <input type="number" class="form-control" id="valorConsulta" name="valorConsulta" min="0"
-                                step="1" placeholder="0" required>
+                            <input type="text" inputmode="decimal" class="form-control" id="valorConsulta"
+                                name="valorConsulta" placeholder="0" required aria-describedby="valorConsulta-feedback">
+                            <div id="valorConsulta-feedback" class="invalid-feedback w-100"></div>
                         </div>
                     </div>
 
@@ -135,146 +134,21 @@
                         <hr class="text-secondary opacity-25">
 
                         <div class="d-flex flex-wrap gap-2 justify-content-end">
-                            <button type="button" class="btn btn-outline-secondary d-none" id="botonCancelar">
-                                Cancelar edición
-                            </button>
-
-                            <button type="submit" class="btn btn-primary px-4">
-                                <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Registrar veterinario
+                            <button type="submit" id="botonRegistrarVeterinario" class="btn btn-primary px-4" disabled>
+                                <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
+                                Registrar veterinario
                             </button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </section>
 
-        <!-- MODAL EDICION -->
-        <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
-
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <h2 class="modal-title fs-5">
-                            <i class="fa-solid fa-pen-to-square me-2"></i>
-                            Editar Veterinario
-                        </h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-
-                    <form id="formEditarVeterinario">
-                        <div class="modal-body">
-
-                            <input type="hidden" id="editarIdVeterinario">
-
-                            <div class="mb-3">
-                                <label for="editarMatricula" class="form-label">
-                                    Matrícula
-                                </label>
-                                <input type="text" class="form-control" id="editarMatricula" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="editarNombre" class="form-label">
-                                    Nombre
-                                </label>
-                                <input type="text" class="form-control" id="editarNombre" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="editarEspecializacion" class="form-label">
-                                    Especialización
-                                </label>
-                                <select class="form-select" id="editarEspecializacion" required>
-                                    <option value="">Seleccioná una especialización</option>
-                                    <option value="Cardiologia">Cardiología</option>
-                                    <option value="Medicina Interna">Medicina Interna</option>
-                                    <option value="Dermatologia">Dermatología</option>
-                                    <option value="Oftalmologia">Oftalmología</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="editarValorConsulta" class="form-label">
-                                    Valor de consulta
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-text">$</span>
-                                    <input type="number" class="form-control" id="editarValorConsulta" min="0" step="1"
-                                        required>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                Cancelar
-                            </button>
-
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa-solid fa-floppy-disk me-2"></i>
-                                Guardar Cambios
-                            </button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-
-        <!-- MODAL DE CONFIRMACIÓN DE ELIMINACION -->
-        <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="tituloModalEliminar"
-            aria-hidden="true">
-
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0 shadow">
-
-                    <div class="modal-body text-center p-4 p-md-5">
-
-                        <div class="icono-eliminar mx-auto mb-3">
-                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                        </div>
-
-                        <h2 class="h4 mb-2" id="tituloModalEliminar">
-                            ¿Eliminar veterinario?
-                        </h2>
-
-                        <p class="text-secondary mb-2">
-                            ¿Estás seguro de que deseas eliminar a este profesional?
-                        </p>
-
-                        <p class="fw-semibold mb-4" id="nombreVeterinarioEliminar"></p>
-
-                        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
-
-                            <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
-                                Cancelar
-                            </button>
-
-                            <button type="button" class="btn btn-danger px-4" id="confirmarEliminar">
-                                <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
-                                Sí, eliminar
-                            </button>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <!-- LISTA DE VETERINARIOS -->
         <section class="card border-0 shadow-sm veterinarios-listado mx-2 mx-sm-3 mx-lg-5 mb-3">
-
             <div class="card-body p-0">
-
-                <div class="p-4 pb-4 p-lg-5">
+                <div class="p-4 p-lg-5 pb-2 pb-lg-2">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-
                         <div>
                             <h2 class="h4 mb-1">
                                 Veterinarios Registrados
@@ -284,42 +158,152 @@
                             </p>
                         </div>
 
-                        <div class="total-veterinarios">
-                            <span class="small">Total de Veterinarios</span>
-                            <span class="fs-4 fw-semibold p-1" id="total-veterinarios">0</span>
+                        <div id="total-veterinarios-contenedor" class="total-veterinarios">
+                            <span class="small">Total de Veterinarios:</span>
+                            <span class="fw-semibold p-1" id="total-veterinarios">0</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th scope="col">Matrícula</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Especialidad</th>
-                                <th scope="col">Valor de consulta</th>
-                                <th scope="col" class="text-end pe-4">
-                                    Acciones
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="lista-veterinarios">
-                            <tr>
-                                <td class="text-center text-secondary py-5">
-                                    <i class="fa-solid fa-clipboard-list d-block mb-3 fs-2" aria-hidden="true"></i>
-                                    Todavía no hay veterinarios registrados.
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
+                <div id="alert-sin-veterinarios" class="alert alert-info mx-4 mx-lg-5 mb-4" role="alert" hidden>
+                    Todavía no hay veterinarios registrados.
                 </div>
 
+                <section id="contenedor-tabla" class="px-2 px-lg-3 pb-4" hidden>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Matrícula</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Especialidad</th>
+                                    <th scope="col">Valor de consulta</th>
+                                    <th scope="col" class="text-end pe-4"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="lista-veterinarios">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
             </div>
         </section>
 
+        <!-- MODAL EDICION -->
+        <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5">
+                            <i class="fa-solid fa-pen-to-square me-2"></i>
+                            Editar Veterinario
+                        </h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <form id="formEditarVeterinario" novalidate>
+                        <div class="modal-body">
+                            <input type="hidden" id="editarIdVeterinario">
+
+                            <div class="mb-3">
+                                <label for="editarMatricula" class="form-label">
+                                    Matrícula
+                                </label>
+                                <input type="text" class="form-control" id="editarMatricula" required
+                                    aria-describedby="editarMatricula-feedback">
+                                <div id="editarMatricula-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editarNombre" class="form-label">
+                                    Nombre
+                                </label>
+                                <input type="text" class="form-control" id="editarNombre" required
+                                    aria-describedby="editarNombre-feedback">
+                                <div id="editarNombre-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editarEspecializacion" class="form-label">
+                                    Especialización
+                                </label>
+                                <select class="form-select" id="editarEspecializacion" required
+                                    aria-describedby="editarEspecializacion-feedback">
+                                    <option value="">Seleccioná una especialización</option>
+                                    <option value="Cardiologia">Cardiología</option>
+                                    <option value="Medicina Interna">Medicina Interna</option>
+                                    <option value="Dermatologia">Dermatología</option>
+                                    <option value="Oftalmologia">Oftalmología</option>
+                                </select>
+                                <div id="editarEspecializacion-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editarValorConsulta" class="form-label">
+                                    Valor de consulta
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" inputmode="decimal" class="form-control" id="editarValorConsulta"
+                                        required aria-describedby="editarValorConsulta-feedback">
+                                    <div id="editarValorConsulta-feedback" class="invalid-feedback w-100"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+
+                            <button type="submit" id="botonGuardarEdicion" class="btn btn-primary" disabled>
+                                Guardar cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE CONFIRMACIÓN DE ELIMINACION -->
+        <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="tituloModalEliminar"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-gray fs-5">
+                            <i class="fa-solid fa-trash-can me-2"></i>
+                            Eliminar veterinario
+                        </h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <p class="text-secondary mb-2">
+                            ¿Estás seguro de que deseas eliminar a este profesional?
+                        </p>
+
+                        <p class="fw-semibold" id="nombreVeterinarioEliminar"></p>
+
+                        <div class="caption text-danger mt-3">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span class="ms-1">Esta acción no se puede deshacer</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+
+                        <button type="button" id="confirmarEliminar" class="btn btn-danger">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="footer p-4 mt-5">

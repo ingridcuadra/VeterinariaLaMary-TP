@@ -100,7 +100,6 @@ b {
     font-weight: 600;
 }
 
-i,
 em,
 .italic {
     font-style: italic;
@@ -109,7 +108,8 @@ em,
     color: var(--color-gray-800);
 }
 
-a, .text-link {
+a,
+.text-link {
     font-weight: 500;
     font-size: var(--font-size-base);
     color: var(--color-primary);
@@ -139,6 +139,14 @@ label,
     color: var(--color-primary) !important;
 }
 
+.text-gray {
+    color: var(--color-gray-800) !important;
+}
+
+.text-danger {
+    color: var(--color-danger) !important;
+}
+
 /* Botones */
 .btn {
     cursor: pointer;
@@ -156,6 +164,12 @@ label,
     padding: 0.5rem 1rem;
 }
 
+.btn-icon {
+    border-radius: 50%;
+    font-size: var(--font-size-small);
+    padding: 0.5rem 0.75rem;
+}
+
 .btn-primary {
     background-color: var(--color-turquoise-500);
     color: var(--color-turquoise-50);
@@ -167,9 +181,9 @@ label,
     }
 
     &:disabled {
+        background-color: var(--color-turquoise-500);
         opacity: 55%;
         cursor: not-allowed;
-
 
         &:hover {
             background-color: var(--color-turquoise-500) !important;
@@ -207,6 +221,7 @@ label,
     &:focus,
     &:active {
         background-color: var(--color-turquoise-300) !important;
+        color: var(--color-turquoise-900) !important;
     }
 
     &:disabled {
@@ -238,6 +253,59 @@ label,
         &:hover {
             color: var(--color-turquoise-500) !important;
         }
+    }
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-danger-darker) !important;
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+
+
+        &:hover {
+            background-color: var(--color-danger) !important;
+        }
+    }
+}
+
+.btn-icon-primary {
+    background-color: transparent !important;
+    color: var(--color-primary) !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-turquoise-300) !important;
+    }
+
+    .btn-icon-primary:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+    }
+}
+
+.btn-icon-danger {
+    background-color: transparent !important;
+    color: var(--color-danger) !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-danger-lighter) !important;
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
     }
 }
 
@@ -274,13 +342,19 @@ label,
 }
 
 /* Breadcrumb */
-.breadcrumb-fa-angle .breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-fa-angle .breadcrumb-item+.breadcrumb-item::before {
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
 }
 
 .breadcrumb-fa-angle {
     --bs-breadcrumb-divider: "\f105";
+}
+
+/* Alerts */
+.alert-info {
+    background-color: var(--color-turquoise-100);
+    border-color: var(--color-turquoise-300);
 }
 
 /* Navbar */
@@ -370,4 +444,4 @@ label,
             display: flex;
         }
     }
-} 
+}
