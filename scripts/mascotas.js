@@ -1,5 +1,4 @@
-import "bootstrap";
-
+import { Modal } from "bootstrap";
 const STORAGE_KEY = "mascotas";
 
 const form = document.querySelector("#formularioMascota");
@@ -11,6 +10,18 @@ const saveButton = document.querySelector("#botonGuardar");
 const cancelButton = document.querySelector("#botonCancelar");
 const statusMessage = document.querySelector("#mensajeEstado");
 let editingId = null;
+const contenedorTabla = document.querySelector("#contenedor-tabla-mascotas");
+const alertSinMascotas = document.querySelector("#alert-sin-mascotas");
+const contenedorTotal = document.querySelector("#total-mascotas-contenedor");
+
+const modalEliminarMascota = new Modal(
+    document.querySelector("#modalEliminarMascota")
+);
+
+const nombreMascotaEliminar = document.querySelector("#nombreMascotaEliminar");
+const botonConfirmarEliminar = document.querySelector("#confirmarEliminarMascota");
+
+let idMascotaEliminar = null;
 
 function getMascotas() {
     try {
@@ -43,23 +54,26 @@ function createCell(text) {
     return cell;
 }
 
+
 function renderMascotas() {
     const mascotas = getMascotas();
+
     totalElement.textContent = String(mascotas.length);
     tableBody.replaceChildren();
 
-    if (mascotas.length === 0) {
-        const row = document.createElement("tr");
-        const cell = createCell("Todavía no hay mascotas registradas.");
-        cell.colSpan = 6;
-        cell.className = "text-center text-secondary py-4";
-        row.append(cell);
-        tableBody.append(row);
+    const hayMascotas = mascotas.length > 0;
+
+    contenedorTabla.hidden = !hayMascotas;
+    contenedorTotal.hidden = !hayMascotas;
+    alertSinMascotas.hidden = hayMascotas;
+
+    if (!hayMascotas) {
         return;
     }
 
     mascotas.forEach((mascota) => {
         const row = document.createElement("tr");
+
         row.append(
             createCell(mascota.nombreMascota),
             createCell(mascota.nombreDuenio),
@@ -69,27 +83,34 @@ function renderMascotas() {
         );
 
         const actionsCell = document.createElement("td");
-        actionsCell.className = "table-actions text-end";
+        actionsCell.className = "table-actions text-end pe-4";
+
+        const actions = document.createElement("div");
+        actions.className = "d-flex gap-3 justify-content-end flex-nowrap";
 
         const editButton = document.createElement("button");
         editButton.type = "button";
-        editButton.className = "btn btn-sm btn-outline-primary me-1";
-        editButton.innerHTML = '<i class="fa-solid fa-pen" aria-hidden="true"></i><span class="visually-hidden">Editar</span>';
+        editButton.className = "btn btn-icon btn-icon-primary";
         editButton.setAttribute("aria-label", `Editar ${mascota.nombreMascota}`);
+        editButton.innerHTML =
+            '<i class="fa-solid fa-pen" aria-hidden="true"></i>';
         editButton.addEventListener("click", () => startEditing(mascota));
 
         const deleteButton = document.createElement("button");
         deleteButton.type = "button";
-        deleteButton.className = "btn btn-sm btn-outline-danger";
-        deleteButton.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i><span class="visually-hidden">Eliminar</span>';
+        deleteButton.className = "btn btn-icon btn-icon-danger";
         deleteButton.setAttribute("aria-label", `Eliminar ${mascota.nombreMascota}`);
+        deleteButton.innerHTML =
+            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>';
         deleteButton.addEventListener("click", () => deleteMascota(mascota.idMascota));
 
-        actionsCell.append(editButton, deleteButton);
+        actions.append(editButton, deleteButton);
+        actionsCell.append(actions);
         row.append(actionsCell);
         tableBody.append(row);
     });
 }
+
 
 function startEditing(mascota) {
     editingId = mascota.idMascota;
@@ -114,21 +135,39 @@ function resetForm() {
     cancelButton.classList.add("d-none");
 }
 
+
 function deleteMascota(idMascota) {
     const mascotas = getMascotas();
-    const mascota = mascotas.find((item) => item.idMascota === idMascota);
-    if (!mascota || !window.confirm(`¿Querés eliminar a ${mascota.nombreMascota}?`)) {
-        return;
-    }
 
-    if (saveMascotas(mascotas.filter((item) => item.idMascota !== idMascota))) {
-        if (editingId === idMascota) {
-            resetForm();
-        }
-        renderMascotas();
-        showMessage("La mascota se eliminó correctamente.");
-    }
+    const mascota = mascotas.find(
+        (mascota) => mascota.idMascota === idMascota
+    );
+
+    if (!mascota) return;
+
+    idMascotaEliminar = idMascota;
+    nombreMascotaEliminar.textContent = mascota.nombreMascota;
+
+    modalEliminarMascota.show();
 }
+
+
+
+botonConfirmarEliminar.addEventListener("click", () => {
+    const mascotas = getMascotas();
+    const indice = mascotas.findIndex(
+        (mascota) => mascota.idMascota === idMascotaEliminar
+    );
+
+    if (indice === -1) return;
+
+    mascotas.splice(indice, 1);
+    saveMascotas(mascotas);
+    renderMascotas();
+
+    idMascotaEliminar = null;
+    modalEliminarMascota.hide();
+});
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();

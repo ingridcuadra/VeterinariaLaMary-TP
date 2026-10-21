@@ -1,3 +1,4 @@
+
 @import "../styles/variables.css";
 
 .mascotas-page {
@@ -14,18 +15,41 @@
     font-weight: 600;
 }
 
-.mascotas-page .table th,
-.mascotas-page .table td {
+/* Tabla de mascotas: misma estética que veterinarios */
+.mascotas-listado .table th,
+.mascotas-listado .table td {
     padding: 0.9rem 1rem;
 }
 
-.mascotas-page .table thead th {
+.mascotas-listado .table thead th {
     white-space: nowrap;
 }
 
-.mascotas-page .table-actions {
+.mascotas-listado .table-actions {
     min-width: 9rem;
     white-space: nowrap;
+}
+
+.mascotas-listado .total-mascotas {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Botones de acciones */
+.mascotas-listado .table-actions .btn-icon {
+    border: none;
+    background: transparent;
+    padding: 0.35rem;
+    font-size: 1rem;
+}
+
+.mascotas-listado .table-actions .btn-icon-primary {
+    color: var(--bs-primary);
+}
+
+.mascotas-listado .table-actions .btn-icon-danger {
+    color: var(--bs-danger);
 }
 
 @media (max-width: 575.98px) {

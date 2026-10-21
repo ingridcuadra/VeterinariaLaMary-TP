@@ -39,6 +39,7 @@ const mensajesValidacion = {
     valorConsultaRequerido: "El valor de consulta es obligatorio.",
     valorConsultaInvalido: "Ingresá un valor numérico válido mayor a 0."
 };
+const statusMessage = document.querySelector("#mensajeEstado");
 
 function obtenerErrorCampo(campo, veterinarioIdIgnorado = null) {
     const valor = campo.value.trim();
@@ -104,6 +105,12 @@ function validarRegistro() {
 
     botonRegistrar.disabled = !registroValido;
     return registroValido;
+}
+
+
+function showMessage(message, type = "success") {
+    statusMessage.textContent = message;
+    statusMessage.className = `alert alert-${type}`;
 }
 
 function validarEdicion() {
@@ -304,4 +311,5 @@ formulario.addEventListener("submit", (e) => {
         campo.removeAttribute("aria-invalid");
     });
     validarRegistro();
+    showMessage("El veterinario se registró correctamente.");
 })
