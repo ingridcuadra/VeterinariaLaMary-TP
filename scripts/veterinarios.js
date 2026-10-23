@@ -10,6 +10,8 @@ const camposRegistro = [
 ];
 const botonRegistrar = document.getElementById("botonRegistrarVeterinario");
 const listadoVete = document.getElementById("lista-veterinarios");
+const alertSinResultados = document.getElementById("alert-sin-resultados");
+const inputBuscarVeterinario = document.getElementById("inputBuscarVeterinario");
 const contenedorTabla = document.getElementById("contenedor-tabla");
 const alertSinVeterinarios = document.getElementById("alert-sin-veterinarios");
 const contenedorTotal = document.getElementById("total-veterinarios-contenedor");
@@ -127,20 +129,36 @@ function validarEdicion() {
     return edicionValida;
 }
 
+
 function render() {
     listadoVete.innerHTML = "";
 
-    const hayVeterinarios = veterinarios.length > 0;
-    contenedorTabla.hidden = !hayVeterinarios;
-    contenedorTotal.hidden = !hayVeterinarios;
-    alertSinVeterinarios.hidden = hayVeterinarios;
+    const textoBusqueda = inputBuscarVeterinario.value.trim().toLowerCase();
 
-    veterinarios.forEach((veterinario) => {
+    const veterinariosFiltrados = veterinarios.filter((veterinario) =>
+        [
+            veterinario.matricula,
+            veterinario.nombre,
+            veterinario.especializacion,
+            veterinario.valorConsulta
+        ].some((dato) => String(dato).toLowerCase().includes(textoBusqueda))
+    );
+
+    const hayVeterinariosRegistrados = veterinarios.length > 0;
+    const hayResultados = veterinariosFiltrados.length > 0;
+
+    contenedorTabla.hidden = !hayResultados;
+    contenedorTotal.hidden = !hayResultados;
+
+    alertSinVeterinarios.hidden = hayVeterinariosRegistrados;
+    alertSinResultados.hidden = !hayVeterinariosRegistrados || hayResultados;
+
+    veterinariosFiltrados.forEach((veterinario) => {
         listadoVete.innerHTML += `
             <tr>
                 <td>${veterinario.matricula}</td>
                 <td>${veterinario.nombre}</td>
-                <td>${veterinario.especializacion}</td> 
+                <td>${veterinario.especializacion}</td>
                 <td>$${veterinario.valorConsulta}</td>
                 <td class="table-actions text-end">
                     <div class="d-flex gap-3 justify-content-end flex-nowrap">
@@ -157,13 +175,14 @@ function render() {
                     </div>
                 </td>
             </tr>
-        `
-    })
+        `;
+    });
 
-    total.textContent = veterinarios.length;
+    total.textContent = veterinariosFiltrados.length;
     validarRegistro();
-};
+}
 
+inputBuscarVeterinario.addEventListener("input", render);
 render();
 
 camposRegistro.forEach((campo) => {

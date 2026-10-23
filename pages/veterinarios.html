@@ -52,8 +52,8 @@
         </nav>
     </header>
 
-    <main class="mt-5 mb-4 mx-2 mx-md-3 mx-lg-4 flex-grow-1">
-        <div class="container mt-5 pt-5">
+    <main class="veterinarios-page">
+        <div class="container py-5">
             <section class="mb-4">
                 <nav class="breadcrumb-fa-angle" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -64,10 +64,10 @@
                 <h1 class="mb-2">Gestión de veterinarios</h1>
                 <p class="text-secondary mb-0">Registrá y mantené actualizada la información de tus veterinarios.</p>
             </section>
-        </div>
+      
 
         <!-- FORMULARIO -->
-        <section class="card border-0 shadow-sm mb-4 veterinarios-form mx-2 mx-sm-3 mx-lg-5">
+        <section class="card border-0 shadow-sm mb-4 veterinarios-form">
 
             <div class="card-body p-4 p-lg-5">
 
@@ -146,8 +146,26 @@
             </div>
         </section>
 
+
+        <!-- Buscador de veterinarios -->
+        <div class="px-3 pt-3 pb-3">
+            <label for="inputBuscarVeterinario" class="form-label">
+                Buscar veterinario
+            </label>
+
+            <div class="input-group">
+                <span class="input-group-text bg-white">
+                    <i class="fa-solid fa-magnifying-glass text-secondary" aria-hidden="true"></i>
+                </span>
+
+                <input type="search" id="inputBuscarVeterinario" class="form-control"
+                    placeholder="Matrícula, nombre, especialidad o valor..." autocomplete="off">
+            </div>
+        </div>
+
         <!-- LISTA DE VETERINARIOS -->
-        <section class="card border-0 shadow-sm veterinarios-listado mx-2 mx-sm-3 mx-lg-5 mb-3">
+        <section class="card border-0 shadow-sm veterinarios-listado mb-4">
+            
             <div class="card-body p-0">
                 <div class="p-4 p-lg-5 pb-2 pb-lg-2">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
@@ -171,6 +189,10 @@
                     Todavía no hay veterinarios registrados.
                 </div>
 
+                <div id="alert-sin-resultados" class="alert alert-info mx-4 mx-lg-5 mb-4" hidden>
+                    No se encontraron veterinarios que coincidan con la búsqueda.
+                </div>
+
                 <section id="contenedor-tabla" class="px-2 px-lg-3 pb-4" hidden>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
@@ -191,6 +213,7 @@
                 </section>
             </div>
         </section>
+        </div>
 
         <!-- MODAL EDICION -->
         <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">

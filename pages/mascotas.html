@@ -87,32 +87,39 @@
                         </span>
                     </div>
 
-                    <form id="formularioMascota" class="row g-3">
+                    <form id="formularioMascota" class="row g-3" novalidate>
                         <div class="col-12 col-md-6 col-lg-4">
                             <label for="nombreMascota" class="form-label">Nombre de la mascota</label>
                             <input type="text" class="form-control" id="nombreMascota" name="nombreMascota"
-                                maxlength="80" required>
+                                maxlength="80" required aria-describedby="nombreMascota-feedback">
+                            <div id="nombreMascota-feedback" class="invalid-feedback"></div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <label for="nombreDuenio" class="form-label">Nombre del dueño/a</label>
                             <input type="text" class="form-control" id="nombreDuenio" name="nombreDuenio"
-                                maxlength="100" required>
+                                maxlength="100" required aria-describedby="nombreDuenio-feedback">
+                            <div id="nombreDuenio-feedback" class="invalid-feedback"></div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <label for="color" class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="color" maxlength="50" required>
+                            <input type="text" class="form-control" id="color" name="color" maxlength="50" required
+                                aria-describedby="color-feedback">
+                            <div id="color-feedback" class="invalid-feedback"></div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <label for="edad" class="form-label">Edad (años)</label>
-                            <input type="number" class="form-control" id="edad" name="edad" min="0" step="1" required>
+                            <input type="number" class="form-control" id="edad" name="edad" min="0" max="200" step="1"
+                                required aria-describedby="edad-feedback">
+                            <div id="edad-feedback" class="invalid-feedback"></div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <label for="peso" class="form-label">Peso (kg)</label>
                             <input type="number" class="form-control" id="peso" name="peso" min="0.01" step="0.01"
-                                required>
+                                required aria-describedby="peso-feedback">
+                            <div id="peso-feedback" class="invalid-feedback"></div>
                         </div>
                         <div class="col-12 d-flex flex-wrap gap-2 pt-2">
-                            <button type="submit" class="btn btn-primary" id="botonGuardar">
+                            <button type="submit" class="btn btn-primary" id="botonGuardar" disabled>
                                 <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Registrar mascota
                             </button>
                             <button type="button" class="btn btn-outline-secondary d-none" id="botonCancelar">Cancelar
@@ -121,6 +128,24 @@
                     </form>
                 </div>
             </section>
+
+
+
+            <!-- Buscador de mascotas -->
+            <div class="px-3 pt-3 pb-3">
+                <label for="inputBuscar" class="form-label">
+                    Buscar mascota
+                </label>
+
+                <div class="input-group">
+                    <span class="input-group-text bg-white">
+                        <i class="fa-solid fa-magnifying-glass text-secondary" aria-hidden="true"></i>
+                    </span>
+
+                    <input type="search" id="inputBuscar" class="form-control"
+                        placeholder="Nombre, dueño, color, edad o peso..." autocomplete="off">
+                </div>
+            </div>
 
             <!-- LISTA DE MASCOTAS -->
             <section class="card border-0 shadow-sm mascotas-listado mb-4">
@@ -146,6 +171,9 @@
 
                     <div id="alert-sin-mascotas" class="alert alert-info mx-4 mx-lg-5 mb-4" role="alert" hidden>
                         Todavía no hay mascotas registradas.
+                    </div>
+                    <div id="alert-sin-resultados" class="alert alert-info mx-4 mx-lg-5 mb-4" hidden>
+                        No se encontraron mascotas que coincidan con la búsqueda.
                     </div>
 
                     <section id="contenedor-tabla-mascotas" class="px-2 px-lg-3 pb-4" hidden>

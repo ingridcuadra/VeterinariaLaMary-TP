@@ -1,3 +1,5 @@
+@import "../styles/variables.css";
+
 .table thead th {
     white-space: nowrap;
 }
@@ -54,4 +56,28 @@ Editar: icono blanco unicamente en el hover */
 
 #modalEliminar .btn-danger .fa-trash-can {
     color: white;
+}
+
+.veterinarios-page {
+    min-height: calc(100vh - 180px);
+    margin-top: 6.5rem;
+}
+
+.veterinarios-page .card {
+    border-radius: 0.75rem;
+}
+
+.veterinarios-page .form-label {
+    color: var(--color-gray-800);
+    font-weight: 600;
+}
+
+@media (max-width: 575.98px) {
+    .veterinarios-page {
+        margin-top: 5.5rem;
+    }
+
+    .veterinarios-page .card-body {
+        padding: 1.25rem !important;
+    }
 }
