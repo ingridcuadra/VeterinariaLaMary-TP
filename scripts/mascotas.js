@@ -120,7 +120,7 @@ function startEditing(mascota) {
     form.elements.edad.value = mascota.edad;
     form.elements.peso.value = mascota.peso;
     titleElement.textContent = "Editar mascota";
-    formStateElement.textContent = "Editando registro";
+    formStateElement.textContent = "Editando mascota";
     saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk me-2" aria-hidden="true"></i>Guardar cambios';
     cancelButton.classList.remove("d-none");
     form.elements.nombreMascota.focus();
