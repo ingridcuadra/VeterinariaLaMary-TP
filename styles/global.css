@@ -309,6 +309,22 @@ label,
     }
 }
 
+.btn-icon-info {
+    background-color: transparent !important;
+    color: var(--color-info) !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-info-lighter) !important;
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+    }
+}
+
 /* Badges */
 .badge {
     font-size: var(--font-size-small);

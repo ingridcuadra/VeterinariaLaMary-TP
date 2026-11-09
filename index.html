@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="styles/inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    <script defer src="../scripts/navbar.js"></script>
+    <script defer src="./scripts/navbar.js"></script>
+    <script defer src="./scripts/login.js"></script>
+    <script type="module" src="./scripts/profesionales.js"></script>
     <title>Veterinaria La Mary</title>
-    <script defer src="../scripts/auth.js"></script>
 </head>
 
 <body>
@@ -212,56 +213,9 @@
 
         </section>
 
-        <!-- listado de profesionales -->
-        <section class="profesionales py-5">
-            <div class="container">
-
-                <div class="text-center mb-5">
-                    <h2>Nuestros profesionales</h2>
-                    <p>Conocé a nuestro equipo de especialistas</p>
-                </div>
-
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3 m-5">
-
-                    <!-- Profesional 1 -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="./assets/imgs/vet-1.jpg" class="card-img-top" alt="Dra.Martina Falcone">
-
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Dra. Martina Falcone</h5>
-                                <p class="card-text">Clínica general</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Profesional 2 -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="./assets/imgs/vet-2.jpg" class="card-img-top" alt="Giancarlo Falcone ">
-
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Dr. Giancarlo Falcone </h5>
-                                <p class="card-text">Cirugía veterinaria</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Profesional 3 -->
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="./assets/imgs/vet-3.jpg" class="card-img-top" alt="Dra. Vittoria Falcone">
-
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Dra. Vittoria Falcone</h5>
-                                <p class="card-text">Dermatología veterinaria</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Listado de profesionales: se muestran los veterinarios registrados en Gestión de Veterinarios. -->
+        <section id="profesionales">
         </section>
-
 
         <!-- Sucursales -->
         <section class="m-5">

@@ -11,6 +11,10 @@ export function obtenerMascotas() {
 
 export function mostrarMensaje(mensaje, tipo = 'success') {
    const alerta = document.getElementById('mensajeEstado');
+   if (!alerta) {
+      console.error(mensaje);
+      return;
+   }
    alerta.textContent = mensaje;
    alerta.className = `alert alert-${tipo} mx-5 mt-3`;
 

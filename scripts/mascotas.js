@@ -1,55 +1,42 @@
-import { obtenerMascotas, guardarMascotas, mostrarMensaje } from "./storage.js";
+import { Modal } from "bootstrap";
+import {
+   obtenerMascotas as getMascotas,
+   guardarMascotas as saveMascotas,
+   mostrarMensaje as showMessage
+} from "./storage.js";
 
-const btnAgregarMascota = document.getElementById('btnAgregarMascota');
-const contenedorFormulario = document.getElementById('contenedorFormulario');
-const modalMascota = new bootstrap.Modal(document.getElementById('contenedorFormulario'));
-const formulario = document.getElementById('formularioMascota');
-const tablaMascotas = document.getElementById('tablaMascotas');
-const thead = document.querySelector('table thead');
+const form = document.querySelector("#formularioMascota");
+const tableBody = document.querySelector("#tablaMascotas");
+const inputBuscar = document.querySelector("#inputBuscar");
 const alertSinResultados = document.getElementById("alert-sin-resultados");
-const contenedorTabla = document.querySelector("#contenedor-tabla-mascotas");
-const alertSinMascotas = document.querySelector("#alert-sin-mascotas");
-const modalEliminarMascota = new bootstrap.Modal(document.querySelector("#modalEliminarMascota"));
-const nombreMascotaEliminar = document.querySelector("#nombreMascotaEliminar");
-const botonConfirmarEliminar = document.querySelector("#confirmarEliminarMascota");
+const totalElement = document.querySelector("#totalMascotas");
 const titleElement = document.querySelector("#tituloFormulario");
 const formStateElement = document.querySelector("#estadoFormulario");
 const saveButton = document.querySelector("#botonGuardar");
-const camposRegistro = [
-   formulario.elements.nombreMascota,
-   formulario.elements.especieMascota,
-   formulario.elements.razaMascota,
-   formulario.elements.generoMascota,
-   formulario.elements.colorMascota,
-   formulario.elements.edadMascota,
-   formulario.elements.pesoMascota,
-   formulario.elements.nombreDuenio
-];
+const cancelButton = document.querySelector("#botonCancelar");
+let editingId = null;
+const contenedorTabla = document.querySelector("#contenedor-tabla-mascotas");
+const alertSinMascotas = document.querySelector("#alert-sin-mascotas");
+const contenedorTotal = document.querySelector("#total-mascotas-contenedor");
 
-const maxEdadPorEspecie = {
-   "Perro": 20,
-   "Gato": 25,
-   "Ave": 50,
-   "Reptil": 100,
-   "Roedor": 7,
-   "Lagomorfo": 15,
-   "Otro": 100
-};
+const modalEliminarMascota = new Modal(
+   document.querySelector("#modalEliminarMascota")
+);
+
+const nombreMascotaEliminar = document.querySelector("#nombreMascotaEliminar");
+const botonConfirmarEliminar = document.querySelector("#confirmarEliminarMascota");
+const camposRegistro = [
+   form.elements.nombreMascota,
+   form.elements.nombreDuenio,
+   form.elements.color,
+   form.elements.edad,
+   form.elements.peso
+];
 
 const camposTocados = new Set();
 let mostrarErrores = false;
 
-let idMascotaEdit = null;
-let columnaOrden = "nombreMascota";
-let direccionOrden = 'asc';
 let idMascotaEliminar = null;
-
-
-btnAgregarMascota.addEventListener('click', () => {
-   resetForm();
-   modalMascota.show();
-   idMascotaEdit = null;
-});
 
 function createCell(text) {
    const cell = document.createElement("td");
@@ -57,44 +44,37 @@ function createCell(text) {
    return cell;
 }
 
-function render() {
-   let mascotas = obtenerMascotas();
-   const contadorMascotas = document.getElementById('contadorMascotas');
-   const inputBuscar = document.getElementById('inputBuscar');
-   const textoBusqueda = inputBuscar ? inputBuscar.value.toLowerCase().trim() : '';
+function renderMascotas() {
+   const todasLasMascotas = getMascotas();
 
-   if (textoBusqueda !== '') {
-      mascotas = mascotas.filter((m) =>
-         m.nombreMascota.toLowerCase().includes(textoBusqueda) ||
-         m.nombreDuenio.toLowerCase().includes(textoBusqueda) ||
-         m.especieMascota.toLowerCase().includes(textoBusqueda) ||
-         m.razaMascota.toLowerCase().includes(textoBusqueda)
+   const textoBusqueda = inputBuscar
+      ? inputBuscar.value.trim().toLocaleLowerCase("es-AR")
+      : "";
+
+   const mascotas = todasLasMascotas.filter((mascota) => {
+      const camposBuscables = [
+         mascota.nombreMascota,
+         mascota.nombreDuenio,
+         mascota.color,
+         mascota.edad,
+         mascota.peso
+      ];
+
+      return camposBuscables.some((campo) =>
+         String(campo ?? "")
+            .toLocaleLowerCase("es-AR")
+            .includes(textoBusqueda)
       );
-   }
-
-   tablaMascotas.replaceChildren(); // Limpiar la tabla antes de renderizar
-
-   mascotas.sort((a, b) => {
-      let valorA = a[columnaOrden];
-      let valorB = b[columnaOrden];
-      let comparacion = 0;
-
-      if (typeof valorA === 'number' && typeof valorB === 'number') {
-         comparacion = valorA - valorB;
-      } else {
-         comparacion = String(valorA).localeCompare(String(valorB));
-      }
-      return direccionOrden === 'asc' ? comparacion : -comparacion;
    });
 
-   if (contadorMascotas) {
-      contadorMascotas.textContent = mascotas.length;
-   }
+   totalElement.textContent = String(mascotas.length);
+   tableBody.replaceChildren();
 
-   const hayMascotasRegistradas = obtenerMascotas().length > 0;
+   const hayMascotasRegistradas = todasLasMascotas.length > 0;
    const hayResultados = mascotas.length > 0;
 
    contenedorTabla.hidden = !hayResultados;
+   contenedorTotal.hidden = !hayResultados;
 
    alertSinMascotas.hidden = hayMascotasRegistradas;
    alertSinResultados.hidden =
@@ -102,146 +82,87 @@ function render() {
 
    if (!hayResultados) {
       return;
-   } else {
-      mascotas.forEach((mascota) => {
-         const row = document.createElement("tr");
-         row.append(
-            createCell(mascota.nombreMascota),
-            createCell(mascota.especieMascota),
-            createCell(mascota.razaMascota),
-            createCell(mascota.generoMascota),
-            createCell(mascota.colorMascota),
-            createCell(mascota.edadMascota),
-            createCell(mascota.pesoMascota),
-            createCell(mascota.nombreDuenio),
-         );
-
-         const actionsCell = document.createElement("td");
-         actionsCell.className = "table-actions text-end pe-4";
-
-         const actions = document.createElement("div");
-         actions.className = "d-flex gap-3 justify-content-end flex-nowrap";
-
-         const historiaButton = document.createElement("button");
-         historiaButton.type = "button";
-         historiaButton.className = "btn btn-icon btn-icon-primary btn-historia";
-         historiaButton.dataset.id = mascota.idMascota;
-         historiaButton.setAttribute(
-            "aria-label",
-            `historia ${mascota.nombreMascota}`
-         );
-         historiaButton.innerHTML =
-            '<i class="fa-solid fa-book-medical" aria-hidden="true"></i>';
-
-         const editButton = document.createElement("button");
-         editButton.type = "button";
-         editButton.className = "btn btn-icon btn-icon-primary btn-editar";
-         editButton.dataset.id = mascota.idMascota;
-         editButton.setAttribute(
-            "aria-label",
-            `Editar ${mascota.nombreMascota}`
-         );
-         editButton.innerHTML =
-            '<i class="fa-solid fa-pen" aria-hidden="true"></i>';
-
-         const deleteButton = document.createElement("button");
-         deleteButton.type = "button";
-         deleteButton.className = "btn btn-icon btn-icon-danger btn-eliminar";
-         deleteButton.dataset.id = mascota.idMascota;
-         deleteButton.setAttribute(
-            "aria-label",
-            `Eliminar ${mascota.nombreMascota}`
-         );
-         deleteButton.innerHTML =
-            '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>';
-         ;
-
-         actions.append(historiaButton, editButton, deleteButton);
-         actionsCell.append(actions);
-         row.append(actionsCell);
-         tablaMascotas.append(row);
-      });
-   };
-}
-
-function editarMascota(id) {
-   const mascotas = obtenerMascotas();
-   const mascota = mascotas.find((m) => m.idMascota === id);
-
-   if (!mascota) {
-      mostrarMensaje('Mascota no encontrada.', 'danger');
-      return;
    }
 
-   document.getElementById("nombreMascota").value = mascota.nombreMascota;
-   document.getElementById("especieMascota").value = mascota.especieMascota;
-   document.getElementById("razaMascota").value = mascota.razaMascota;
-   document.getElementById("generoMascota").value = mascota.generoMascota;
-   document.getElementById("colorMascota").value = mascota.colorMascota;
-   document.getElementById("edadMascota").value = mascota.edadMascota;
-   document.getElementById("pesoMascota").value = mascota.pesoMascota;
-   document.getElementById("nombreDuenio").value = mascota.nombreDuenio;
+   mascotas.forEach((mascota) => {
+      const row = document.createElement("tr");
 
-   idMascotaEdit = id;
-   titleElement.textContent = "Editar mascota";
-   formStateElement.textContent = "Editar mascota";
+      row.append(
+         createCell(mascota.nombreMascota),
+         createCell(mascota.nombreDuenio),
+         createCell(mascota.color),
+         createCell(`${mascota.edad} años`),
+         createCell(`${Number(mascota.peso).toLocaleString("es-AR")} kg`)
+      );
 
-   modalMascota.show();
+      const actionsCell = document.createElement("td");
+      actionsCell.className = "table-actions text-end pe-4";
+
+      const actions = document.createElement("div");
+      actions.className = "d-flex gap-3 justify-content-end flex-nowrap";
+
+      const editButton = document.createElement("button");
+      editButton.type = "button";
+      editButton.className = "btn btn-icon btn-icon-primary";
+      editButton.setAttribute(
+         "aria-label",
+         `Editar ${mascota.nombreMascota}`
+      );
+      editButton.innerHTML =
+         '<i class="fa-solid fa-pen" aria-hidden="true"></i>';
+      editButton.addEventListener("click", () => startEditing(mascota));
+
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.className = "btn btn-icon btn-icon-danger";
+      deleteButton.setAttribute(
+         "aria-label",
+         `Eliminar ${mascota.nombreMascota}`
+      );
+      deleteButton.innerHTML =
+         '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>';
+      deleteButton.addEventListener(
+         "click",
+         () => deleteMascota(mascota.idMascota)
+      );
+
+      const historialButton = document.createElement("button");
+      historialButton.type = "button";
+      historialButton.className = "btn btn-icon btn-icon-info";
+      historialButton.setAttribute(
+         "aria-label",
+         `Ver historial de ${mascota.nombreMascota}`
+      );
+      historialButton.innerHTML =
+         '<i class="fa-solid fa-history" aria-hidden="true"></i>';
+      historialButton.addEventListener(
+         "click",
+         () => verHistorial(mascota.idMascota)
+      );
+
+      actions.append(historialButton, editButton, deleteButton);
+      actionsCell.append(actions);
+      row.append(actionsCell);
+      tableBody.append(row);
+   });
 }
-
-function eliminarMascota(id) {
-   const mascotas = obtenerMascotas();
-   const mascota = mascotas.find((m) => m.idMascota === id);
-
-   if (!mascota) {
-      mostrarMensaje('Mascota no encontrada.', 'danger');
-      return;
-   } else {
-      idMascotaEliminar = id;
-      nombreMascotaEliminar.textContent = mascota.nombreMascota;
-
-      modalEliminarMascota.show();
-   }
-}
-
-botonConfirmarEliminar.addEventListener("click", () => {
-   const mascotas = obtenerMascotas();
-   const indice = mascotas.findIndex(
-      (mascota) => mascota.idMascota === idMascotaEliminar
-   );
-
-   if (indice === -1) return;
-
-   mascotas.splice(indice, 1);
-   if (guardarMascotas(mascotas)) {
-      modalEliminarMascota.hide();
-      mostrarMensaje('Mascota eliminada correctamente.', 'success');
-      render();
-   }
-
-   idMascotaEliminar = null;
-
-});
 
 function obtenerErrorCampo(campo) {
    const valor = campo.value.trim();
-   const camposSoloTexto = ["razaMascota", "colorMascota", "nombreDuenio"];
-   const especie = document.getElementById("especieMascota").value;
-   const maxEdad = maxEdadPorEspecie[especie] || 100
 
    if (!valor) {
       return "Este campo es obligatorio.";
    }
 
-   if (campo.id === "edadMascota") {
+   if (campo.id === "edad") {
       const edad = Number(valor);
 
-      if (!Number.isInteger(edad) || edad < 0 || edad > maxEdad) {
-         return `Ingresá una edad entera entre 0 y ${maxEdad} años.`;
+      if (!Number.isInteger(edad) || edad < 0 || edad > 200) {
+         return "Ingresá una edad entera entre 0 y 200 años.";
       }
    }
 
-   if (campo.id === "pesoMascota") {
+   if (campo.id === "peso") {
       const peso = Number(valor);
 
       if (!Number.isFinite(peso) || peso <= 0) {
@@ -249,12 +170,6 @@ function obtenerErrorCampo(campo) {
       }
    }
 
-   if (camposSoloTexto.includes(campo.id)) {
-      // /\d/ busca si hay al menos un dígito (0-9) en el texto
-      if (/\d/.test(valor)) {
-         return "Este campo no puede contener números.";
-      }
-   }
    return "";
 }
 
@@ -316,11 +231,35 @@ camposRegistro.forEach((campo) => {
    });
 });
 
+validarFormulario();
+
+function startEditing(mascota) {
+   editingId = mascota.idMascota;
+   form.elements.nombreMascota.value = mascota.nombreMascota;
+   form.elements.nombreDuenio.value = mascota.nombreDuenio;
+   form.elements.color.value = mascota.color;
+   form.elements.edad.value = mascota.edad;
+   form.elements.peso.value = mascota.peso;
+   titleElement.textContent = "Editar mascota";
+   formStateElement.textContent = "Editando mascota";
+   saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk me-2" aria-hidden="true"></i>Guardar cambios';
+   cancelButton.classList.remove("d-none");
+   form.elements.nombreMascota.focus();
+   mostrarErrores = false;
+   camposTocados.clear();
+   validarFormulario();
+}
+
 function resetForm() {
-   idMascotaEdit = null;
-   formulario.reset();
+   editingId = null;
+   form.reset();
    titleElement.textContent = "Registrar mascota";
    formStateElement.textContent = "Nueva mascota";
+
+   saveButton.innerHTML =
+      '<i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Registrar mascota';
+
+   cancelButton.classList.add("d-none");
 
    mostrarErrores = false;
    camposTocados.clear();
@@ -340,95 +279,80 @@ function resetForm() {
    validarFormulario();
 }
 
-thead.addEventListener('click', (event) => {
-   const th = event.target.closest('th');
-   if (!th || !th.dataset.columna) return;
+function deleteMascota(idMascota) {
+   const mascotas = getMascotas();
 
-   const columnaseleccionada = th.dataset.columna;
-   if (columnaOrden === columnaseleccionada) {
-      direccionOrden = direccionOrden === 'asc' ? 'desc' : 'asc';
-   } else {
-      columnaOrden = columnaseleccionada;
-      direccionOrden = 'asc';
-   }
-   render();
-});
+   const mascota = mascotas.find(
+      (mascota) => mascota.idMascota === idMascota
+   );
 
-tablaMascotas.addEventListener('click', (event) => {
-   const botonEditar = event.target.closest('.btn-editar');
-   const botonEliminar = event.target.closest('.btn-eliminar');
-   const botonHistoria = event.target.closest('.btn-historia')
+   if (!mascota) return;
 
-   if (botonEditar) {
-      const id = botonEditar.dataset.id;
-      editarMascota(id);
-   } else if (botonEliminar) {
-      const id = botonEliminar.dataset.id;
-      eliminarMascota(id);
-   } else if (botonHistoria) {
-      const id = botonHistoria.dataset.id;
-      historiaMascota(id)
-   }
-});
+   idMascotaEliminar = idMascota;
+   nombreMascotaEliminar.textContent = mascota.nombreMascota;
 
-function historiaMascota(id) {
-   const mascotas = obtenerMascotas();
-   const mascota = mascotas.find((m) => m.idMascota === id);
-
-   if (!mascota) {
-      mostrarMensaje('Mascota no encontrada.', 'danger');
-      return;
-   }
-
-   // Redirigir enviando el ID por la URL
-   window.location.href = `./historia-clinica.html?id=${id}`
+   modalEliminarMascota.show();
 }
 
-formulario.addEventListener('submit', (event) => {
-   event.preventDefault();
+botonConfirmarEliminar.addEventListener("click", () => {
+   const mascotas = getMascotas();
+   const indice = mascotas.findIndex(
+      (mascota) => mascota.idMascota === idMascotaEliminar
+   );
 
+   if (indice === -1) return;
+
+   mascotas.splice(indice, 1);
+   if (!saveMascotas(mascotas)) return;
+   renderMascotas();
+
+   idMascotaEliminar = null;
+   modalEliminarMascota.hide();
+});
+
+form.addEventListener("submit", (event) => {
+   event.preventDefault();
    mostrarErrores = true;
 
    if (!validarFormulario()) {
       return;
    }
 
-   const datos = new FormData(formulario);
-   const mascotas = obtenerMascotas();
+   const mascotas = getMascotas();
+   const wasEditing = Boolean(editingId);
+   const mascota = {
+      idMascota: editingId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`),
+      nombreMascota: form.elements.nombreMascota.value.trim(),
+      nombreDuenio: form.elements.nombreDuenio.value.trim(),
+      color: form.elements.color.value.trim(),
+      edad: Number(form.elements.edad.value),
+      peso: Number(form.elements.peso.value)
+   };
 
-   const datosMascota = {
-      nombreMascota: datos.get('nombreMascota').trim(),
-      especieMascota: datos.get('especieMascota').trim(),
-      razaMascota: datos.get('razaMascota').trim(),
-      generoMascota: datos.get('generoMascota').trim(),
-      colorMascota: datos.get('colorMascota').trim(),
-      edadMascota: Number(datos.get('edadMascota')),
-      pesoMascota: parseFloat(datos.get('pesoMascota')),
-      nombreDuenio: datos.get('nombreDuenio').trim(),
-   }
+   const updatedMascotas = editingId
+      ? mascotas.map((item) => item.idMascota === editingId ? mascota : item)
+      : [...mascotas, mascota];
 
-   if (idMascotaEdit) {
-      const indice = mascotas.findIndex((m) => m.idMascota === idMascotaEdit);
-      if (indice !== -1) {
-         mascotas[indice] = { idMascota: idMascotaEdit, ...datosMascota };
-         mostrarMensaje('¡Mascota actualizada con éxito!');
-      }
-   } else {
-      const nuevaMascota = { idMascota: crypto.randomUUID(), ...datosMascota };
-      mascotas.push(nuevaMascota);
-      mostrarMensaje('Mascota registrada correctamente.', 'success');
-   }
-   if (guardarMascotas(mascotas)) {
-      formulario.reset();
-      modalMascota.hide();
-      idMascotaEdit = null;
-      render();
+   if (saveMascotas(updatedMascotas)) {
+      renderMascotas();
+      resetForm();
+      showMessage(wasEditing ? "Los cambios se guardaron correctamente." : "La mascota se registró correctamente.");
    }
 });
 
-const inputBuscar = document.getElementById('inputBuscar');
-if (inputBuscar) {
-   inputBuscar.addEventListener('input', render);
-}
+cancelButton.addEventListener("click", resetForm);
+inputBuscar.addEventListener("input", renderMascotas);
+renderMascotas();
 
-render();
+function verHistorial(id) {
+   const mascotas = getMascotas();
+   const mascota = mascotas.find((m) => m.idMascota === id);
+
+   if (!mascota) {
+      showMessage('Mascota no encontrada.', 'danger');
+      return;
+   }
+
+   // Redirigir enviando el ID por la URL
+   window.location.href = `./historia-clinica.html?id=${id}`
+}

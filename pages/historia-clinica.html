@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../styles/historia-clinica.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <script defer src="../scripts/auth.js"></script>
+    <script defer src="../scripts/login.js"></script>
+    <script defer src="../scripts/navbar.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script type="module" src="../scripts/historia-clinica.js"></script>
@@ -42,12 +43,12 @@
                         <li class="nav-item">
                             <a class="btn btn-md btn-link nav-link" href="./contacto.html">Contacto</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="opcionAdmin">
                             <a class="btn btn-md btn-link nav-link active" aria-current="page"
                                 href="./panel-admin.html">Panel de administración</a>
                         </li>
                         <li class="nav-item ms-lg-2 align-self-center">
-                            <a href="#" class="btn btn-sm btn-primary">Ingresar</a>
+                            <a href="../pages/login.html" class="btn btn-sm btn-primary" id="btnInicio">Ingresar</a>
                         </li>
                     </ul>
                 </div>
@@ -138,36 +139,15 @@
                                 </div>
 
                                 <div class="col-12 col-lg-3">
-                                    <label for="horaTurno" class="form-label">Hora del próximo Turno</label>
-                                    <select class="form-control" id="horaTurno" name="horaTurno" required>
-                                        <option value="" selected disabled>Seleccionar</option>
-                                        <option value="09:00">09:00</option>
-                                        <option value="09:30">09:30</option>
-                                        <option value="10:00">10:00</option>
-                                        <option value="10:30">10:30</option>
-                                        <option value="11:00">11:00</option>
-                                        <option value="11:30">11:30</option>
-                                        <option value="12:00">12:00</option>
-                                        <option value="12:30">12:30</option>
-                                        <option value="13:00">13:00</option>
-                                        <option value="13:30">13:30</option>
-                                        <option value="14:00">14:00</option>
-                                        <option value="14:30">14:30</option>
-                                        <option value="15:00">15:00</option>
-                                        <option value="15:30">15:30</option>
-                                        <option value="16:00">16:00</option>
-                                        <option value="16:30">16:30</option>
-                                        <option value="17:00">17:00</option>
-                                        <option value="17:30">17:30</option>
-                                        <option value="18:00">18:00</option>
+                                    <label for="horaTurno" class="form-label">Horario del próximo turno</label>
+                                    <select class="form-select" id="horaTurno" name="horaTurno" required>
+                                        <option value="" selected hidden>Seleccionar...</option>
                                     </select>
                                     <div id="horaTurno-feedback" class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-12 col-lg-3">
-                                    <label for="nombreVeterinario" class="form-label">Nombre del veterinario</label>
-                                    <select class="form-select" id="nombreVeterinario" name="nombreVeterinario"
-                                        required>
-                                        <option value="" selected disabled>Seleccionar veterinario...</option>
+                                    <label for="nombreVeterinario" class="form-label">Veterinario a cargo</label>
+                                    <select class="form-select" id="nombreVeterinario" name="nombreVeterinario" required>
                                     </select>
                                     <div id="nombreVeterinario-feedback" class="invalid-feedback"></div>
                                 </div>

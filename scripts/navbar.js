@@ -5,18 +5,25 @@ const btnSesion = document.getElementById("btnInicio");
 const token = sessionStorage.getItem("accessToken");
 
 // Mostrar u ocultar opciones
-opcionAdmin.classList.toggle("d-none", !token);
+if (opcionAdmin) {
+    opcionAdmin.classList.toggle("d-none", !token);
+}
 
 // Operador ternario para cambiar el texto
-btnSesion.textContent = token ? "Salir" : "Ingresar";
+if (btnSesion) {
+    btnSesion.textContent = token ? "Salir" : "Ingresar";
+    btnSesion.classList.toggle("btn-danger", Boolean(token));
+    btnSesion.classList.toggle("btn-primary", !token);
 
-// Cambiar comportamiento del botón
-btnSesion.addEventListener("click", (e) => {
-    if (token) {
-        e.preventDefault();
+    // Cambiar comportamiento del botón
+    btnSesion.addEventListener("click", (e) => {
+        if (token) {
+            e.preventDefault();
 
-        sessionStorage.removeItem("accessToken");
+            sessionStorage.removeItem("accessToken");
 
-        window.location.href = "../index.html";
-    }
-});
+            const estaEnPages = window.location.pathname.includes("/pages/");
+            window.location.href = estaEnPages ? "../index.html" : "./index.html";
+        }
+    });
+}

@@ -13,8 +13,16 @@ const formularioHistoria = document.getElementById('formularioHistoria');
 const btnAgregarHistoria = document.getElementById('btnAgregarHistoria');
 const btnVolver = document.getElementById('botonVolver');
 const btnAgendarTurno = document.getElementById('botonGuardarTurno');
+const selectHoraTurno = document.getElementById("horaTurno");
+const horariosTurno = [
+    "09:00", "09:30", "10:00", "10:30", "11:00",
+    "11:30", "12:00", "12:30", "13:00", "13:30",
+    "14:00", "14:30", "15:00", "15:30", "16:00",
+    "16:30", "17:00", "17:30", "18:00"
+];
 
 document.addEventListener("DOMContentLoaded", () => {
+    cargarDesplegableHorarios();
 
     const params = new URLSearchParams(window.location.search);
     idMascotaActual = params.get("id");
@@ -48,6 +56,17 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
 });
 
+function cargarDesplegableHorarios() {
+    if (!selectHoraTurno) return;
+
+    horariosTurno.forEach(horario => {
+        const option = document.createElement("option");
+        option.value = horario;
+        option.textContent = horario;
+        selectHoraTurno.appendChild(option);
+    });
+}
+
 function formatearFechaAR(fechaIso) {
     if (!fechaIso) return '-';
     const partes = fechaIso.split('-');
@@ -60,11 +79,9 @@ function cargarDesplegableVeterinarios() {
 
     let veterinarios = obtenerVeterinarios();
 
-    if (veterinarios.length === 0) {
-       mostrarMensaje("No hay veterinarios cargados");
-    }
+    selectVet.innerHTML = '<option value="" selected disabled hidden>Seleccionar...</option>';
 
-    selectVet.innerHTML = '<option value="" selected disabled>Seleccionar profesional</option>';
+    veterinarios.length === 0 && selectVet.insertAdjacentHTML('beforeend', '<option value="" disabled>No hay veterinarios registrados</option>');
 
     veterinarios.forEach(vet => {
         const option = document.createElement("option");

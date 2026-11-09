@@ -65,6 +65,7 @@
     --color-danger-lighter: #F69896;
     --color-danger-darker: #7C1C1C;
     --color-info: var(--color-turquoise-500);
+    --color-info-lighter: var(--color-turquoise-200);
 }
 
 @media (min-width: 768px) {
