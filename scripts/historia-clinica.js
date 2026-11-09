@@ -42,9 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.getElementById("nombreMascota").textContent = mascota.nombreMascota || "-";
-    document.getElementById("especieMascota").textContent = mascota.especieMascota || "-";
-    document.getElementById("razaMascota").textContent = mascota.razaMascota || "-";
-    document.getElementById("generoMascota").textContent = mascota.generoMascota || "-";
     document.getElementById("colorMascota").textContent = mascota.colorMascota || "-";
     document.getElementById("edadMascota").textContent = mascota.edadMascota ? `${mascota.edadMascota} años` : "-";
     document.getElementById("pesoMascota").textContent = mascota.pesoMascota ? `${mascota.pesoMascota} kg` : "-";
