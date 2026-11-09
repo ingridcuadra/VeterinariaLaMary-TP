@@ -1,3 +1,5 @@
+import { obtenerMascotas, obtenerVeterinarios, mostrarMensaje, obtenerTurnos, guardarTurnos } from "./storage.js";
+
 const btnAgregarTurno = document.getElementById('btnAgregarTurno');
 const contenedorFormulario = document.getElementById('contenedorFormulario');
 const modalTurno = new bootstrap.Modal(document.getElementById('contenedorFormulario'));
@@ -42,22 +44,13 @@ function createCell(text) {
     return cell;
 }
 
-function obtenerTurnos() {
-    try {
-        const turnos = JSON.parse(localStorage.getItem('turnos') || '[]');
-        return Array.isArray(turnos) ? turnos : [];
-    } catch (error) {
-        mostrarMensaje('Error al obtener datos almacenados.', 'danger');
-        return [];
-    }
-}
 
 function obtenerExternos() {
     const selectMascotas = document.getElementById('nombreMascota')
     const selectVets = document.getElementById('nombreVeterinario')
 
-    const mascotas = JSON.parse(localStorage.getItem('mascotas') || '[]');
-    const veterinarios = JSON.parse(localStorage.getItem('veterinarios') || '[]');
+    const mascotas = obtenerMascotas();
+    const veterinarios = obtenerVeterinarios();
 
     selectMascotas.innerHTML = '<option value="" selected disabled>Seleccionar mascota...</option>';
     mascotas.forEach(m => {
@@ -78,26 +71,6 @@ function obtenerExternos() {
         option.textContent = nombreCompleto;
         selectVets.appendChild(option);
     });
-}
-
-function mostrarMensaje(mensaje, tipo = 'success') {
-    const alerta = document.getElementById('mensajeEstado');
-    alerta.textContent = mensaje;
-    alerta.className = `alert alert-${tipo} mx-5 mt-3`;
-
-    setTimeout(() => {
-        alerta.classList.add('d-none');
-    }, 3000);
-}
-
-function guardarTurnos(turnos) {
-    try {
-        localStorage.setItem('turnos', JSON.stringify(turnos));
-        return true;
-    } catch (error) {
-        mostrarMensaje('Error al guardar datos de la turno.', 'danger');
-        return false;
-    }
 }
 
 function render() {
@@ -375,7 +348,6 @@ tablaTurnos.addEventListener('click', (event) => {
         eliminarTurno(id);
     }
 });
-
 
 formulario.addEventListener('submit', (event) => {
     event.preventDefault();

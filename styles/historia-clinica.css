@@ -1,0 +1,56 @@
+@import "../styles/variables.css";
+
+.historia-page {
+    min-height: calc(100vh - 180px);
+    margin-top: 6.5rem;
+}
+
+.historia-page .card {
+    border-radius: 0.75rem;
+}
+
+.historia-page .form-label {
+    color: var(--color-gray-800);
+    font-weight: 600;
+}
+
+.historia-page .table th,
+.historia-page .table td {
+    padding: 0.9rem 1rem;
+}
+
+.historia-page .table thead th {
+    white-space: nowrap;
+}
+
+.historia-page .table-actions {
+    min-width: 9rem;
+    white-space: nowrap;
+}
+
+@media print {
+    /* Ocultar elementos de la interfaz */
+    .no-imprimir,
+    .navbar,
+    .breadcrumb-fa-angle,
+    .footer {
+        display: none !important;
+    }
+
+    /* Forzar a que todos los contenedores se expandan por completo */
+    body, main, .container, .historia-page, .table-responsive {
+        overflow: visible !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+@media (max-width: 575.98px) {
+    .historia-page {
+        margin-top: 5.5rem;
+    }
+
+    .historia-page .card-body {
+        padding: 1.25rem !important;
+    }
+}

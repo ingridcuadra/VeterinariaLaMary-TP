@@ -1,3 +1,4 @@
+import { obtenerVeterinarios, guardarVeterinario, mostrarMensaje } from "./storage.js";
 
 
 const btonAgregarVeterinario = document.getElementById("btnAgregarVeterinario");
@@ -47,28 +48,8 @@ const mensajesValidacion = {
 btonAgregarVeterinario.addEventListener('click', () => {
     resetForm();
     modalVeterinario.show();
-    matriculaEditar = null;
+    idVeterinarioEdit = null;
 });
-
-function obtenerVeterinarios() {
-    try {
-        const veterinarios = JSON.parse(localStorage.getItem("veterinarios") || "[]");
-        return Array.isArray(veterinarios) ? veterinarios : [];
-    } catch (error) {
-        mostrarMensaje("Error al obtener datos almacenados.", "danger");
-        return [];
-    }
-}
-
-function mostrarMensaje(mensaje, tipo = 'success') {
-    const alerta = document.getElementById('mensajeEstado');
-    alerta.textContent = mensaje;
-    alerta.className = `alert alert-${tipo} mx-5 mt-3`;
-
-    setTimeout(() => {
-        alerta.classList.add('d-none');
-    }, 3000);
-}
 
 function obtenerErrorCampo(campo) {
     const veterinarios = obtenerVeterinarios();
@@ -228,7 +209,6 @@ function render() {
     };
 }
 
-
 camposRegistro.forEach((campo) => {
     campo.addEventListener("input", () => {
         camposTocados.add(campo);
@@ -244,18 +224,6 @@ camposRegistro.forEach((campo) => {
     });
 });
 
-function guardarVeterinario(veterinarios) {
-    try {
-        localStorage.setItem("veterinarios", JSON.stringify(veterinarios));
-        return true;
-    } catch (error) {
-        mostrarMensaje("Error al guardar datos del veterinario.", "danger");
-        return false;
-    }
-}
-
-
-
 function eliminarVeterinario(id) {
     const veterinarios = obtenerVeterinarios();
     const veterinario = veterinarios.find((v) => v.idVeterinario === id);
@@ -266,7 +234,6 @@ function eliminarVeterinario(id) {
     nombreVeterinarioEliminar.textContent = veterinario.nombre;
     modalEliminar.show();
 }
-
 
 botonConfirmarEliminar.addEventListener("click", () => {
     if (!idVeterinarioEliminar) return;
@@ -285,7 +252,6 @@ botonConfirmarEliminar.addEventListener("click", () => {
     
     idVeterinarioEliminar = null;
 });
-
 
 function editarVeterinario(id) {
     const veterinarios = obtenerVeterinarios();
@@ -399,7 +365,7 @@ formulario.addEventListener("submit", (e) => {
     if (guardarVeterinario(veterinarios)) {
         formulario.reset();
         modalVeterinario.hide();
-        matriculaEditar = null;
+        idVeterinarioEdit = null;
         render();
     }
 })

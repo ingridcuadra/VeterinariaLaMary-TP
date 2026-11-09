@@ -1,3 +1,4 @@
+import { obtenerMascotas, guardarMascotas, mostrarMensaje } from "./storage.js";
 
 const btnAgregarMascota = document.getElementById('btnAgregarMascota');
 const contenedorFormulario = document.getElementById('contenedorFormulario');
@@ -121,6 +122,17 @@ function render() {
          const actions = document.createElement("div");
          actions.className = "d-flex gap-3 justify-content-end flex-nowrap";
 
+         const historiaButton = document.createElement("button");
+         historiaButton.type = "button";
+         historiaButton.className = "btn btn-icon btn-icon-primary btn-historia";
+         historiaButton.dataset.id = mascota.idMascota;
+         historiaButton.setAttribute(
+            "aria-label",
+            `historia ${mascota.nombreMascota}`
+         );
+         historiaButton.innerHTML =
+            '<i class="fa-solid fa-book-medical" aria-hidden="true"></i>';
+
          const editButton = document.createElement("button");
          editButton.type = "button";
          editButton.className = "btn btn-icon btn-icon-primary btn-editar";
@@ -131,7 +143,6 @@ function render() {
          );
          editButton.innerHTML =
             '<i class="fa-solid fa-pen" aria-hidden="true"></i>';
-
 
          const deleteButton = document.createElement("button");
          deleteButton.type = "button";
@@ -145,43 +156,12 @@ function render() {
             '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>';
          ;
 
-         actions.append(editButton, deleteButton);
+         actions.append(historiaButton, editButton, deleteButton);
          actionsCell.append(actions);
          row.append(actionsCell);
          tablaMascotas.append(row);
       });
    };
-}
-
-
-function obtenerMascotas() {
-   try {
-      const mascotas = JSON.parse(localStorage.getItem('mascotas') || '[]');
-      return Array.isArray(mascotas) ? mascotas : [];
-   } catch (error) {
-      mostrarMensaje('Error al obtener datos almacenados.', 'danger');
-      return [];
-   }
-}
-
-function mostrarMensaje(mensaje, tipo = 'success') {
-   const alerta = document.getElementById('mensajeEstado');
-   alerta.textContent = mensaje;
-   alerta.className = `alert alert-${tipo} mx-5 mt-3`;
-
-   setTimeout(() => {
-      alerta.classList.add('d-none');
-   }, 3000);
-}
-
-function guardarMascotas(mascotas) {
-   try {
-      localStorage.setItem('mascotas', JSON.stringify(mascotas));
-      return true;
-   } catch (error) {
-      mostrarMensaje('Error al guardar datos de la mascota.', 'danger');
-      return false;
-   }
 }
 
 function editarMascota(id) {
@@ -377,6 +357,7 @@ thead.addEventListener('click', (event) => {
 tablaMascotas.addEventListener('click', (event) => {
    const botonEditar = event.target.closest('.btn-editar');
    const botonEliminar = event.target.closest('.btn-eliminar');
+   const botonHistoria = event.target.closest('.btn-historia')
 
    if (botonEditar) {
       const id = botonEditar.dataset.id;
@@ -384,9 +365,24 @@ tablaMascotas.addEventListener('click', (event) => {
    } else if (botonEliminar) {
       const id = botonEliminar.dataset.id;
       eliminarMascota(id);
+   } else if (botonHistoria) {
+      const id = botonHistoria.dataset.id;
+      historiaMascota(id)
    }
 });
 
+function historiaMascota(id) {
+   const mascotas = obtenerMascotas();
+   const mascota = mascotas.find((m) => m.idMascota === id);
+
+   if (!mascota) {
+      mostrarMensaje('Mascota no encontrada.', 'danger');
+      return;
+   }
+
+   // Redirigir enviando el ID por la URL
+   window.location.href = `./historia-clinica.html?id=${id}`
+}
 
 formulario.addEventListener('submit', (event) => {
    event.preventDefault();
