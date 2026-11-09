@@ -13,6 +13,8 @@
     <script defer src="../scripts/login.js"></script>
     <script defer src="../scripts/navbar.js"></script>
     <title>Gestión de mascotas - Veterinaria La Mary</title>
+    <script defer src="../scripts/auth.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="../scripts/mascotas.js"></script>
 </head>
 
@@ -56,8 +58,8 @@
     </header>
 
     <main class="mascotas-page">
-        <div class="container py-5">
-            <section class="mb-4">
+        <div class="container py-1">
+            <section>
                 <nav class="breadcrumb-fa-angle" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="./panel-admin.html">Panel de administración</a></li>
@@ -66,181 +68,216 @@
                 </nav>
                 <p class="text-uppercase small fw-semibold text-primary mb-1">Administración</p>
                 <h1 class="mb-2">Gestión de mascotas</h1>
-                <p class="text-secondary mb-0">Registrá y mantené actualizada la información de tus pacientes.</p>
+                <p class="text-secondary mb-0">Registro y actualización de la información de tus pacientes.</p>
             </section>
+        </div>
 
+        <div>
             <div id="mensajeEstado" class="alert d-none" role="status" aria-live="polite"></div>
 
-            <section class="card border-0 shadow-sm mb-4" aria-labelledby="tituloFormulario">
-                <div class="card-body p-4 p-lg-5">
+            <!-- Listado -->
+            <section class="card m-5 border-2 shadow-sm">
+                <div class="card-body p-3 d-flex justify-content-between align-items-center">
+                    <button id="btnAgregarMascota" class="btn btn-primary">
+                        <i class="fa-solid fa-plus me-1"></i> AGREGAR MASCOTA
+                    </button>
 
-                    <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
-                        <div class="icono-formulario-mascotas">
-                            <i class="fa-solid fa-paw" aria-hidden="true"></i>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h2 class="h4 mb-1" id="tituloFormulario">Registrar mascota</h2>
-                            <p class="text-secondary mb-0">
-                                Completá los datos para agregar un registro.
-                            </p>
-                        </div>
-                        <span id="estadoFormulario" class="badge text-bg-light estado-formulario">
-                            Nueva mascota
+                    <div class="input-group" style="max-width: 420px;">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fa-solid fa-magnifying-glass text-secondary"></i>
                         </span>
+                        <input type="search" id="inputBuscar" class="form-control border-start-0 ps-0 barra-busqueda"
+                            placeholder="Buscar por nombre, dueño, especie...">
                     </div>
 
-                    <form id="formularioMascota" class="row g-3" novalidate>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <label for="nombreMascota" class="form-label">Nombre de la mascota</label>
-                            <input type="text" class="form-control" id="nombreMascota" name="nombreMascota"
-                                maxlength="80" required aria-describedby="nombreMascota-feedback">
-                            <div id="nombreMascota-feedback" class="invalid-feedback"></div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <label for="nombreDuenio" class="form-label">Nombre del dueño/a</label>
-                            <input type="text" class="form-control" id="nombreDuenio" name="nombreDuenio"
-                                maxlength="100" required aria-describedby="nombreDuenio-feedback">
-                            <div id="nombreDuenio-feedback" class="invalid-feedback"></div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <label for="color" class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="color" maxlength="50" required
-                                aria-describedby="color-feedback">
-                            <div id="color-feedback" class="invalid-feedback"></div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <label for="edad" class="form-label">Edad (años)</label>
-                            <input type="number" class="form-control" id="edad" name="edad" min="0" max="200" step="1"
-                                required aria-describedby="edad-feedback">
-                            <div id="edad-feedback" class="invalid-feedback"></div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <label for="peso" class="form-label">Peso (kg)</label>
-                            <input type="number" class="form-control" id="peso" name="peso" min="0.01" step="0.01"
-                                required aria-describedby="peso-feedback">
-                            <div id="peso-feedback" class="invalid-feedback"></div>
-                        </div>
-                        <div class="col-12 d-flex flex-wrap gap-2 pt-2">
-                            <button type="submit" class="btn btn-primary" id="botonGuardar" disabled>
-                                <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Registrar mascota
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary d-none" id="botonCancelar">Cancelar
-                                edición</button>
-                        </div>
-                    </form>
+                    <div class="d-flex align-items-center gap-2 fw-semibold text-secondary fs-6">
+                        <span>Total registradas:</span>
+                        <span id="contadorMascotas" class="badge bg-primary fs-6 contador">0</span>
+                    </div>
+                </div>
+                <div class="card-body d-flex align-items-center">
+                    <h2 class="h4 mb-1" id="tituloListado">MASCOTAS REGISTRADAS</h2>
+                </div>
+                <!-- Alerta: Sin mascotas guardadas -->
+                <div id="alert-sin-mascotas" class="alert alert-info text-center my-3" role="alert" hidden>
+                    <i class="fa-solid fa-info-circle me-2"></i>
+                    Todavía no hay mascotas registradas en el sistema.
+                </div>
+
+                <!-- Alerta: Búsqueda sin coincidencias -->
+                <div id="alert-sin-resultados" class="alert alert-warning text-center my-3" role="alert" hidden>
+                    <i class="fa-solid fa-magnifying-glass me-2"></i>
+                    No se encontraron mascotas que coincidan con la búsqueda.
+                </div>
+
+                <!-- Tabla de mascotas -->
+                <div id="contenedor-tabla-mascotas" class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr style="cursor: pointer;">
+                                <th scope="col" data-columna="nombreMascota">Nombre <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="especieMascota">Especie <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="razaMascota">Raza <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="generoMascota">Género <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="colorMascota">Color <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="edadMascota">Edad <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="pesoMascota">Peso <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" data-columna="nombreDuenio">Dueño/a <i
+                                        class="fa-solid fa-sort text-muted small"></i></th>
+                                <th scope="col" class="text-end" style="cursor: default;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMascotas">
+                            <tr>
+                                <td colspan="9" class="text-center text-secondary py-4"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
-
-
-
-            <!-- Buscador de mascotas -->
-            <div class="px-3 pt-3 pb-3">
-                <label for="inputBuscar" class="form-label">
-                    Buscar mascota
-                </label>
-
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-magnifying-glass text-secondary" aria-hidden="true"></i>
-                    </span>
-
-                    <input type="search" id="inputBuscar" class="form-control"
-                        placeholder="Nombre, dueño, color, edad o peso..." autocomplete="off">
-                </div>
-            </div>
-
-            <!-- LISTA DE MASCOTAS -->
-            <section class="card border-0 shadow-sm mascotas-listado mb-4">
-                <div class="card-body p-0">
-
-                    <div class="p-4 p-lg-5 pb-2 pb-lg-2">
-                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                            <div>
-                                <h2 class="h4 mb-1" id="tituloListado">
-                                    Mascotas Registradas
-                                </h2>
+            <!-- Formulario de registro/edición -->
+            <section id="contenedorFormulario" class="modal fade" tabindex="-1" aria-labelledby="tituloFormulario"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content p-4">
+                        <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                            <div class="icono-formulario-mascotas">
+                                <i class="fa-solid fa-paw" aria-hidden="true"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h2 class="h4 mb-1" id="tituloFormulario">Registrar mascota</h2>
                                 <p class="text-secondary mb-0">
-                                    Consultá y administrá los pacientes registrados.
+                                    Completá los datos para agregar un registro.
                                 </p>
                             </div>
+                            <span id="estadoFormulario" class="badge text-bg-light estado-formulario">
+                                Nueva mascota
+                            </span>
+                        </div>
 
-                            <div id="total-mascotas-contenedor" class="total-mascotas">
-                                <span class="small">Total de Mascotas:</span>
-                                <span class="fw-semibold p-1" id="totalMascotas">0</span>
+                        <form id="formularioMascota" class="row g-2">
+                            <div class="col-12 col-lg-6">
+                                <label for="nombreMascota" class="form-label">Nombre de la mascota</label>
+                                <input type="text" class="form-control" id="nombreMascota" name="nombreMascota"
+                                    maxlength="20" required>
+                                <div id="nombreMascota-feedback" class="invalid-feedback"></div>
                             </div>
-                        </div>
-                    </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="especieMascota" class="form-label">Especie</label>
+                                <select class="form-select" id="especieMascota" name="especieMascota" required>
+                                    <option value="" selected disabled>Seleccionar</option>
+                                    <option value="Perro">Perro</option>
+                                    <option value="Gato">Gato</option>
+                                    <option value="Ave">Ave</option>
+                                    <option value="Reptil">Reptil</option>
+                                    <option value="Roedor">Roedor</option>
+                                    <option value="Lagomorfo">Lagomorfo</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                                <div id="especieMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="razaMascota" class="form-label">Raza</label>
+                                <input type="text" class="form-control" id="razaMascota" name="razaMascota"
+                                    maxlength="20" required>
+                                <div id="razaMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="generoMascota" class="form-label">Género</label>
+                                <select class="form-select" id="generoMascota" name="generoMascota" required>
+                                    <option value="" selected disabled>Seleccionar</option>
+                                    <option value="Macho">Macho</option>
+                                    <option value="Hembra">Hembra</option>
+                                </select>
+                                <div id="generoMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="colorMascota" class="form-label">Color</label>
+                                <input type="text" class="form-control" id="colorMascota" name="colorMascota"
+                                    maxlength="15" required>
+                                <div id="colorMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="edadMascota" class="form-label">Edad</label>
+                                <input type="number" class="form-control" id="edadMascota" name="edadMascota" min="0"
+                                    step="1" required>
+                                <div id="edadMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="pesoMascota" class="form-label">Peso (kg)</label>
+                                <input type="number" class="form-control" id="pesoMascota" name="pesoMascota" min="0.01"
+                                    step="0.01" required>
+                                <div id="pesoMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="nombreDuenio" class="form-label">Nombre del dueño/a</label>
+                                <input type="text" class="form-control" id="nombreDuenio" name="nombreDuenio"
+                                    maxlength="100" required>
+                                <div id="nombreDuenio-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                    <div id="alert-sin-mascotas" class="alert alert-info mx-4 mx-lg-5 mb-4" role="alert" hidden>
-                        Todavía no hay mascotas registradas.
+                            <div class="justify-content-end d-flex mt-3">
+                                <button type="button" class="btn btn-secondary mt-3 p-2 me-2 align-self-center"
+                                    data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary mt-3 p-2 align-self-center"
+                                    id="botonGuardar">
+                                    Registrar
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div id="alert-sin-resultados" class="alert alert-info mx-4 mx-lg-5 mb-4" hidden>
-                        No se encontraron mascotas que coincidan con la búsqueda.
-                    </div>
-
-                    <section id="contenedor-tabla-mascotas" class="px-2 px-lg-3 pb-4" hidden>
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th scope="col">Mascota</th>
-                                        <th scope="col">Dueño/a</th>
-                                        <th scope="col">Color</th>
-                                        <th scope="col">Edad</th>
-                                        <th scope="col">Peso</th>
-                                        <th scope="col" class="text-end pe-4">Acciones</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody id="tablaMascotas"></tbody>
-                            </table>
-                        </div>
-                    </section>
 
                 </div>
             </section>
+        </div>
 
-            <!-- MODAL DE CONFIRMACIÓN DE ELIMINACION -->
-            <div class="modal fade" id="modalEliminarMascota" tabindex="-1" aria-labelledby="tituloModalEliminarMascota"
-                aria-hidden="true">
+        <!-- MODAL DE CONFIRMACIÓN DE ELIMINACION -->
+        <div class="modal fade" id="modalEliminarMascota" tabindex="-1" aria-labelledby="tituloModalEliminarMascota"
+            aria-hidden="true">
 
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
 
-                        <div class="modal-header">
-                            <h2 class="modal-title fs-5" id="tituloModalEliminarMascota">
-                                <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
-                                Eliminar mascota
-                            </h2>
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="tituloModalEliminarMascota">
+                            <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
+                            Eliminar mascota
+                        </h2>
 
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Cerrar"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <p class="text-secondary mb-2">
+                            ¿Está seguro de que desea eliminar a esta mascota?
+                        </p>
+
+                        <p class="fw-semibold" id="nombreMascotaEliminar"></p>
+
+                        <div class="text-danger mt-3">
+                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                            <span class="ms-1">Esta acción no se puede deshacer.</span>
                         </div>
+                    </div>
 
-                        <div class="modal-body text-center">
-                            <p class="text-secondary mb-2">
-                                ¿Estás segura de que deseas eliminar a esta mascota?
-                            </p>
+                    <div class="modal-footer d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
 
-                            <p class="fw-semibold" id="nombreMascotaEliminar"></p>
-
-                            <div class="text-danger mt-3">
-                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                                <span class="ms-1">Esta acción no se puede deshacer.</span>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer d-flex justify-content-end gap-2">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Cancelar
-                            </button>
-
-                            <button type="button" id="confirmarEliminarMascota" class="btn btn-danger">
-                                <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
-                                Eliminar
-                            </button>
-                        </div>
-
+                        <button type="button" id="confirmarEliminarMascota" class="btn btn-danger">
+                            <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
+                            Eliminar
+                        </button>
                     </div>
                 </div>
             </div>

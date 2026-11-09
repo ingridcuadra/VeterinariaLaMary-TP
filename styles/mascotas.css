@@ -1,4 +1,3 @@
-
 @import "../styles/variables.css";
 
 .mascotas-page {
@@ -15,41 +14,18 @@
     font-weight: 600;
 }
 
-/* Tabla de mascotas: misma estética que veterinarios */
-.mascotas-listado .table th,
-.mascotas-listado .table td {
+.mascotas-page .table th,
+.mascotas-page .table td {
     padding: 0.9rem 1rem;
 }
 
-.mascotas-listado .table thead th {
+.mascotas-page .table thead th {
     white-space: nowrap;
 }
 
-.mascotas-listado .table-actions {
+.mascotas-page .table-actions {
     min-width: 9rem;
     white-space: nowrap;
-}
-
-.mascotas-listado .total-mascotas {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-/* Botones de acciones */
-.mascotas-listado .table-actions .btn-icon {
-    border: none;
-    background: transparent;
-    padding: 0.35rem;
-    font-size: 1rem;
-}
-
-.mascotas-listado .table-actions .btn-icon-primary {
-    color: var(--bs-primary);
-}
-
-.mascotas-listado .table-actions .btn-icon-danger {
-    color: var(--bs-danger);
 }
 
 @media (max-width: 575.98px) {
@@ -62,9 +38,17 @@
     }
 }
 
-/* Estado del form, span de nueva mascotas/editar mascota */
-.mascotas-page #estadoFormulario {
-    position: static;
-    line-height: 1.4;
-    background-color: #f8f9fa;
+.badge.contador {
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent !important;
+    color: var(--bs-black);
+}
+
+.barra-busqueda {
+    border-radius: 0.7rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
 }

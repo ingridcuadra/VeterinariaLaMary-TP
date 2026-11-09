@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/historia-clinica.css ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <script defer src="../scripts/auth.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script type="module" src="../scripts/historia-clinica.js"></script>
+    <title>Panel de Administración - Veterinaria La Mary</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid me-3">
+                <a href="../index.html" class="navbar-brand  logo-nav">
+                    <img src="../assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+                    <span>Veterinaria La Mary</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon icon-nav-mobile"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-0 gap-md-4">
+                        <li class="nav-item">
+                            <a class="btn btn-md btn-link nav-link" href="../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-md btn-link nav-link" href="./institucional.html">
+                                Información institucional</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-md btn-link nav-link" href="./contacto.html">Contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-md btn-link nav-link active" aria-current="page"
+                                href="./panel-admin.html">Panel de administración</a>
+                        </li>
+                        <li class="nav-item ms-lg-2 align-self-center">
+                            <a href="#" class="btn btn-sm btn-primary">Ingresar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mt-5 mb-4 mx-4 flex-grow-1 historia-page">
+        <div class="container py-5">
+            <section class="mb-2">
+                <nav class="breadcrumb-fa-angle" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="./panel-admin.html">Panel de administración</a></li>
+                        <li class="breadcrumb-item"><a href="./mascotas.html">Gestión de mascotas</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Historia Clinica</li>
+                    </ol>
+                </nav>
+                <h1 class="mb-2">Historia Clinica</h1>
+                <p class="text-secondary mb-0">Registrá y mantené actualizada la información de las mascotas.</p>
+            </section>
+
+            <section class="border-0 shadow-sm mb-4" aria-labelledby="tituloFormulario">
+                <div class="card-body p-1 p-lg-5">
+                    <div class="p-1">
+                        <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                            <div class="icono-formulario-historia">
+                                <i class="fa-solid fa-book-medical" aria-hidden="true"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h2 class="h4 mb-1" id="tituloFormulario">Registrar historia clinica</h2>
+                                <p class="text-secondary mb-0">
+                                    Completá los datos para agregar un registro.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <form id="formularioMascota" class="row g-2">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="nombreMascota" class="form-label">Nombre de la mascota</label>
+                                <span class="form-control" id="nombreMascota"></span>
+                                <div id="nombreMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="especieMascota" class="form-label">Especie</label>
+                                <span class="form-control" id="especieMascota"></span>
+                                <div id="especieMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="razaMascota" class="form-label">Raza</label>
+                                <span class="form-control" id="razaMascota"></span>
+                                <div id="razaMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="generoMascota" class="form-label">Género</label>
+                                <span class="form-control" id="generoMascota"></span>
+                                <div id="generoMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-md-6  col-lg-3">
+                                <label for="colorMascota" class="form-label">Color</label>
+                                <span class="form-control" id="colorMascota"></span>
+                                <div id="colorMascota-feedback" class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="edadMascota" class="form-label">Edad</label>
+                                <span class="form-control" id="edadMascota"></span>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="pesoMascota" class="form-label">Peso (kg)</label>
+                                <span class="form-control" id="pesoMascota"></span>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label for="nombreDuenio" class="form-label">Nombre del dueño/a</label>
+                                <span id="nombreDuenio" class="form-control"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-lg-3">
+                                    <label for="diaTurno" class="form-label">Día del próximo turno</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white text-secondary border-end-0"
+                                            id="btnCalendario" style="cursor: pointer;">
+                                            <i class="fa-regular fa-calendar-days"></i>
+                                        </span>
+                                        <input type="date" class="form-control border-start-0" id="diaTurno"
+                                            name="diaTurno" required>
+                                    </div>
+                                    <div id="diaTurno-feedback" class="invalid-feedback"></div>
+                                </div>
+
+                                <div class="col-12 col-lg-3">
+                                    <label for="horaTurno" class="form-label">Hora del próximo Turno</label>
+                                    <select class="form-control" id="horaTurno" name="horaTurno" required>
+                                        <option value="" selected disabled>Seleccionar</option>
+                                        <option value="09:00">09:00</option>
+                                        <option value="09:30">09:30</option>
+                                        <option value="10:00">10:00</option>
+                                        <option value="10:30">10:30</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="11:30">11:30</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="12:30">12:30</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="13:30">13:30</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="14:30">14:30</option>
+                                        <option value="15:00">15:00</option>
+                                        <option value="15:30">15:30</option>
+                                        <option value="16:00">16:00</option>
+                                        <option value="16:30">16:30</option>
+                                        <option value="17:00">17:00</option>
+                                        <option value="17:30">17:30</option>
+                                        <option value="18:00">18:00</option>
+                                    </select>
+                                    <div id="horaTurno-feedback" class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    <label for="nombreVeterinario" class="form-label">Nombre del veterinario</label>
+                                    <select class="form-select" id="nombreVeterinario" name="nombreVeterinario"
+                                        required>
+                                        <option value="" selected disabled>Seleccionar veterinario...</option>
+                                    </select>
+                                    <div id="nombreVeterinario-feedback" class="invalid-feedback"></div>
+                                </div>
+                                <div class="justify-content-end d-flex mt-3 col no-imprimir">
+                                    <button type="submit" class="btn btn-primary mt-3 p-2 align-self-center"
+                                        id="botonGuardarTurno">
+                                        Registrar
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="mensajeEstado" class="alert d-none" role="alert"></div>
+
+                            <section id="contenedorhistoria" class="border-0 shadow-sm mb-4"
+                                aria-labelledby="tituloFormulario">
+                    </div>
+
+
+                    <div class="container p-3 mt-4 align-items-center">
+                        <div class="row mb-3">
+                            <div class="icono-formulario-historia">
+                                <i class="fa-solid fa-book-medical" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-6 gap-3">
+                                <h2 class="h4 clasform-label">Historia clinica de la
+                                    mascota</h2>
+                            </div>
+
+                            <div class="col-12 col-3 d-flex justify-content-end gap-2 no-imprimir">
+                                <button type="button" id="btnExportarPDF" class="btn btn-outline-danger">
+                                    <i class="fa-solid fa-file-pdf me-1"></i> Imprimir PDF
+                                </button>
+                                <button type="button" id="btnAgregarHistoria" class="btn btn-primary">
+                                    <i class="fa-solid fa-plus me-1"></i> AGREGAR HISTORIA
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+
+                    <div id="contenedor-tabla-historia" class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr style="cursor: pointer;">
+                                    <th scope="col" data-columna="diaTurno">Día del turno <i
+                                            class="fa-solid fa-sort text-muted small"></i></th>
+                                    <th scope="col" data-columna="nombreVeterinario">Veterinario que atendió <i
+                                            class="fa-solid fa-sort text-muted small"></i></th>
+                                    <th scope="col" data-columna="descripcionHistoria">Descripción <i
+                                            class="fa-solid fa-sort text-muted small"></i></th>
+                                    <th scope="col" class="text-end" style="cursor: default;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaHistoria">
+                                <tr>
+                                    <td colspan="4" class="text-center text-secondary py-4"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="justify-content-end d-flex mt-3 no-imprimir">
+                        <button type="button" class="btn btn-secondary mt-3 p-2 me-2 align-self-center"
+                            id="botonVolver">
+                            Volver
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <section id="contenedorFormulario" class="modal fade" tabindex="-1" aria-labelledby="tituloFormulario"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content p-4">
+                    <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                        <div class="icono-formulario-historia">
+                            <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h2 class="h4 mb-1" id="tituloFormulario">Registrar historial</h2>
+                            <p class="text-secondary mb-0">
+                                Completá los datos para agregar un registro.
+                            </p>
+                        </div>
+                        <span id="estadoFormulario" class="badge text-bg-light estado-formulario">
+                            Nueva historia
+                        </span>
+                    </div>
+
+                    <form id="formularioHistoria" class="row g-2">
+                        <div class="col-12">
+                            <label for="selectTurnoAtencion" class="form-label">Seleccionar Turno / Atención</label>
+                            <select class="form-select" id="selectTurnoAtencion" name="selectTurnoAtencion" required>
+                                <!-- Se llena dinámicamente desde JS -->
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="descripcionHistoria" class="form-label">Descripción / Observaciones</label>
+                            <textarea class="form-control" id="descripcionHistoria" name="descripcionHistoria" rows="4"
+                                maxlength="500"
+                                placeholder="Escribí el diagnóstico, tratamiento o detalles de la atención..."
+                                required></textarea>
+                            <div id="descripcionHistoria-feedback" class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="justify-content-end d-flex mt-3">
+                            <button type="button" class="btn btn-secondary mt-3 p-2 me-2 align-self-center"
+                                data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-primary mt-3 p-2 align-self-center" id="botonGuardar">
+                                Registrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+        </div>
+    </main>
+
+    <footer class="footer p-4 mt-5">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div class="footer-info d-flex align-items-center gap-3">
+                <img src="../assets/imgs/logo.png" alt="Logo Veterinaria La Mary">
+                <p class="text-primary mb-0">Estamos para cuidar a tus mascotas.</p>
+            </div>
+            <p class="mb-0">© 2026 Veterinaria La Mary.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

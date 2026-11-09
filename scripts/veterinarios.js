@@ -1,70 +1,79 @@
-const veterinarios = JSON.parse(localStorage.getItem("veterinarios") || "[]");
+import { obtenerVeterinarios, guardarVeterinario, mostrarMensaje } from "./storage.js";
 
+
+const btonAgregarVeterinario = document.getElementById("btnAgregarVeterinario");
+const contenedorFormulario = document.getElementById('contenedorFormulario');
+const modalVeterinario = new bootstrap.Modal(document.getElementById('contenedorFormulario'));
 const formulario = document.getElementById("form-veterinarios");
 const campoMatricula = document.getElementById("matricula");
 const camposRegistro = [
     campoMatricula,
     document.getElementById("nombre"),
-    document.getElementById("especializacion"),
+    document.getElementById("especialidad"),
     document.getElementById("valorConsulta")
 ];
-const botonRegistrar = document.getElementById("botonRegistrarVeterinario");
-const listadoVete = document.getElementById("lista-veterinarios");
+const saveButton = document.querySelector("#botonRegistrarVeterinario");
+const tablaVeterinarios = document.getElementById("tablaVeterinarios");
 const alertSinResultados = document.getElementById("alert-sin-resultados");
 const inputBuscarVeterinario = document.getElementById("inputBuscarVeterinario");
-const contenedorTabla = document.getElementById("contenedor-tabla");
+const contenedorTabla = document.getElementById("contenedor-tabla-veterinarios");
 const alertSinVeterinarios = document.getElementById("alert-sin-veterinarios");
 const contenedorTotal = document.getElementById("total-veterinarios-contenedor");
 const total = document.getElementById("total-veterinarios");
-const modalEditar = new bootstrap.Modal(document.getElementById("modalEditar"));
-const formEditar = document.getElementById("formEditarVeterinario");
+const thead = document.querySelector('table thead');
 const modalEliminar = new bootstrap.Modal(document.getElementById("modalEliminar"));
 const nombreVeterinarioEliminar = document.getElementById("nombreVeterinarioEliminar");
 const botonConfirmarEliminar = document.getElementById("confirmarEliminar");
-const campoMatriculaEdicion = document.getElementById("editarMatricula");
-const botonGuardarEdicion = document.getElementById("botonGuardarEdicion");
-const camposEdicion = [
-    campoMatriculaEdicion,
-    document.getElementById("editarNombre"),
-    document.getElementById("editarEspecializacion"),
-    document.getElementById("editarValorConsulta")
-];
+const titleElement = document.querySelector("#tituloFormulario");
+const formStateElement = document.querySelector("#estadoFormulario");
+
 let idVeterinarioEliminar = null;
+let columnaOrden = "matricula";
+let direccionOrden = "asc";
+let idVeterinarioEdit = null;
+
 const camposTocados = new Set();
 let mostrarErroresRegistro = false;
-let mostrarErroresEdicion = false;
+
 const mensajesValidacion = {
     matriculaRequerida: "La matrícula es obligatoria.",
     matriculaDuplicada: "Ya existe un veterinario registrado con esta matrícula.",
     nombreRequerido: "El nombre es obligatorio.",
-    especializacionRequerida: "Seleccioná una especialización.",
+    especialidadRequerida: "Seleccioná una especialidad.",
     valorConsultaRequerido: "El valor de consulta es obligatorio.",
     valorConsultaInvalido: "Ingresá un valor numérico válido mayor a 0."
 };
-const statusMessage = document.querySelector("#mensajeEstado");
+/* const statusMessage = document.querySelector("#mensajeEstado");*/
 
-function obtenerErrorCampo(campo, veterinarioIdIgnorado = null) {
+btonAgregarVeterinario.addEventListener('click', () => {
+    resetForm();
+    modalVeterinario.show();
+    idVeterinarioEdit = null;
+});
+
+function obtenerErrorCampo(campo) {
+    const veterinarios = obtenerVeterinarios();
     const valor = campo.value.trim();
 
     if (!valor) {
-        if (campo === campoMatricula || campo === campoMatriculaEdicion) {
+        if (campo === campoMatricula) {
             return mensajesValidacion.matriculaRequerida;
         }
-        if (campo.id === "nombre" || campo.id === "editarNombre") {
+        if (campo.id === "nombre") {
             return mensajesValidacion.nombreRequerido;
         }
-        if (campo.id === "especializacion" || campo.id === "editarEspecializacion") {
-            return mensajesValidacion.especializacionRequerida;
+        if (campo.id === "especialidad") {
+            return mensajesValidacion.especialidadRequerida;
         }
         return mensajesValidacion.valorConsultaRequerido;
     }
 
-    if (campo === campoMatricula || campo === campoMatriculaEdicion) {
+    if (campo === campoMatricula) {
         const matriculaNormalizada = valor.toLocaleLowerCase();
         const matriculaDuplicada = veterinarios.some(
-            (veterinario) =>
-                veterinario.idVeterinario !== veterinarioIdIgnorado &&
-                veterinario.matricula.trim().toLocaleLowerCase() === matriculaNormalizada
+            (v) =>
+                v.idVeterinario !== idVeterinarioEdit &&
+                v.matricula.trim().toLocaleLowerCase() === matriculaNormalizada
         );
 
         if (matriculaDuplicada) {
@@ -72,7 +81,7 @@ function obtenerErrorCampo(campo, veterinarioIdIgnorado = null) {
         }
     }
 
-    if (campo.id === "valorConsulta" || campo.id === "editarValorConsulta") {
+    if (campo.id === "valorConsulta") {
         const esNumeroValido = /^\d+(?:[.,]\d+)?$/.test(valor);
         const valorNumerico = Number(valor.replace(",", "."));
 
@@ -84,9 +93,10 @@ function obtenerErrorCampo(campo, veterinarioIdIgnorado = null) {
     return "";
 }
 
-function actualizarEstadoCampo(campo, mostrarError, veterinarioIdIgnorado = null) {
-    const mensajeError = obtenerErrorCampo(campo, veterinarioIdIgnorado);
+function actualizarEstadoCampo(campo) {
+    const mensajeError = obtenerErrorCampo(campo);
     const feedback = document.getElementById(`${campo.id}-feedback`);
+    const mostrarError = mostrarErroresRegistro || camposTocados.has(campo);
 
     campo.classList.toggle("is-invalid", Boolean(mensajeError && mostrarError));
     campo.classList.toggle("is-valid", !mensajeError && campo.value.trim() !== "");
@@ -100,52 +110,49 @@ function actualizarEstadoCampo(campo, mostrarError, veterinarioIdIgnorado = null
     return !mensajeError;
 }
 
-function validarRegistro() {
-    const registroValido = camposRegistro
-        .map((campo) => actualizarEstadoCampo(campo, mostrarErroresRegistro || camposTocados.has(campo)))
-        .every(Boolean);
 
-    botonRegistrar.disabled = !registroValido;
-    return registroValido;
+function createCell(text) {
+    const cell = document.createElement("td");
+    cell.textContent = text;
+    return cell;
 }
-
-
-function showMessage(message, type = "success") {
-    statusMessage.textContent = message;
-    statusMessage.className = `alert alert-${type}`;
-}
-
-function validarEdicion() {
-    const idEdicion = document.getElementById("editarIdVeterinario").value;
-    const edicionValida = camposEdicion
-        .map((campo) => actualizarEstadoCampo(
-            campo,
-            mostrarErroresEdicion || camposTocados.has(campo),
-            idEdicion
-        ))
-        .every(Boolean);
-
-    botonGuardarEdicion.disabled = !edicionValida;
-    return edicionValida;
-}
-
 
 function render() {
-    listadoVete.innerHTML = "";
+    let veterinarios = obtenerVeterinarios();
+    const contadorTotal = document.getElementById("total-veterinarios");
+    const inputBuscar = document.getElementById("inputBuscar");
+    const textoBusqueda = inputBuscar ? inputBuscar.value.toLowerCase().trim() : '';
 
-    const textoBusqueda = inputBuscarVeterinario.value.trim().toLowerCase();
+    if (textoBusqueda !== '') {
+        veterinarios = veterinarios.filter((v) =>
+            v.nombre.toLowerCase().includes(textoBusqueda) ||
+            v.matricula.toLowerCase().includes(textoBusqueda) ||
+            v.especialidad.toLowerCase().includes(textoBusqueda) ||
+            String(v.valorConsulta).toLowerCase().includes(textoBusqueda)
+        );
+    }
 
-    const veterinariosFiltrados = veterinarios.filter((veterinario) =>
-        [
-            veterinario.matricula,
-            veterinario.nombre,
-            veterinario.especializacion,
-            veterinario.valorConsulta
-        ].some((dato) => String(dato).toLowerCase().includes(textoBusqueda))
-    );
+    tablaVeterinarios.replaceChildren(); // Limpiar la tabla antes de renderizar
 
-    const hayVeterinariosRegistrados = veterinarios.length > 0;
-    const hayResultados = veterinariosFiltrados.length > 0;
+    veterinarios.sort((a, b) => {
+        let valorA = a[columnaOrden];
+        let valorB = b[columnaOrden];
+        let comparacion = 0;
+
+        if (typeof valorA === "number" && typeof valorB === "number") {
+            comparacion = valorA - valorB;
+        } else {
+            comparacion = String(valorA).localeCompare(String(valorB));
+        }
+        return direccionOrden === "asc" ? comparacion : -comparacion;
+    });
+
+    if (contadorTotal) {
+        contadorTotal.textContent = veterinarios.length;
+    }
+
+    const hayVeterinariosRegistrados = obtenerVeterinarios().length > 0;
+    const hayResultados = veterinarios.length > 0;
 
     contenedorTabla.hidden = !hayResultados;
     contenedorTotal.hidden = !hayResultados;
@@ -153,77 +160,73 @@ function render() {
     alertSinVeterinarios.hidden = hayVeterinariosRegistrados;
     alertSinResultados.hidden = !hayVeterinariosRegistrados || hayResultados;
 
-    veterinariosFiltrados.forEach((veterinario) => {
-        listadoVete.innerHTML += `
-            <tr>
-                <td>${veterinario.matricula}</td>
-                <td>${veterinario.nombre}</td>
-                <td>${veterinario.especializacion}</td>
-                <td>$${veterinario.valorConsulta}</td>
-                <td class="table-actions text-end">
-                    <div class="d-flex gap-3 justify-content-end flex-nowrap">
-                        <button type="button" class="btn btn-icon btn-icon-primary"
-                            aria-label="Editar ${veterinario.nombre}"
-                            onclick="editarVeterinario('${veterinario.idVeterinario}')">
-                            <i class="fa-solid fa-pen" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-icon btn-icon-danger"
-                            aria-label="Eliminar ${veterinario.nombre}"
-                            onclick="eliminarVeterinario('${veterinario.idVeterinario}')">
-                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `;
-    });
+    if (!hayResultados) {
+        return;
+    } else {
+        veterinarios.forEach((veterinario) => {
+            const row = document.createElement("tr");
+            row.append(
+                createCell(veterinario.matricula),
+                createCell(veterinario.nombre),
+                createCell(veterinario.especialidad),
+                createCell(`$${veterinario.valorConsulta}`)
+            );
+            const actionsCell = document.createElement("td");
+            actionsCell.className = "table-actions text-end pe-4";
 
-    total.textContent = veterinariosFiltrados.length;
-    validarRegistro();
+            const actions = document.createElement("div");
+            actions.className = "d-flex gap-3 justify-content-end flex-nowrap";
+
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "btn btn-icon btn-icon-primary btn-editar";
+            editButton.dataset.id = veterinario.idVeterinario;
+            editButton.setAttribute(
+                "aria-label",
+                `Editar ${veterinario.nombre}`
+            );
+            editButton.innerHTML =
+                '<i class="fa-solid fa-pen" aria-hidden="true"></i>';
+
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-icon btn-icon-danger btn-eliminar";
+            deleteButton.dataset.id = veterinario.idVeterinario;
+            deleteButton.setAttribute(
+                "aria-label",
+                `Eliminar ${veterinario.nombre}`
+            );
+            deleteButton.innerHTML =
+                '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>';
+            ;
+
+            actions.append(editButton, deleteButton);
+            actionsCell.append(actions);
+            row.append(actionsCell);
+            tablaVeterinarios.append(row);
+        });
+    };
 }
-
-inputBuscarVeterinario.addEventListener("input", render);
-render();
 
 camposRegistro.forEach((campo) => {
     campo.addEventListener("input", () => {
         camposTocados.add(campo);
-        validarRegistro();
+        validarFormulario();
     });
     campo.addEventListener("change", () => {
         camposTocados.add(campo);
-        validarRegistro();
+        validarFormulario();
     });
     campo.addEventListener("blur", () => {
         camposTocados.add(campo);
-        validarRegistro();
+        validarFormulario();
     });
 });
-
-camposEdicion.forEach((campo) => {
-    campo.addEventListener("input", () => {
-        camposTocados.add(campo);
-        validarEdicion();
-    });
-    campo.addEventListener("change", () => {
-        camposTocados.add(campo);
-        validarEdicion();
-    });
-    campo.addEventListener("blur", () => {
-        camposTocados.add(campo);
-        validarEdicion();
-    });
-});
-validarRegistro();
-
-function guardarVeterinario() {
-    localStorage.setItem("veterinarios", JSON.stringify(veterinarios));
-}
 
 function eliminarVeterinario(id) {
-    const veterinario = veterinarios.find(
-        (veterinario) => veterinario.idVeterinario === id
-    );
+    const veterinarios = obtenerVeterinarios();
+    const veterinario = veterinarios.find((v) => v.idVeterinario === id);
 
     if (!veterinario) return;
 
@@ -232,103 +235,144 @@ function eliminarVeterinario(id) {
     modalEliminar.show();
 }
 
-window.eliminarVeterinario = eliminarVeterinario;
-
 botonConfirmarEliminar.addEventListener("click", () => {
     if (!idVeterinarioEliminar) return;
-
-    const indice = veterinarios.findIndex(
-        (veterinario) =>
-            veterinario.idVeterinario === idVeterinarioEliminar
-    );
+    
+    const veterinarios = obtenerVeterinarios();
+    const indice = veterinarios.findIndex((v) => v.idVeterinario === idVeterinarioEliminar);
 
     if (indice === -1) return;
 
     veterinarios.splice(indice, 1);
-    guardarVeterinario();
-    render();
-
+    if (guardarVeterinario(veterinarios)) {
+        modalEliminar.hide();
+        mostrarMensaje("El veterinario se eliminó correctamente.", "success");
+        render();
+    }
+    
     idVeterinarioEliminar = null;
-    modalEliminar.hide();
 });
-
 
 function editarVeterinario(id) {
-    const veterinario = veterinarios.find((veterinario) => veterinario.idVeterinario === id);
+    const veterinarios = obtenerVeterinarios();
+    const veterinario = veterinarios.find((v) => v.idVeterinario === id);
 
-    if (!veterinario) return;
+    if (!veterinario) {
+        mostrarMensaje("Veterinario no encontrado.", "danger");
+        return;
+    }
 
-    camposEdicion.forEach((campo) => camposTocados.delete(campo));
-    mostrarErroresEdicion = false;
-    document.getElementById("editarIdVeterinario").value = veterinario.idVeterinario;
-    document.getElementById("editarMatricula").value = veterinario.matricula;
-    document.getElementById("editarNombre").value = veterinario.nombre;
-    document.getElementById("editarEspecializacion").value = veterinario.especializacion;
-    document.getElementById("editarValorConsulta").value = veterinario.valorConsulta;
-
-    validarEdicion();
-    modalEditar.show();
+    document.getElementById("matricula").value = veterinario.matricula;
+    document.getElementById("nombre").value = veterinario.nombre;
+    document.getElementById("especialidad").value = veterinario.especialidad;
+    document.getElementById("valorConsulta").value = veterinario.valorConsulta;
+    
+    idVeterinarioEdit = id
+    titleElement.textContent = "Editar veterinario";
+    formStateElement.textContent = "Editar veterinario";
+    modalVeterinario.show();
 }
 
+function resetForm() {
+    idVeterinarioEdit = null;
+    formulario.reset();
+    titleElement.textContent = "Registrar veterinario";
+    formStateElement.textContent = "Nuevo veterinario";
 
-// Hacer que la función sea accesible desde el onclick del htlm
-window.editarVeterinario = editarVeterinario;
+    mostrarErrores = false;
+    camposTocados.clear();
 
-// GUARDAR LOS CAMBIOS DE LA EDICIÓN
-formEditar.addEventListener("submit", (e) => {
-    e.preventDefault();
-    mostrarErroresEdicion = true;
+    camposRegistro.forEach((campo) => {
+        campo.classList.remove("is-valid", "is-invalid");
+        campo.removeAttribute("aria-invalid");
 
-    if (!validarEdicion()) return;
+        const feedback = document.getElementById(`${campo.id}-feedback`);
 
-    const id = document.getElementById("editarIdVeterinario").value;
-    const veterinario = veterinarios.find((veterinario) => veterinario.idVeterinario === id);
-    if (!veterinario) return;
+        if (feedback) {
+            feedback.textContent = "";
+            feedback.classList.remove("d-block");
+        }
+    });
+    
+    mostrarErroresRegistro = false;
+    validarFormulario();
+}
 
-    veterinario.matricula = document.getElementById("editarMatricula").value.trim();
-    veterinario.nombre = document.getElementById("editarNombre").value.trim();
-    veterinario.especializacion = document.getElementById("editarEspecializacion").value;
-    veterinario.valorConsulta = Number(
-        document.getElementById("editarValorConsulta").value.trim().replace(",", ".")
-    );
+function validarFormulario() {
+   const formularioValido = camposRegistro
+      .map((campo) => actualizarEstadoCampo(campo))
+      .every(Boolean);
 
-    guardarVeterinario();
+   saveButton.disabled = !formularioValido;
+
+   return formularioValido;
+}
+
+thead.addEventListener('click', (event) => {
+    const th = event.target.closest('th');
+    if (!th || !th.dataset.columna) return;
+
+    const columnaseleccionada = th.dataset.columna;
+    if (columnaOrden === columnaseleccionada) {
+        direccionOrden = direccionOrden === 'asc' ? 'desc' : 'asc';
+    } else {
+        columnaOrden = columnaseleccionada;
+        direccionOrden = 'asc';
+    }
     render();
-    modalEditar.hide();
 });
 
+tablaVeterinarios.addEventListener('click', (event) => {
+    const botonEditar = event.target.closest('.btn-editar');
+    const botonEliminar = event.target.closest('.btn-eliminar');
 
+    if (botonEditar) {
+        const id = botonEditar.dataset.id;
+        editarVeterinario(id);
+    } else if (botonEliminar) {
+        const id = botonEliminar.dataset.id;
+        eliminarVeterinario(id);
+    }
+});
 
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     mostrarErroresRegistro = true;
 
-    if (!validarRegistro()) return;
+    if (!validarFormulario()) return;
 
     const datos = new FormData(formulario);
-    const matricula = datos.get("matricula").trim();
-    const nombre = datos.get("nombre").trim();
-    const especializacion = datos.get("especializacion").trim();
-    const valorConsulta = Number(datos.get("valorConsulta").trim().replace(",", "."));
+    const veterinarios = obtenerVeterinarios();
 
-    const veterinario = {
-        idVeterinario: crypto.randomUUID(),
-        matricula,
-        nombre,
-        especializacion,
-        valorConsulta
+    const datosVeterinario = {
+        matricula: datos.get("matricula").trim(),
+        nombre: datos.get("nombre").trim(),
+        especialidad: datos.get("especialidad").trim(),
+        valorConsulta: Number(datos.get("valorConsulta").trim().replace(",", "."))
+    };
+
+    if (idVeterinarioEdit) {
+        const indice = veterinarios.findIndex((v) => v.idVeterinario === idVeterinarioEdit);
+        if (indice !== -1) {
+            veterinarios[indice] = { idVeterinario: idVeterinarioEdit, ...datosVeterinario };
+        }
+    } else {
+        const nuevoveterinario = { idVeterinario: crypto.randomUUID(), ...datosVeterinario };
+        veterinarios.push(nuevoveterinario);
+        mostrarMensaje("El veterinario se registró correctamente.");
     }
-    veterinarios.push(veterinario);
-    guardarVeterinario();
 
-    render();
-    formulario.reset();
-    mostrarErroresRegistro = false;
-    camposRegistro.forEach((campo) => {
-        camposTocados.delete(campo);
-        campo.classList.remove("is-valid", "is-invalid");
-        campo.removeAttribute("aria-invalid");
-    });
-    validarRegistro();
-    showMessage("El veterinario se registró correctamente.");
+    if (guardarVeterinario(veterinarios)) {
+        formulario.reset();
+        modalVeterinario.hide();
+        idVeterinarioEdit = null;
+        render();
+    }
 })
+
+const inputBuscar = document.getElementById('inputBuscar');
+if (inputBuscar) {
+    inputBuscar.addEventListener('input', render);
+}
+
+render();
