@@ -86,9 +86,6 @@
                             </p>
                         </div>
                     </div>
-                    <div id="mensajeEstado" class="alert d-none" role="status" aria-live="polite"></div>
-
-
                     <form id="form-veterinarios" class="row g-4" novalidate>
                         <div class="col-12 col-md-6">
                             <label for="matricula" class="form-label">
@@ -320,7 +317,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title text-gray fs-5">
+                        <h2 class="modal-title fs-5">
                             <i class="fa-solid fa-trash-can me-2"></i>
                             Eliminar veterinario
                         </h2>
@@ -363,6 +360,18 @@
             <p class="mb-0">© 2026 Veterinaria La Mary.</p>
         </div>
     </footer>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;" aria-live="polite"
+        aria-atomic="true">
+        <div id="toastNotificacion" class="toast fade align-items-center border-0" role="status" aria-live="polite"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div id="toastNotificacionMensaje" class="toast-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Cerrar"></button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

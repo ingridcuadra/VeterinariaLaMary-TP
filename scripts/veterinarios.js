@@ -1,4 +1,9 @@
-import { obtenerVeterinarios, guardarVeterinario as guardarVeterinariosEnStorage, mostrarMensaje } from "./storage.js";
+import {
+    obtenerVeterinarios,
+    guardarVeterinario as guardarVeterinariosEnStorage,
+    mostrarMensaje,
+    inicializarTooltips
+} from "./storage.js";
 
 const veterinarios = obtenerVeterinarios();
 const TAMANIO_MAXIMO_IMAGEN = 1024 * 1024;
@@ -18,6 +23,7 @@ const camposRegistro = [
 ];
 const botonRegistrar = document.getElementById("botonRegistrarVeterinario");
 const listadoVete = document.getElementById("lista-veterinarios");
+inicializarTooltips(listadoVete);
 const alertSinResultados = document.getElementById("alert-sin-resultados");
 const inputBuscarVeterinario = document.getElementById("inputBuscarVeterinario");
 const contenedorTabla = document.getElementById("contenedor-tabla");
@@ -256,6 +262,8 @@ function render() {
         const botonEditar = document.createElement("button");
         botonEditar.type = "button";
         botonEditar.className = "btn btn-icon btn-icon-primary";
+        botonEditar.dataset.bsToggle = "tooltip";
+        botonEditar.dataset.bsTitle = "Editar veterinario";
         botonEditar.setAttribute("aria-label", `Editar ${veterinario.nombre}`);
         botonEditar.innerHTML = '<i class="fa-solid fa-pen" aria-hidden="true"></i>';
         botonEditar.addEventListener("click", () => editarVeterinario(veterinario.idVeterinario));
@@ -263,6 +271,8 @@ function render() {
         const botonEliminar = document.createElement("button");
         botonEliminar.type = "button";
         botonEliminar.className = "btn btn-icon btn-icon-danger";
+        botonEliminar.dataset.bsToggle = "tooltip";
+        botonEliminar.dataset.bsTitle = "Eliminar";
         botonEliminar.setAttribute("aria-label", `Eliminar ${veterinario.nombre}`);
         botonEliminar.innerHTML = '<i class="fa-solid fa-trash-can" aria-hidden="true"></i>';
         botonEliminar.addEventListener("click", () => eliminarVeterinario(veterinario.idVeterinario));

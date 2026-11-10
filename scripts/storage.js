@@ -1,36 +1,51 @@
 
 export function obtenerMascotas() {
-   try {
-      const mascotas = JSON.parse(localStorage.getItem('mascotas') || '[]');
-      return Array.isArray(mascotas) ? mascotas : [];
-   } catch (error) {
-      mostrarMensaje('Error al obtener datos almacenados.', 'danger');
-      return [];
-   }
+    try {
+        const mascotas = JSON.parse(localStorage.getItem('mascotas') || '[]');
+        return Array.isArray(mascotas) ? mascotas : [];
+    } catch (error) {
+        mostrarMensaje('Error al obtener datos almacenados.', 'danger');
+        return [];
+    }
 }
 
 export function mostrarMensaje(mensaje, tipo = 'success') {
-   const alerta = document.getElementById('mensajeEstado');
-   if (!alerta) {
-      console.error(mensaje);
-      return;
-   }
-   alerta.textContent = mensaje;
-   alerta.className = `alert alert-${tipo} mx-5 mt-3`;
+    const toast = document.getElementById("toastNotificacion");
+    const cuerpo = document.getElementById("toastNotificacionMensaje");
+    if (!toast || !cuerpo) {
+        console.error(mensaje);
+        return;
+    }
 
-   setTimeout(() => {
-      alerta.classList.add('d-none');
-   }, 3000);
+    const variantes = ["success", "danger", "warning", "info", "primary", "secondary", "dark"];
+    const variante = variantes.includes(tipo) ? tipo : "primary";
+    toast.classList.remove(...variantes.map(item => `text-bg-${item}`));
+    toast.classList.add(`text-bg-${variante}`);
+    toast.querySelector(".btn-close")?.classList.toggle(
+        "btn-close-white",
+        !["warning", "info"].includes(variante)
+    );
+    cuerpo.textContent = mensaje;
+    window.bootstrap.Toast.getOrCreateInstance(toast, { autohide: true, delay: 4000 }).show();
+}
+
+export function inicializarTooltips(contenedor) {
+    if (!contenedor) return;
+
+    window.bootstrap.Tooltip.getOrCreateInstance(contenedor, {
+        selector: '[data-bs-toggle="tooltip"]',
+        container: "body"
+    });
 }
 
 export function guardarMascotas(mascotas) {
-   try {
-      localStorage.setItem('mascotas', JSON.stringify(mascotas));
-      return true;
-   } catch (error) {
-      mostrarMensaje('Error al guardar datos de la mascota.', 'danger');
-      return false;
-   }
+    try {
+        localStorage.setItem('mascotas', JSON.stringify(mascotas));
+        return true;
+    } catch (error) {
+        mostrarMensaje('Error al guardar datos de la mascota.', 'danger');
+        return false;
+    }
 }
 
 export function obtenerVeterinarios() {
@@ -84,11 +99,11 @@ export function obtenerHistorias() {
 }
 
 export function guardarHistorias(historias) {
-   try {
-      localStorage.setItem('historiasClinicas', JSON.stringify(historias));
-      return true;
-   } catch (error) {
-      mostrarMensaje('Error al guardar datos de la historia.', 'danger');
-      return false;
-   }
+    try {
+        localStorage.setItem('historiasClinicas', JSON.stringify(historias));
+        return true;
+    } catch (error) {
+        mostrarMensaje('Error al guardar datos de la historia.', 'danger');
+        return false;
+    }
 }

@@ -1,12 +1,13 @@
-import { Modal } from "bootstrap";
 import {
    obtenerMascotas as getMascotas,
    guardarMascotas as saveMascotas,
-   mostrarMensaje as showMessage
+   mostrarMensaje as showMessage,
+   inicializarTooltips
 } from "./storage.js";
 
 const form = document.querySelector("#formularioMascota");
 const tableBody = document.querySelector("#tablaMascotas");
+inicializarTooltips(tableBody);
 const inputBuscar = document.querySelector("#inputBuscar");
 const alertSinResultados = document.getElementById("alert-sin-resultados");
 const totalElement = document.querySelector("#totalMascotas");
@@ -19,7 +20,7 @@ const contenedorTabla = document.querySelector("#contenedor-tabla-mascotas");
 const alertSinMascotas = document.querySelector("#alert-sin-mascotas");
 const contenedorTotal = document.querySelector("#total-mascotas-contenedor");
 
-const modalEliminarMascota = new Modal(
+const modalEliminarMascota = new bootstrap.Modal(
    document.querySelector("#modalEliminarMascota")
 );
 
@@ -104,6 +105,8 @@ function renderMascotas() {
       const editButton = document.createElement("button");
       editButton.type = "button";
       editButton.className = "btn btn-icon btn-icon-primary";
+      editButton.dataset.bsToggle = "tooltip";
+      editButton.dataset.bsTitle = "Editar mascota";
       editButton.setAttribute(
          "aria-label",
          `Editar ${mascota.nombreMascota}`
@@ -115,6 +118,8 @@ function renderMascotas() {
       const deleteButton = document.createElement("button");
       deleteButton.type = "button";
       deleteButton.className = "btn btn-icon btn-icon-danger";
+      deleteButton.dataset.bsToggle = "tooltip";
+      deleteButton.dataset.bsTitle = "Eliminar";
       deleteButton.setAttribute(
          "aria-label",
          `Eliminar ${mascota.nombreMascota}`
@@ -129,6 +134,8 @@ function renderMascotas() {
       const historialButton = document.createElement("button");
       historialButton.type = "button";
       historialButton.className = "btn btn-icon btn-icon-info";
+      historialButton.dataset.bsToggle = "tooltip";
+      historialButton.dataset.bsTitle = "Ver historia clínica";
       historialButton.setAttribute(
          "aria-label",
          `Ver historial de ${mascota.nombreMascota}`

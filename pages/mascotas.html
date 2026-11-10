@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../styles/mascotas.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" type="image/png" href="../favicon.png">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="../scripts/login.js"></script>
     <script defer src="../scripts/rutas-protegidas.js"></script>
     <script defer src="../scripts/navbar.js"></script>
@@ -69,8 +70,6 @@
                 <h1 class="mb-2">Gestión de mascotas</h1>
                 <p class="text-secondary mb-0">Registrá y mantené actualizada la información de tus pacientes.</p>
             </section>
-
-            <div id="mensajeEstado" class="alert d-none" role="status" aria-live="polite"></div>
 
             <section class="card border-0 shadow-sm mb-4" aria-labelledby="tituloFormulario">
                 <div class="card-body p-4 p-lg-5">
@@ -235,7 +234,6 @@
                             </button>
 
                             <button type="button" id="confirmarEliminarMascota" class="btn btn-danger">
-                                <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
                                 Eliminar
                             </button>
                         </div>
@@ -256,6 +254,17 @@
         </div>
     </footer>
 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;" aria-live="polite"
+        aria-atomic="true">
+        <div id="toastNotificacion" class="toast fade align-items-center border-0" role="status" aria-live="polite"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div id="toastNotificacionMensaje" class="toast-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Cerrar"></button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

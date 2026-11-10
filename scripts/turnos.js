@@ -1,10 +1,18 @@
-import { obtenerMascotas, obtenerVeterinarios, mostrarMensaje, obtenerTurnos, guardarTurnos } from "./storage.js";
+import {
+    obtenerMascotas,
+    obtenerVeterinarios,
+    mostrarMensaje,
+    obtenerTurnos,
+    guardarTurnos,
+    inicializarTooltips
+} from "./storage.js";
 
 const btnAgregarTurno = document.getElementById('btnAgregarTurno');
 const contenedorFormulario = document.getElementById('contenedorFormulario');
-const modalTurno = new bootstrap.Modal(document.getElementById('contenedorFormulario'));
+const modalTurno = new bootstrap.Modal(contenedorFormulario);
 const formulario = document.getElementById('formularioTurno');
 const tablaTurnos = document.getElementById('tablaTurnos');
+inicializarTooltips(tablaTurnos);
 const thead = document.querySelector('table thead');
 const alertSinResultados = document.getElementById("alert-sin-resultados");
 const contenedorTabla = document.querySelector("#contenedor-tabla-turnos");
@@ -13,13 +21,18 @@ const modalEliminarTurno = new bootstrap.Modal(document.querySelector("#modalEli
 const diaTurnoEliminar = document.querySelector("#diaTurnoEliminar");
 const botonConfirmarEliminar = document.querySelector("#confirmarEliminarTurno");
 const titleElement = document.querySelector("#tituloFormulario");
-const formStateElement = document.querySelector("#estadoFormulario");
 const saveButton = document.querySelector("#botonGuardar");
 const camposRegistro = [
     formulario.elements.diaTurno,
     formulario.elements.horaTurno,
     formulario.elements.nombreMascota,
     formulario.elements.nombreVeterinario
+];
+const horariosTurno = [
+    "09:00", "09:30", "10:00", "10:30", "11:00",
+    "11:30", "12:00", "12:30", "13:00", "13:30",
+    "14:00", "14:30", "15:00", "15:30", "16:00",
+    "16:30", "17:00", "17:30", "18:00"
 ];
 
 const camposTocados = new Set();
@@ -30,13 +43,33 @@ let columnaOrden = "diaTurno";
 let direccionOrden = 'asc';
 let idTurnoEliminar = null;
 
+cargarDesplegableHorarios();
+
 btnAgregarTurno.addEventListener('click', () => {
     resetForm();
-    obtenerExternos()
-    actualizarHorasDisponibles()
+    obtenerExternos();
+    actualizarHorasDisponibles();
+    validarFormulario();
     modalTurno.show();
     idTurnoEdit = null;
 });
+
+function cargarDesplegableHorarios() {
+    const selectHora = formulario.elements.horaTurno;
+    horariosTurno.forEach(horario => {
+        const option = document.createElement("option");
+        option.value = horario;
+        option.textContent = `${horario} hs`;
+        selectHora.appendChild(option);
+    });
+}
+
+function obtenerFechaLocal() {
+    const hoy = new Date();
+    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoy.getDate()).padStart(2, "0");
+    return `${hoy.getFullYear()}-${mes}-${dia}`;
+}
 
 function createCell(text) {
     const cell = document.createElement("td");
@@ -52,21 +85,25 @@ function obtenerExternos() {
     const mascotas = obtenerMascotas();
     const veterinarios = obtenerVeterinarios();
 
-    selectMascotas.innerHTML = '<option value="" selected disabled>Seleccionar mascota...</option>';
+    selectMascotas.innerHTML = '<option value="" selected hidden>Seleccionar...</option>';
     mascotas.forEach(m => {
         const option = document.createElement('option');
         const nombre = m.nombreMascota || m.nombre || 'Sin nombre';
-        const duenio = m.nombreDuenio || m.duenio || 'Sin dueño';
+        const duenio = m.nombreDuenio || (typeof m.duenio === 'string' ? m.duenio : '') || 'Sin dueño';
 
-        option.value = nombre;
+        option.value = m.idMascota || nombre;
+        option.dataset.nombreMascota = nombre;
+        option.dataset.nombreDuenio = duenio;
         option.textContent = `${nombre} (Dueño: ${duenio})`;
         selectMascotas.appendChild(option);
     });
 
-    selectVets.innerHTML = '<option value="" selected disabled>Seleccionar veterinario...</option>';
+    selectVets.innerHTML = '<option value="" selected hidden>Seleccionar...</option>';
     veterinarios.forEach(v => {
         const option = document.createElement('option');
-        const nombreCompleto = v.nombre ? `${v.nombre} ${v.apellido || ''}` : v.nombreVeterinario;
+        const nombreCompleto = (v.nombre
+            ? `${v.nombre} ${v.apellido || ''}`
+            : v.nombreVeterinario || '').trim();
         option.value = nombreCompleto;
         option.textContent = nombreCompleto;
         selectVets.appendChild(option);
@@ -111,6 +148,7 @@ function render() {
     const hayResultados = turnos.length > 0;
 
     contenedorTabla.hidden = !hayResultados;
+    document.getElementById("total-turnos-contenedor").hidden = !hayResultados;
 
     alertSinTurnos.hidden = hayTurnosRegistradas;
     alertSinResultados.hidden =
@@ -137,6 +175,8 @@ function render() {
             const editButton = document.createElement("button");
             editButton.type = "button";
             editButton.className = "btn btn-icon btn-icon-primary btn-editar";
+            editButton.dataset.bsToggle = "tooltip";
+            editButton.dataset.bsTitle = "Editar turno";
             editButton.dataset.id = turno.idTurno;
             editButton.setAttribute(
                 "aria-label",
@@ -149,6 +189,8 @@ function render() {
             const deleteButton = document.createElement("button");
             deleteButton.type = "button";
             deleteButton.className = "btn btn-icon btn-icon-danger btn-eliminar";
+            deleteButton.dataset.bsToggle = "tooltip";
+            deleteButton.dataset.bsTitle = "Eliminar";
             deleteButton.dataset.id = turno.idTurno;
             deleteButton.setAttribute(
                 "aria-label",
@@ -167,9 +209,9 @@ function render() {
 }
 
 function formatearFechaAR(fechaIso) {
-   if (!fechaIso) return '';
-   const [anio, mes, dia] = fechaIso.split('-');
-   return `${dia}/${mes}/${anio}`;
+    if (!fechaIso) return '';
+    const [anio, mes, dia] = fechaIso.split('-');
+    return `${dia}/${mes}/${anio}`;
 }
 
 function editarTurno(id) {
@@ -186,14 +228,18 @@ function editarTurno(id) {
 
     // 2. Cargar datos y selects
     obtenerExternos();
+    const mascotas = obtenerMascotas();
+    const mascotaDelTurno = mascotas.find(m => m.idMascota === turno.idMascota)
+        || mascotas.find(m => (m.nombreMascota || m.nombre) === turno.nombreMascota);
     document.getElementById("diaTurno").value = turno.diaTurno;
     actualizarHorasDisponibles();
     document.getElementById("horaTurno").value = turno.horaTurno;
-    document.getElementById("nombreMascota").value = turno.nombreMascota;
+    document.getElementById("nombreMascota").value = mascotaDelTurno
+        ? (mascotaDelTurno.idMascota || mascotaDelTurno.nombreMascota || mascotaDelTurno.nombre)
+        : "";
     document.getElementById("nombreVeterinario").value = turno.nombreVeterinario;
 
     titleElement.textContent = "Editar turno";
-    formStateElement.textContent = "Editar turno";
     validarFormulario();
     modalTurno.show();
 }
@@ -235,8 +281,28 @@ botonConfirmarEliminar.addEventListener("click", () => {
 function obtenerErrorCampo(campo) {
     const valor = campo.value.trim();
     if (!valor) {
-        return "Este campo es obligatorio.";
+        const mensajes = {
+            diaTurno: "Seleccioná el día del turno.",
+            horaTurno: "Seleccioná un horario.",
+            nombreMascota: "Seleccioná una mascota.",
+            nombreVeterinario: "Seleccioná un veterinario."
+        };
+        return mensajes[campo.id] || "Este campo es obligatorio.";
     }
+
+    if (campo.id === "diaTurno") {
+        if (Number.isNaN(new Date(`${valor}T00:00:00`).getTime())) {
+            return "Ingresá una fecha válida.";
+        }
+        if (valor < obtenerFechaLocal()) {
+            return "El turno no puede ser anterior a hoy.";
+        }
+    }
+
+    if (campo.id === "horaTurno" && campo.selectedOptions[0]?.disabled) {
+        return "Ese horario ya está ocupado para la fecha seleccionada.";
+    }
+
     return "";
 }
 
@@ -275,7 +341,6 @@ function resetForm() {
     idTurnoEdit = null;
     formulario.reset();
     titleElement.textContent = "Registrar turno";
-    formStateElement.textContent = "Nueva turno";
 
     mostrarErrores = false;
     camposTocados.clear();
@@ -360,29 +425,36 @@ formulario.addEventListener('submit', (event) => {
 
     const datos = new FormData(formulario);
     const turnos = obtenerTurnos();
+    const mascotaSeleccionada = formulario.elements.nombreMascota.selectedOptions[0];
 
     const datosTurno = {
         diaTurno: datos.get('diaTurno').trim(),
         horaTurno: datos.get('horaTurno').trim(),
-        nombreMascota: datos.get('nombreMascota'),
+        idMascota: mascotaSeleccionada.value,
+        nombreMascota: mascotaSeleccionada.dataset.nombreMascota,
+        nombreDuenio: mascotaSeleccionada.dataset.nombreDuenio,
         nombreVeterinario: datos.get('nombreVeterinario'),
     }
 
-    if (idTurnoEdit) {
+    const esEdicion = Boolean(idTurnoEdit);
+    if (esEdicion) {
         const indice = turnos.findIndex((m) => m.idTurno === idTurnoEdit);
-        if (indice !== -1) {
-            turnos[indice] = { idTurno: idTurnoEdit, ...datosTurno };
-            mostrarMensaje('¡Turno actualizado con éxito!');
+        if (indice === -1) {
+            mostrarMensaje('Turno no encontrado.', 'danger');
+            return;
         }
+        turnos[indice] = { idTurno: idTurnoEdit, ...datosTurno };
     } else {
         const nuevoTurno = { idTurno: crypto.randomUUID(), ...datosTurno };
         turnos.push(nuevoTurno);
-        mostrarMensaje('Turno registrado correctamente.', 'success');
     }
     if (guardarTurnos(turnos)) {
-        formulario.reset();
+        mostrarMensaje(
+            esEdicion ? '¡Turno actualizado con éxito!' : 'Turno registrado correctamente.',
+            'success'
+        );
+        resetForm();
         modalTurno.hide();
-        idTurnoEdit = null;
         render();
     }
 });
@@ -396,24 +468,16 @@ function actualizarHorasDisponibles() {
     const fechaSeleccionada = document.getElementById("diaTurno").value;
     const selectHora = document.getElementById("horaTurno");
 
-    if (!fechaSeleccionada) return;
-
-    // 1. Obtener turnos de localStorage y filtrar los ocupados de ese día
     const turnos = obtenerTurnos();
     const horasOcupadas = turnos
         .filter(t => t.diaTurno === fechaSeleccionada && t.idTurno !== idTurnoEdit)
         .map(t => t.horaTurno);
 
-    // 2. Recorrer cada opción del select
     Array.from(selectHora.options).forEach(option => {
-        if (!option.value) return; // Saltear el "Seleccionar hora"
+        if (!option.value) return;
 
-        const estaOcupado = horasOcupadas.includes(option.value);
-
-        // Deshabilitar/Habilitar la opción
+        const estaOcupado = Boolean(fechaSeleccionada) && horasOcupadas.includes(option.value);
         option.disabled = estaOcupado;
-
-        // Actualizar el texto visible
         if (estaOcupado) {
             option.textContent = `${option.value} hs (Ocupado)`;
         } else {
@@ -421,10 +485,10 @@ function actualizarHorasDisponibles() {
         }
     });
 
-    // 3. Si la hora que estaba seleccionada quedó ocupada, limpiar la selección
     if (horasOcupadas.includes(selectHora.value)) {
         selectHora.value = "";
     }
+    validarFormulario();
 }
 
 function abrirCalendario() {
@@ -438,9 +502,7 @@ const inputDia = document.getElementById("diaTurno");
 const btnCalendario = document.getElementById("btnCalendario");
 
 if (inputDia) {
-    // Evitar que elijan días anteriores a hoy
-    const hoy = new Date().toISOString().split("T")[0];
-    inputDia.setAttribute("min", hoy);
+    inputDia.setAttribute("min", obtenerFechaLocal());
 
     inputDia.addEventListener("click", abrirCalendario);
     inputDia.addEventListener("change", actualizarHorasDisponibles);

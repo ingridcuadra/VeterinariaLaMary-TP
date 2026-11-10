@@ -1,19 +1,50 @@
-import { obtenerMascotas, obtenerTurnos, obtenerVeterinarios, 
-    guardarTurnos, mostrarMensaje, obtenerHistorias, guardarHistorias } from "./storage.js";
+import {
+    obtenerMascotas,
+    obtenerTurnos,
+    obtenerVeterinarios,
+    guardarTurnos,
+    mostrarMensaje,
+    obtenerHistorias,
+    guardarHistorias,
+    inicializarTooltips
+} from "./storage.js";
 
 let idMascotaActual = null;
 let ultimoTurnoMascota = null;
 let idHistoriaEditando = null;
+let idHistoriaEliminar = null;
 const thead = document.querySelector('table thead');
 let columnaOrden = "diaTurno";
 let direccionOrden = 'asc';
 const contenedorModal = document.getElementById('contenedorFormulario');
 const modalHistoria = contenedorModal ? new bootstrap.Modal(contenedorModal) : null;
+const contenedorModalEliminarHistoria = document.getElementById("modalEliminarHistoria");
+const modalEliminarHistoria = contenedorModalEliminarHistoria
+    ? new bootstrap.Modal(contenedorModalEliminarHistoria)
+    : null;
+const resumenHistoriaEliminar = document.getElementById("resumenHistoriaEliminar");
+const botonConfirmarEliminarHistoria = document.getElementById("confirmarEliminarHistoria");
 const formularioHistoria = document.getElementById('formularioHistoria');
+const camposTurno = [
+    document.getElementById("diaTurno"),
+    document.getElementById("horaTurno"),
+    document.getElementById("nombreVeterinario")
+];
+const camposHistoria = [
+    document.getElementById("selectTurnoAtencion"),
+    document.getElementById("descripcionHistoria")
+];
 const btnAgregarHistoria = document.getElementById('btnAgregarHistoria');
 const btnVolver = document.getElementById('botonVolver');
 const btnAgendarTurno = document.getElementById('botonGuardarTurno');
 const selectHoraTurno = document.getElementById("horaTurno");
+const botonGuardarHistoria = document.getElementById("botonGuardar");
+const contenedorTablaHistoria = document.getElementById("contenedor-tabla-historia");
+const alertSinHistorias = document.getElementById("alert-sin-historias");
+inicializarTooltips(document.getElementById("tablaHistoria"));
+const camposTocados = new Set();
+let mostrarErroresTurno = false;
+let mostrarErroresHistoria = false;
 const horariosTurno = [
     "09:00", "09:30", "10:00", "10:30", "11:00",
     "11:30", "12:00", "12:30", "13:00", "13:30",
@@ -23,6 +54,7 @@ const horariosTurno = [
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarDesplegableHorarios();
+    document.getElementById("diaTurno").min = obtenerFechaLocal();
 
     const params = new URLSearchParams(window.location.search);
     idMascotaActual = params.get("id");
@@ -48,10 +80,112 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("nombreDuenio").textContent = mascota.nombreDuenio || "-";
 
     cargarDesplegableVeterinarios();
+    validarTurno();
 
     obtenerUltimoTurno(mascota);
     render();
 });
+
+function obtenerFechaLocal() {
+    const hoy = new Date();
+    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoy.getDate()).padStart(2, "0");
+    return `${hoy.getFullYear()}-${mes}-${dia}`;
+}
+
+function obtenerErrorTurno(campo) {
+    const valor = campo.value.trim();
+
+    if (!valor) {
+        const mensajes = {
+            diaTurno: "Seleccioná el día del próximo turno.",
+            horaTurno: "Seleccioná un horario.",
+            nombreVeterinario: "Seleccioná un veterinario."
+        };
+        return mensajes[campo.id];
+    }
+
+    if (campo.id === "diaTurno") {
+        if (Number.isNaN(new Date(`${valor}T00:00:00`).getTime())) {
+            return "Ingresá una fecha válida.";
+        }
+        if (valor < obtenerFechaLocal()) {
+            return "El turno no puede ser anterior a hoy.";
+        }
+    }
+
+    return "";
+}
+
+function actualizarEstadoCampo(campo, mensajeError, mostrarError) {
+    const feedback = document.getElementById(`${campo.id}-feedback`);
+    const tieneError = Boolean(mensajeError);
+
+    campo.classList.toggle("is-invalid", tieneError && mostrarError);
+    campo.classList.toggle("is-valid", !tieneError && campo.value.trim() !== "");
+    campo.setAttribute("aria-invalid", String(tieneError && mostrarError));
+    if (feedback) {
+        feedback.textContent = mensajeError;
+        feedback.classList.toggle("d-block", tieneError && mostrarError);
+    }
+
+    return !tieneError;
+}
+
+function validarTurno() {
+    const valido = camposTurno
+        .map(campo => actualizarEstadoCampo(
+            campo,
+            obtenerErrorTurno(campo),
+            mostrarErroresTurno || camposTocados.has(campo)
+        ))
+        .every(Boolean);
+
+    btnAgendarTurno.disabled = !valido;
+    return valido;
+}
+
+function obtenerErrorHistoria(campo) {
+    if (campo.id === "selectTurnoAtencion" && !campo.value) {
+        return "Seleccioná un turno o una atención.";
+    }
+    if (campo.id === "descripcionHistoria" && !campo.value.trim()) {
+        return "La descripción es obligatoria.";
+    }
+    return "";
+}
+
+function validarHistoria() {
+    const valido = camposHistoria
+        .map(campo => actualizarEstadoCampo(
+            campo,
+            obtenerErrorHistoria(campo),
+            mostrarErroresHistoria || camposTocados.has(campo)
+        ))
+        .every(Boolean);
+
+    botonGuardarHistoria.disabled = !valido;
+    return valido;
+}
+
+camposTurno.forEach(campo => {
+    ["input", "change", "blur"].forEach(evento => {
+        campo.addEventListener(evento, () => {
+            camposTocados.add(campo);
+            validarTurno();
+        });
+    });
+});
+
+camposHistoria.forEach(campo => {
+    ["input", "change", "blur"].forEach(evento => {
+        campo.addEventListener(evento, () => {
+            camposTocados.add(campo);
+            validarHistoria();
+        });
+    });
+});
+validarHistoria();
 
 function cargarDesplegableHorarios() {
     if (!selectHoraTurno) return;
@@ -108,40 +242,39 @@ function obtenerUltimoTurno(mascota) {
     }
 }
 
-if (btnAgendarTurno) {
-    btnAgendarTurno.addEventListener("click", (e) => {
-        e.preventDefault();
+const formularioTurno = document.getElementById("formularioMascota");
+if (formularioTurno) {
+    formularioTurno.addEventListener("submit", (event) => {
+        event.preventDefault();
+        mostrarErroresTurno = true;
 
-        const dia = document.getElementById("diaTurno").value;
-        const hora = document.getElementById("horaTurno").value;
-        const vet = document.getElementById("nombreVeterinario").value;
-        const nombreMascota = document.getElementById("nombreMascota").textContent;
+        if (!validarTurno()) return;
 
-        if (!dia || !hora || !vet) {
-            mostrarMensaje("Por favor elegí el día, la hora y el veterinario para agendar el nuevo turno.", "danger");
-            return;
-        }
-
+        const [campoDia, campoHora, campoVeterinario] = camposTurno;
         const turnos = obtenerTurnos();
-
-        const nuevoTurno = {
+        turnos.push({
             idTurno: crypto.randomUUID(),
             idMascota: idMascotaActual,
-            nombreMascota: nombreMascota,
-            diaTurno: dia,
-            horaTurno: hora,
-            nombreVeterinario: vet
-        };
+            nombreMascota: document.getElementById("nombreMascota").textContent,
+            diaTurno: campoDia.value,
+            horaTurno: campoHora.value,
+            nombreVeterinario: campoVeterinario.value
+        });
 
-        turnos.push(nuevoTurno);
-        guardarTurnos(turnos);
+        if (!guardarTurnos(turnos)) return;
 
         mostrarMensaje("¡Próximo turno agendado con éxito!", "success");
-
-        // Limpiar inputs de la sección de turno
-        document.getElementById("diaTurno").value = "";
-        document.getElementById("horaTurno").value = "";
-        document.getElementById("nombreVeterinario").value = "";
+        formularioTurno.reset();
+        camposTocados.clear();
+        mostrarErroresTurno = false;
+        camposTurno.forEach(campo => {
+            campo.classList.remove("is-valid", "is-invalid");
+            campo.removeAttribute("aria-invalid");
+            const feedback = document.getElementById(`${campo.id}-feedback`);
+            feedback.textContent = "";
+            feedback.classList.remove("d-block");
+        });
+        validarTurno();
     });
 }
 
@@ -149,32 +282,21 @@ if (btnAgregarHistoria) {
     btnAgregarHistoria.addEventListener('click', (e) => {
         e.preventDefault();
         idHistoriaEditando = null;
-
-        const selectTurnos = document.getElementById("selectTurnoAtencion");
-        const turnos = obtenerTurnos();
-
-        const turnosMascota = turnos.filter(t =>
-            (t.idMascota && t.idMascota === idMascotaActual) ||
-            (t.nombreMascota && t.nombreMascota.toLowerCase().includes(document.getElementById("nombreMascota").textContent.toLowerCase()))
-        );
-
-        selectTurnos.innerHTML = "";
-
-        if (turnosMascota.length > 0) {
-            turnosMascota.forEach(t => {
-                const option = document.createElement("option");
-                option.value = JSON.stringify({ diaTurno: t.diaTurno, nombreVeterinario: t.nombreVeterinario });
-                option.textContent = `${formatearFechaAR(t.diaTurno)} ${t.horaTurno} hs - Vet: ${t.nombreVeterinario || 'Sin asignar'}`;
-                selectTurnos.appendChild(option);
-            });
-        } else {
-            const option = document.createElement("option");
-            option.value = "";
-            option.textContent = "Sin turnos registrados";
-            selectTurnos.appendChild(option);
-        }
-
+        document.getElementById("tituloFormulario").textContent = "Registrar historial";
+        document.getElementById("estadoFormulario").textContent = "Nueva historia";
+        document.getElementById("botonGuardar").textContent = "Registrar";
+        cargarDesplegableTurnosModal();
+        camposHistoria.forEach(campo => {
+            campo.classList.remove("is-valid", "is-invalid");
+            campo.removeAttribute("aria-invalid");
+            const feedback = document.getElementById(`${campo.id}-feedback`);
+            feedback.textContent = "";
+            feedback.classList.remove("d-block");
+        });
         document.getElementById("descripcionHistoria").value = "";
+        camposTocados.clear();
+        mostrarErroresHistoria = false;
+        validarHistoria();
         if (modalHistoria) modalHistoria.show();
     });
 }
@@ -182,32 +304,24 @@ if (btnAgregarHistoria) {
 if (formularioHistoria) {
     formularioHistoria.addEventListener('submit', (event) => {
         event.preventDefault();
+        mostrarErroresHistoria = true;
+
+        if (!validarHistoria()) return;
 
         let historias = obtenerHistorias();
         const descripcion = document.getElementById("descripcionHistoria").value.trim();
         const selectTurnos = document.getElementById("selectTurnoAtencion");
-        const tituloModal = document.getElementById("tituloFormulario");
-        const estadoForm = document.getElementById("estadoFormulario");
-
-
-        if (tituloModal) tituloModal.textContent = "Cargar historia clínica";
-        if (estadoForm) {
-            estadoForm.className = "badge text-bg-light estado-formulario";
+        let datosTurno;
+        try {
+            datosTurno = JSON.parse(selectTurnos.value);
+        } catch (error) {
+            console.error("Error al leer el turno seleccionado:", error);
+            mostrarMensaje("No se pudo leer el turno seleccionado.", "danger");
+            return;
         }
 
-        if (!descripcion) return;
-
-        let datosTurno = { diaTurno: "", nombreVeterinario: "" };
-        if (selectTurnos && selectTurnos.value) {
-            try {
-                datosTurno = JSON.parse(selectTurnos.value);
-            } catch (e) {
-                console.error("Error al leer el turno seleccionado:", e);
-            }
-        }
-
+        let mensajeExito;
         if (idHistoriaEditando) {
-            // EDITAR REGISTRO EXISTENTE
             historias = historias.map(h => {
                 if (h.idHistoria === idHistoriaEditando) {
                     return {
@@ -219,22 +333,25 @@ if (formularioHistoria) {
                 }
                 return h;
             });
-            mostrarMensaje("Historia clínica actualizada correctamente", "success");
+            mensajeExito = "Historia clínica actualizada correctamente";
         } else {
-            // CREAR NUEVO REGISTRO
             const nuevaHistoria = {
                 idHistoria: crypto.randomUUID(),
                 idMascota: idMascotaActual,
-                diaTurno: datosTurno.diaTurno || new Date().toISOString().split('T')[0],
+                diaTurno: datosTurno.diaTurno || obtenerFechaLocal(),
                 nombreVeterinario: datosTurno.nombreVeterinario || "Atención General",
                 descripcionHistoria: descripcion
             };
             historias.push(nuevaHistoria);
-            mostrarMensaje("Historia clínica registrada correctamente", "success");
+            mensajeExito = "Historia clínica registrada correctamente";
         }
 
-        guardarHistorias(historias);
+        if (!guardarHistorias(historias)) return;
+
+        mostrarMensaje(mensajeExito, "success");
         idHistoriaEditando = null;
+        camposTocados.clear();
+        mostrarErroresHistoria = false;
 
         if (modalHistoria) modalHistoria.hide();
         render();
@@ -254,19 +371,20 @@ function render() {
         let comparacion = 0;
 
         if (typeof valorA === 'number' && typeof valorB === 'number') {
-         comparacion = valorA - valorB;
-      } else {
-         comparacion = String(valorA).localeCompare(String(valorB));
-      }
+            comparacion = valorA - valorB;
+        } else {
+            comparacion = String(valorA).localeCompare(String(valorB));
+        }
         return direccionOrden === 'asc' ? comparacion : -comparacion;
     })
 
     tabla.replaceChildren();
 
-    if (historiasMascota.length === 0) {
-        const row = document.createElement("tr");
-        row.innerHTML = `<td colspan="4" class="text-center text-secondary py-4">No hay atenciones clínicas registradas para esta mascota.</td>`;
-        tabla.append(row);
+    const hayHistorias = historiasMascota.length > 0;
+    contenedorTablaHistoria.hidden = !hayHistorias;
+    alertSinHistorias.hidden = hayHistorias;
+
+    if (!hayHistorias) {
         return;
     }
 
@@ -286,13 +404,21 @@ function render() {
         colAcciones.className = "text-end";
 
         const editButton = document.createElement("button");
+        editButton.type = "button";
         editButton.className = "btn btn-icon btn-icon-primary btn-editar";
+        editButton.dataset.bsToggle = "tooltip";
+        editButton.dataset.bsTitle = "Editar historia clínica";
+        editButton.setAttribute("aria-label", "Editar historia clínica");
         editButton.innerHTML = `<i class="fa-solid fa-pen" aria-hidden="true"></i>`;
         editButton.addEventListener("click", () => editarHistoria(h));
         colAcciones.append(editButton);
 
         const btnEliminar = document.createElement("button");
+        btnEliminar.type = "button";
         btnEliminar.className = "btn btn-icon btn-icon-danger btn-sm";
+        btnEliminar.dataset.bsToggle = "tooltip";
+        btnEliminar.dataset.bsTitle = "Eliminar";
+        btnEliminar.setAttribute("aria-label", "Eliminar historia clínica");
         btnEliminar.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
         btnEliminar.addEventListener("click", () => eliminarHistoria(h.idHistoria));
         colAcciones.append(btnEliminar);
@@ -303,10 +429,44 @@ function render() {
 }
 
 function eliminarHistoria(idHistoria) {
-    let historias = obtenerHistorias();
-    historias = historias.filter(h => h.idHistoria !== idHistoria);
-    guardarHistorias(historias);
-    render();
+    const historia = obtenerHistorias().find(h => h.idHistoria === idHistoria);
+    if (!historia) {
+        mostrarMensaje("La historia clínica que querés eliminar ya no está disponible.", "danger");
+        return;
+    }
+
+    idHistoriaEliminar = idHistoria;
+    resumenHistoriaEliminar.textContent =
+        `${formatearFechaAR(historia.diaTurno)} - ${historia.nombreVeterinario || "Atención General"}`;
+    modalEliminarHistoria?.show();
+}
+
+if (botonConfirmarEliminarHistoria) {
+    botonConfirmarEliminarHistoria.addEventListener("click", () => {
+        if (!idHistoriaEliminar) return;
+
+        const historias = obtenerHistorias();
+        const historiasActualizadas = historias.filter(
+            historia => historia.idHistoria !== idHistoriaEliminar
+        );
+        if (historiasActualizadas.length === historias.length) {
+            mostrarMensaje("La historia clínica que querés eliminar ya no está disponible.", "danger");
+            modalEliminarHistoria?.hide();
+            return;
+        }
+        if (!guardarHistorias(historiasActualizadas)) return;
+
+        idHistoriaEliminar = null;
+        modalEliminarHistoria?.hide();
+        mostrarMensaje("La historia clínica se eliminó correctamente.", "success");
+        render();
+    });
+}
+
+if (contenedorModalEliminarHistoria) {
+    contenedorModalEliminarHistoria.addEventListener("hidden.bs.modal", () => {
+        idHistoriaEliminar = null;
+    });
 }
 
 function editarHistoria(historia) {
@@ -314,37 +474,32 @@ function editarHistoria(historia) {
 
     const tituloModal = document.getElementById("tituloFormulario");
     const estadoForm = document.getElementById("estadoFormulario");
-    const selectTurnos = document.getElementById("selectTurnoAtencion");
     const inputDesc = document.getElementById("descripcionHistoria");
 
-    if (tituloModal) tituloModal.textContent = "Editar historia clínica 111";
+    if (tituloModal) tituloModal.textContent = "Editar historia clínica";
     if (estadoForm) {
         estadoForm.textContent = "Editando registro";
         estadoForm.className = "badge text-bg-light estado-formulario";
     }
+    botonGuardarHistoria.textContent = "Guardar cambios";
 
-    // Cargar los turnos y preseleccionar el del registro
-    cargarDesplegableTurnosModal();
-    if (selectTurnos) {
-        // Buscar la opción que coincida con la fecha y veterinario guardados
-        Array.from(selectTurnos.options).forEach(opt => {
-            if (opt.value) {
-                try {
-                    const datos = JSON.parse(opt.value);
-                    if (datos.diaTurno === historia.diaTurno && datos.nombreVeterinario === historia.nombreVeterinario) {
-                        opt.selected = true;
-                    }
-                } catch (e) { }
-            }
-        });
-    }
-
+    cargarDesplegableTurnosModal(historia);
     if (inputDesc) inputDesc.value = historia.descripcionHistoria || "";
+    camposHistoria.forEach(campo => {
+        campo.classList.remove("is-valid", "is-invalid");
+        campo.removeAttribute("aria-invalid");
+        const feedback = document.getElementById(`${campo.id}-feedback`);
+        feedback.textContent = "";
+        feedback.classList.remove("d-block");
+    });
+    camposTocados.clear();
+    mostrarErroresHistoria = false;
+    validarHistoria();
 
     if (modalHistoria) modalHistoria.show();
 }
 
-function cargarDesplegableTurnosModal() {
+function cargarDesplegableTurnosModal(historia = null) {
     const selectTurnos = document.getElementById("selectTurnoAtencion");
     if (!selectTurnos) return;
 
@@ -356,20 +511,47 @@ function cargarDesplegableTurnosModal() {
         (t.nombreMascota && t.nombreMascota.toLowerCase().includes(nombreMascota.toLowerCase()))
     );
 
-    selectTurnos.innerHTML = "";
+    selectTurnos.replaceChildren();
 
-    if (turnosMascota.length > 0) {
-        turnosMascota.forEach(t => {
-            const option = document.createElement("option");
-            option.value = JSON.stringify({ diaTurno: t.diaTurno, nombreVeterinario: t.nombreVeterinario });
-            option.textContent = `${formatearFechaAR(t.diaTurno)} ${t.horaTurno} hs - Vet: ${t.nombreVeterinario || 'Sin asignar'}`;
-            selectTurnos.appendChild(option);
-        });
-    } else {
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Seleccionar...";
+    placeholder.selected = true;
+    placeholder.disabled = true;
+    placeholder.hidden = true;
+    selectTurnos.appendChild(placeholder);
+
+    turnosMascota.forEach(turno => {
+        const datos = {
+            diaTurno: turno.diaTurno,
+            nombreVeterinario: turno.nombreVeterinario
+        };
         const option = document.createElement("option");
-        option.value = "";
-        option.textContent = "Sin turnos registrados";
+        option.value = JSON.stringify(datos);
+        option.textContent = `${formatearFechaAR(turno.diaTurno)} ${turno.horaTurno} hs - Vet: ${turno.nombreVeterinario || 'Sin asignar'}`;
         selectTurnos.appendChild(option);
+    });
+
+    const atencionSinTurno = document.createElement("option");
+    atencionSinTurno.value = JSON.stringify({ diaTurno: "", nombreVeterinario: "" });
+    atencionSinTurno.textContent = "Atención sin turno (general)";
+    selectTurnos.appendChild(atencionSinTurno);
+
+    if (historia) {
+        const valorHistoria = JSON.stringify({
+            diaTurno: historia.diaTurno || "",
+            nombreVeterinario: historia.nombreVeterinario || ""
+        });
+        let opcionHistoria = Array.from(selectTurnos.options)
+            .find(option => option.value === valorHistoria);
+
+        if (!opcionHistoria) {
+            opcionHistoria = document.createElement("option");
+            opcionHistoria.value = valorHistoria;
+            opcionHistoria.textContent = `${formatearFechaAR(historia.diaTurno)} - Vet: ${historia.nombreVeterinario || 'Sin asignar'}`;
+            selectTurnos.appendChild(opcionHistoria);
+        }
+        opcionHistoria.selected = true;
     }
 }
 

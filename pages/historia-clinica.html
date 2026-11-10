@@ -111,7 +111,7 @@
                             </div>
                         </div>
 
-                        <form id="formularioMascota" class="row g-2">
+                        <form id="formularioMascota" class="row g-2" novalidate>
                             <div class="row">
                                 <div class="col-12 col-lg-3">
                                     <label for="diaTurno" class="form-label">Día del próximo turno</label>
@@ -121,33 +121,33 @@
                                             <i class="fa-regular fa-calendar-days"></i>
                                         </span>
                                         <input type="date" class="form-control border-start-0" id="diaTurno"
-                                            name="diaTurno" required>
+                                            name="diaTurno" required aria-describedby="diaTurno-feedback">
                                     </div>
                                     <div id="diaTurno-feedback" class="invalid-feedback"></div>
                                 </div>
 
                                 <div class="col-12 col-lg-3">
                                     <label for="horaTurno" class="form-label">Horario del próximo turno</label>
-                                    <select class="form-select" id="horaTurno" name="horaTurno" required>
+                                    <select class="form-select" id="horaTurno" name="horaTurno" required
+                                        aria-describedby="horaTurno-feedback">
                                         <option value="" selected hidden>Seleccionar...</option>
                                     </select>
                                     <div id="horaTurno-feedback" class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <label for="nombreVeterinario" class="form-label">Veterinario a cargo</label>
-                                    <select class="form-select" id="nombreVeterinario" name="nombreVeterinario"
-                                        required>
+                                    <select class="form-select" id="nombreVeterinario" name="nombreVeterinario" required
+                                        aria-describedby="nombreVeterinario-feedback">
                                     </select>
                                     <div id="nombreVeterinario-feedback" class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-auto justify-content-end d-flex mt-3 col no-imprimir">
-                                    <button type="submit" class="btn btn-primary mt-3 p-2 align-self-center"
+                                    <button type="submit" class="btn btn-primary mt-3 align-self-center"
                                         id="botonGuardarTurno">
                                         Registrar
                                     </button>
                                 </div>
                             </div>
-                            <div id="mensajeEstado" class="alert d-none" role="alert"></div>
                         </form>
                     </div>
                 </div>
@@ -175,7 +175,10 @@
                 </div>
 
                 <div class="px-2 px-lg-3 pb-4">
-                    <div id="contenedor-tabla-historia" class="table-responsive">
+                    <div id="alert-sin-historias" class="alert alert-info mx-4 mx-lg-5 mb-4" role="alert" hidden>
+                        Todavía no hay historias clínicas registradas para esta mascota.
+                    </div>
+                    <div id="contenedor-tabla-historia" class="table-responsive" hidden>
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-light">
                                 <tr style="cursor: pointer;">
@@ -205,62 +208,101 @@
             </section>
 
             <div class="justify-content-end d-flex mt-3 no-imprimir">
-                <button type="button" class="btn btn-secondary mt-3 p-2 me-2 align-self-center" id="botonVolver">
+                <button type="button" class="btn btn-secondary mt-3 me-2" id="botonVolver">
                     Volver
                 </button>
             </div>
-        </div>
 
-        <section id="contenedorFormulario" class="modal fade" tabindex="-1" aria-labelledby="tituloFormulario"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content p-4">
-                    <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
-                        <div class="icono-formulario-historia">
-                            <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
+            <section id="contenedorFormulario" class="modal fade" tabindex="-1" aria-labelledby="tituloFormulario"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content p-4">
+                        <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                            <div class="icono-formulario-historia">
+                                <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h2 class="h4 mb-1" id="tituloFormulario">Registrar historial</h2>
+                                <p class="text-secondary mb-0">
+                                    Completá los datos para agregar un registro.
+                                </p>
+                            </div>
+                            <span id="estadoFormulario" class="badge text-bg-light estado-formulario">
+                                Nueva historia
+                            </span>
                         </div>
-                        <div class="flex-grow-1">
-                            <h2 class="h4 mb-1" id="tituloFormulario">Registrar historial</h2>
-                            <p class="text-secondary mb-0">
-                                Completá los datos para agregar un registro.
-                            </p>
-                        </div>
-                        <span id="estadoFormulario" class="badge text-bg-light estado-formulario">
-                            Nueva historia
-                        </span>
+
+                        <form id="formularioHistoria" class="row g-2" novalidate>
+                            <div class="col-12">
+                                <label for="selectTurnoAtencion" class="form-label">Seleccionar Turno / Atención</label>
+                                <select class="form-select" id="selectTurnoAtencion" name="selectTurnoAtencion" required
+                                    aria-describedby="selectTurnoAtencion-feedback">
+                                    <!-- Se llena dinámicamente desde JS -->
+                                </select>
+                                <div id="selectTurnoAtencion-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="descripcionHistoria" class="form-label">Descripción / Observaciones</label>
+                                <textarea class="form-control" id="descripcionHistoria" name="descripcionHistoria"
+                                    rows="4" maxlength="500"
+                                    placeholder="Escribí el diagnóstico, tratamiento o detalles de la atención..."
+                                    required aria-describedby="descripcionHistoria-feedback"></textarea>
+                                <div id="descripcionHistoria-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="justify-content-end d-flex mt-3">
+                                <button type="button" class="btn btn-secondary mt-3 p-2 me-2 align-self-center"
+                                    data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary mt-3 p-2 align-self-center"
+                                    id="botonGuardar">
+                                    Registrar
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
-                    <form id="formularioHistoria" class="row g-2">
-                        <div class="col-12">
-                            <label for="selectTurnoAtencion" class="form-label">Seleccionar Turno / Atención</label>
-                            <select class="form-select" id="selectTurnoAtencion" name="selectTurnoAtencion" required>
-                                <!-- Se llena dinámicamente desde JS -->
-                            </select>
+                </div>
+            </section>
+
+            <!-- MODAL DE CONFIRMACIÓN DE ELIMINACION -->
+            <div class="modal fade" id="modalEliminarHistoria" tabindex="-1"
+                aria-labelledby="tituloModalEliminarHistoria" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title fs-5" id="tituloModalEliminarHistoria">
+                                <i class="fa-solid fa-trash-can me-2" aria-hidden="true"></i>
+                                Eliminar historia clínica
+                            </h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Cerrar"></button>
                         </div>
 
-                        <div class="col-12">
-                            <label for="descripcionHistoria" class="form-label">Descripción / Observaciones</label>
-                            <textarea class="form-control" id="descripcionHistoria" name="descripcionHistoria" rows="4"
-                                maxlength="500"
-                                placeholder="Escribí el diagnóstico, tratamiento o detalles de la atención..."
-                                required></textarea>
-                            <div id="descripcionHistoria-feedback" class="invalid-feedback"></div>
+                        <div class="modal-body text-center">
+                            <p class="text-secondary mb-2">
+                                ¿Estás seguro de que deseas eliminar este registro?
+                            </p>
+                            <p class="fw-semibold" id="resumenHistoriaEliminar"></p>
+                            <div class="text-danger mt-3">
+                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                                <span class="ms-1">Esta acción no se puede deshacer.</span>
+                            </div>
                         </div>
 
-                        <div class="justify-content-end d-flex mt-3">
-                            <button type="button" class="btn btn-secondary mt-3 p-2 me-2 align-self-center"
-                                data-bs-dismiss="modal">
+                        <div class="modal-footer d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Cancelar
                             </button>
-                            <button type="submit" class="btn btn-primary mt-3 p-2 align-self-center" id="botonGuardar">
-                                Registrar
+                            <button type="button" id="confirmarEliminarHistoria" class="btn btn-danger">
+                                Eliminar
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
-
             </div>
-        </section>
         </div>
     </main>
 
@@ -274,6 +316,17 @@
         </div>
     </footer>
 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;" aria-live="polite"
+        aria-atomic="true">
+        <div id="toastNotificacion" class="toast fade align-items-center border-0" role="status" aria-live="polite"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div id="toastNotificacionMensaje" class="toast-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Cerrar"></button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
