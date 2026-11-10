@@ -132,24 +132,6 @@
                 </div>
             </section>
 
-
-
-            <!-- Buscador de mascotas -->
-            <div class="px-3 pt-3 pb-3">
-                <label for="inputBuscar" class="form-label">
-                    Buscar mascota
-                </label>
-
-                <div class="input-group">
-                    <span class="input-group-text bg-white">
-                        <i class="fa-solid fa-magnifying-glass text-secondary" aria-hidden="true"></i>
-                    </span>
-
-                    <input type="search" id="inputBuscar" class="form-control"
-                        placeholder="Nombre, dueño, color, edad o peso..." autocomplete="off">
-                </div>
-            </div>
-
             <!-- LISTA DE MASCOTAS -->
             <section class="card border-0 shadow-sm mascotas-listado mb-4">
                 <div class="card-body p-0">
@@ -158,7 +140,7 @@
                         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                             <div>
                                 <h2 class="h4 mb-1" id="tituloListado">
-                                    Mascotas Registradas
+                                    Mascotas registradas
                                 </h2>
                                 <p class="text-secondary mb-0">
                                     Consultá y administrá los pacientes registrados.
@@ -169,6 +151,22 @@
                                 <span class="small">Total de Mascotas:</span>
                                 <span class="fw-semibold p-1" id="totalMascotas">0</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Buscador de mascotas -->
+                    <div class="px-3 pb-3">
+                        <label for="inputBuscar" class="form-label">
+                            Buscar mascota
+                        </label>
+
+                        <div class="input-group">
+                            <span class="input-group-text bg-white">
+                                <i class="fa-solid fa-magnifying-glass text-secondary" aria-hidden="true"></i>
+                            </span>
+
+                            <input type="search" id="inputBuscar" class="form-control"
+                                placeholder="Nombre, dueño, color, edad o peso..." autocomplete="off">
                         </div>
                     </div>
 
@@ -189,7 +187,7 @@
                                         <th scope="col">Color</th>
                                         <th scope="col">Edad</th>
                                         <th scope="col">Peso</th>
-                                        <th scope="col" class="text-end pe-4">Acciones</th>
+                                        <th scope="col" class="text-end pe-4"></th>
                                     </tr>
                                 </thead>
 

@@ -317,7 +317,7 @@ function editarHistoria(historia) {
     const selectTurnos = document.getElementById("selectTurnoAtencion");
     const inputDesc = document.getElementById("descripcionHistoria");
 
-    if (tituloModal) tituloModal.textContent = "Editar historia clínica";
+    if (tituloModal) tituloModal.textContent = "Editar historia clínica 111";
     if (estadoForm) {
         estadoForm.textContent = "Editando registro";
         estadoForm.className = "badge text-bg-light estado-formulario";
@@ -403,7 +403,7 @@ if (btnExportarPDF) {
         const tituloOriginal = document.title;
 
         // 1. Cambiar el título del documento para sugerir el nombre del archivo
-        document.title = `Historia Clinica - ${nombreMascota}`;
+        document.title = `Historia clínica - ${nombreMascota}`;
 
         // 2. Abrir la ventana nativa de impresión
         window.print();

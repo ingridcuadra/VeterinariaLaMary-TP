@@ -67,165 +67,166 @@
                 <h1 class="mb-2">Gestión de veterinarios</h1>
                 <p class="text-secondary mb-0">Registrá y mantené actualizada la información de tus veterinarios.</p>
             </section>
-      
-
-        <!-- FORMULARIO -->
-        <section class="card border-0 shadow-sm mb-4 veterinarios-form">
-
-            <div class="card-body p-4 p-lg-5">
-
-                <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
-                    <div>
-                        <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
-                    </div>
-
-                    <div class="flex-grow-1">
-                        <h2 class="h4 mb-1">Registrar Veterinario</h2>
-                        <p class="text-secondary mb-0">
-                            Completá los datos del profesional.
-                        </p>
-                    </div>
-                </div>
-                <div id="mensajeEstado" class="alert d-none" role="status" aria-live="polite"></div>
 
 
-                <form id="form-veterinarios" class="row g-4" novalidate>
-                    <div class="col-12 col-md-6">
-                        <label for="matricula" class="form-label">
-                            Matrícula
-                        </label>
-                        <input type="text" class="form-control" id="matricula" name="matricula"
-                            placeholder="Ej. MP 1234" required aria-describedby="matricula-feedback">
-                        <div id="matricula-feedback" class="invalid-feedback"></div>
-                    </div>
+            <!-- FORMULARIO -->
+            <section class="card border-0 shadow-sm mb-4 veterinarios-form">
 
-                    <div class="col-12 col-md-6">
-                        <label for="nombre" class="form-label">
-                            Nombre
-                        </label>
-                        <input type="text" class="form-control" id="nombre" name="nombre"
-                            placeholder="Ingresá el nombre completo" required aria-describedby="nombre-feedback">
-                        <div id="nombre-feedback" class="invalid-feedback"></div>
-                    </div>
+                <div class="card-body p-4 p-lg-5">
 
-                    <div class="col-12 col-md-6">
-                        <label for="imagenVeterinario" class="form-label">Imagen del profesional</label>
-                        <input type="file" class="form-control" id="imagenVeterinario" name="imagenVeterinario"
-                            accept="image/*" required aria-describedby="imagenVeterinario-feedback">
-                        <div id="imagenVeterinario-feedback" class="invalid-feedback"></div>
-                        <img id="vistaPreviaImagenVeterinario" class="img-thumbnail mt-2 d-none"
-                            alt="Vista previa de la imagen del profesional" style="max-height: 180px;">
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <label for="especializacion" class="form-label">
-                            Especialización
-                        </label>
-                        <select name="especializacion" id="especializacion" class="form-select" required
-                            aria-describedby="especializacion-feedback">
-                            <option value="" hidden>Seleccionar...</option>
-                            <option value="Cardiologia">Cardiología</option>
-                            <option value="Medicina Interna">Medicina Interna</option>
-                            <option value="Dermatologia">Dermatología</option>
-                            <option value="Oftalmologia">Oftalmología</option>
-                        </select>
-                        <div id="especializacion-feedback" class="invalid-feedback"></div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <label for="valorConsulta" class="form-label">
-                            Valor de consulta
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="text" inputmode="decimal" class="form-control" id="valorConsulta"
-                                name="valorConsulta" placeholder="0" required aria-describedby="valorConsulta-feedback">
-                            <div id="valorConsulta-feedback" class="invalid-feedback w-100"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <hr class="text-secondary opacity-25">
-
-                        <div class="d-flex flex-wrap gap-2 justify-content-end">
-                            <button type="submit" id="botonRegistrarVeterinario" class="btn btn-primary px-4" disabled>
-                                <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
-                                Registrar veterinario
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-
-        <!-- Buscador de veterinarios -->
-        <div class="px-3 pt-3 pb-3">
-            <label for="inputBuscarVeterinario" class="form-label">
-                Buscar veterinario
-            </label>
-
-            <div class="input-group">
-                <span class="input-group-text bg-white">
-                    <i class="fa-solid fa-magnifying-glass text-secondary" aria-hidden="true"></i>
-                </span>
-
-                <input type="search" id="inputBuscarVeterinario" class="form-control"
-                    placeholder="Matrícula, nombre, especialidad o valor..." autocomplete="off">
-            </div>
-        </div>
-
-        <!-- LISTA DE VETERINARIOS -->
-        <section class="card border-0 shadow-sm veterinarios-listado mb-4">
-            
-            <div class="card-body p-0">
-                <div class="p-4 p-lg-5 pb-2 pb-lg-2">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
                         <div>
-                            <h2 class="h4 mb-1">
-                                Veterinarios Registrados
-                            </h2>
+                            <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="flex-grow-1">
+                            <h2 class="h4 mb-1">Registrar Veterinario</h2>
                             <p class="text-secondary mb-0">
-                                Consultá y administrá los profesionales registrados.
+                                Completá los datos del profesional.
                             </p>
                         </div>
+                    </div>
+                    <div id="mensajeEstado" class="alert d-none" role="status" aria-live="polite"></div>
 
-                        <div id="total-veterinarios-contenedor" class="total-veterinarios">
-                            <span class="small">Total de Veterinarios:</span>
-                            <span class="fw-semibold p-1" id="total-veterinarios">0</span>
+
+                    <form id="form-veterinarios" class="row g-4" novalidate>
+                        <div class="col-12 col-md-6">
+                            <label for="matricula" class="form-label">
+                                Matrícula
+                            </label>
+                            <input type="text" class="form-control" id="matricula" name="matricula"
+                                placeholder="Ej. MP 1234" required aria-describedby="matricula-feedback">
+                            <div id="matricula-feedback" class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="nombre" class="form-label">
+                                Nombre
+                            </label>
+                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                placeholder="Ingresá el nombre completo" required aria-describedby="nombre-feedback">
+                            <div id="nombre-feedback" class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="imagenVeterinario" class="form-label">Imagen del profesional</label>
+                            <input type="file" class="form-control" id="imagenVeterinario" name="imagenVeterinario"
+                                accept="image/*" required aria-describedby="imagenVeterinario-feedback">
+                            <div id="imagenVeterinario-feedback" class="invalid-feedback"></div>
+                            <img id="vistaPreviaImagenVeterinario" class="img-thumbnail mt-2 d-none"
+                                alt="Vista previa de la imagen del profesional" style="max-height: 180px;">
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="especializacion" class="form-label">
+                                Especialización
+                            </label>
+                            <select name="especializacion" id="especializacion" class="form-select" required
+                                aria-describedby="especializacion-feedback">
+                                <option value="" hidden>Seleccionar...</option>
+                                <option value="Cardiologia">Cardiología</option>
+                                <option value="Medicina Interna">Medicina Interna</option>
+                                <option value="Dermatologia">Dermatología</option>
+                                <option value="Oftalmologia">Oftalmología</option>
+                            </select>
+                            <div id="especializacion-feedback" class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="valorConsulta" class="form-label">
+                                Valor de consulta
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="text" inputmode="decimal" class="form-control" id="valorConsulta"
+                                    name="valorConsulta" placeholder="0" required
+                                    aria-describedby="valorConsulta-feedback">
+                                <div id="valorConsulta-feedback" class="invalid-feedback w-100"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <hr class="text-secondary opacity-25">
+
+                            <div class="d-flex flex-wrap gap-2 justify-content-end">
+                                <button type="submit" id="botonRegistrarVeterinario" class="btn btn-primary px-4"
+                                    disabled>
+                                    <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
+                                    Registrar veterinario
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- LISTA DE VETERINARIOS -->
+            <section class="card border-0 shadow-sm veterinarios-listado mb-4">
+
+                <div class="card-body p-0">
+                    <div class="p-4 p-lg-5 pb-2 pb-lg-2">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                            <div>
+                                <h2 class="h4 mb-1">
+                                    Veterinarios Registrados
+                                </h2>
+                                <p class="text-secondary mb-0">
+                                    Consultá y administrá los profesionales registrados.
+                                </p>
+                            </div>
+
+                            <div id="total-veterinarios-contenedor" class="total-veterinarios">
+                                <span class="small">Total de Veterinarios:</span>
+                                <span class="fw-semibold p-1" id="total-veterinarios">0</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="alert-sin-veterinarios" class="alert alert-info mx-4 mx-lg-5 mb-4" role="alert" hidden>
-                    Todavía no hay veterinarios registrados.
-                </div>
+                    <!-- Buscador de veterinarios -->
+                    <div class="px-3 pt-3 pb-3">
+                        <label for="inputBuscarVeterinario" class="form-label">
+                            Buscar veterinario
+                        </label>
 
-                <div id="alert-sin-resultados" class="alert alert-info mx-4 mx-lg-5 mb-4" hidden>
-                    No se encontraron veterinarios que coincidan con la búsqueda.
-                </div>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white">
+                                <i class="fa-solid fa-magnifying-glass text-secondary" aria-hidden="true"></i>
+                            </span>
 
-                <section id="contenedor-tabla" class="px-2 px-lg-3 pb-4" hidden>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th scope="col">Imagen</th>
-                                    <th scope="col">Matrícula</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Especialidad</th>
-                                    <th scope="col">Valor de consulta</th>
-                                    <th scope="col" class="text-end pe-4"></th>
-                                </tr>
-                            </thead>
-
-                            <tbody id="lista-veterinarios">
-                            </tbody>
-                        </table>
+                            <input type="search" id="inputBuscarVeterinario" class="form-control"
+                                placeholder="Matrícula, nombre, especialidad o valor..." autocomplete="off">
+                        </div>
                     </div>
-                </section>
-            </div>
-        </section>
+
+                    <div id="alert-sin-veterinarios" class="alert alert-info mx-4 mx-lg-5 mb-4" role="alert" hidden>
+                        Todavía no hay veterinarios registrados.
+                    </div>
+
+                    <div id="alert-sin-resultados" class="alert alert-info mx-4 mx-lg-5 mb-4" hidden>
+                        No se encontraron veterinarios que coincidan con la búsqueda.
+                    </div>
+
+                    <section id="contenedor-tabla" class="px-2 px-lg-3 pb-4" hidden>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Imagen</th>
+                                        <th scope="col">Matrícula</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Especialidad</th>
+                                        <th scope="col">Valor de consulta</th>
+                                        <th scope="col" class="text-end pe-4"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="lista-veterinarios">
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </section>
         </div>
 
         <!-- MODAL EDICION -->
@@ -264,12 +265,11 @@
 
                             <div class="mb-3">
                                 <label for="editarImagenVeterinario" class="form-label">Imagen del profesional</label>
-                                <input type="file" class="form-control" id="editarImagenVeterinario"
-                                    accept="image/*" aria-describedby="editarImagenVeterinario-feedback">
+                                <input type="file" class="form-control" id="editarImagenVeterinario" accept="image/*"
+                                    aria-describedby="editarImagenVeterinario-feedback">
                                 <div id="editarImagenVeterinario-feedback" class="invalid-feedback"></div>
                                 <img id="vistaPreviaEditarImagenVeterinario" class="img-thumbnail mt-2"
-                                    alt="Vista previa de la imagen del profesional"
-                                    style="max-height: 180px;" hidden>
+                                    alt="Vista previa de la imagen del profesional" style="max-height: 180px;" hidden>
                             </div>
 
                             <div class="mb-3">
