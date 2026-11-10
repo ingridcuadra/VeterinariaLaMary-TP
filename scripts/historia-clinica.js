@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.getElementById("nombreMascota").textContent = mascota.nombreMascota || "-";
-    document.getElementById("colorMascota").textContent = mascota.colorMascota || "-";
-    document.getElementById("edadMascota").textContent = mascota.edadMascota ? `${mascota.edadMascota} años` : "-";
-    document.getElementById("pesoMascota").textContent = mascota.pesoMascota ? `${mascota.pesoMascota} kg` : "-";
+    document.getElementById("colorMascota").textContent = mascota.color || "-";
+    document.getElementById("edadMascota").textContent = mascota.edad ? `${mascota.edad} años` : "-";
+    document.getElementById("pesoMascota").textContent = mascota.peso ? `${mascota.peso} kg` : "-";
     document.getElementById("nombreDuenio").textContent = mascota.nombreDuenio || "-";
 
     cargarDesplegableVeterinarios();
