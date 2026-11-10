@@ -402,10 +402,12 @@ function render() {
 
         const colAcciones = document.createElement("td");
         colAcciones.className = "text-end";
+        const acciones = document.createElement("div");
+        acciones.className = "d-flex gap-3 justify-content-end flex-nowrap";
 
         const editButton = document.createElement("button");
         editButton.type = "button";
-        editButton.className = "btn btn-icon btn-icon-primary btn-editar";
+        editButton.className = "btn btn-icon btn-icon-primary";
         editButton.dataset.bsToggle = "tooltip";
         editButton.dataset.bsTitle = "Editar historia clínica";
         editButton.setAttribute("aria-label", "Editar historia clínica");
@@ -415,14 +417,15 @@ function render() {
 
         const btnEliminar = document.createElement("button");
         btnEliminar.type = "button";
-        btnEliminar.className = "btn btn-icon btn-icon-danger btn-sm";
+        btnEliminar.className = "btn btn-icon btn-icon-danger";
         btnEliminar.dataset.bsToggle = "tooltip";
         btnEliminar.dataset.bsTitle = "Eliminar";
         btnEliminar.setAttribute("aria-label", "Eliminar historia clínica");
         btnEliminar.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
         btnEliminar.addEventListener("click", () => eliminarHistoria(h.idHistoria));
-        colAcciones.append(btnEliminar);
-
+        
+        acciones.append(editButton, btnEliminar);
+        colAcciones.append(acciones);
         row.append(colDia, colVet, colDesc, colAcciones);
         tabla.append(row);
     });
