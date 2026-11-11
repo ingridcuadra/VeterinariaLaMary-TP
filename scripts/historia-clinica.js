@@ -1,6 +1,7 @@
 import {
     obtenerMascotas,
     obtenerTurnos,
+    obtenerHorasOcupadas,
     obtenerVeterinarios,
     guardarTurnos,
     mostrarMensaje,
@@ -114,6 +115,14 @@ function obtenerErrorTurno(campo) {
         }
     }
 
+    if (
+        campo.id === "horaTurno" &&
+        camposTurno[0].value &&
+        obtenerHorasOcupadas(camposTurno[0].value).includes(valor)
+    ) {
+        return "Ese horario ya está ocupado para la fecha seleccionada.";
+    }
+
     return "";
 }
 
@@ -198,6 +207,20 @@ function cargarDesplegableHorarios() {
     });
 }
 
+function actualizarHorasDisponibles() {
+    const horasOcupadas = obtenerHorasOcupadas(camposTurno[0].value);
+
+    Array.from(selectHoraTurno.options).forEach(option => {
+        if (!option.value) return;
+
+        const estaOcupado = horasOcupadas.includes(option.value);
+        option.disabled = estaOcupado;
+        option.textContent = estaOcupado ? `${option.value} (Ocupado)` : option.value;
+    });
+
+    validarTurno();
+}
+
 function formatearFechaAR(fechaIso) {
     if (!fechaIso) return '-';
     const partes = fechaIso.split('-');
@@ -252,6 +275,12 @@ if (formularioTurno) {
 
         const [campoDia, campoHora, campoVeterinario] = camposTurno;
         const turnos = obtenerTurnos();
+        if (obtenerHorasOcupadas(campoDia.value).includes(campoHora.value)) {
+            actualizarHorasDisponibles();
+            validarTurno();
+            return;
+        }
+
         turnos.push({
             idTurno: crypto.randomUUID(),
             idMascota: idMascotaActual,
@@ -275,6 +304,13 @@ if (formularioTurno) {
             feedback.classList.remove("d-block");
         });
         validarTurno();
+    });
+}
+
+if (camposTurno[0] && selectHoraTurno) {
+    camposTurno[0].addEventListener("change", actualizarHorasDisponibles);
+    window.addEventListener("storage", event => {
+        if (event.key === "turnos") actualizarHorasDisponibles();
     });
 }
 

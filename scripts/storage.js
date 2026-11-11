@@ -78,6 +78,14 @@ export function obtenerTurnos() {
     }
 }
 
+export function obtenerHorasOcupadas(diaTurno, idTurnoIgnorado = null) {
+    if (!diaTurno) return [];
+
+    return obtenerTurnos()
+        .filter(turno => turno.diaTurno === diaTurno && turno.idTurno !== idTurnoIgnorado)
+        .map(turno => turno.horaTurno);
+}
+
 
 export function guardarTurnos(turnos) {
     try {

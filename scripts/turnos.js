@@ -3,6 +3,7 @@ import {
     obtenerVeterinarios,
     mostrarMensaje,
     obtenerTurnos,
+    obtenerHorasOcupadas,
     guardarTurnos,
     inicializarTooltips
 } from "./storage.js";
@@ -437,6 +438,12 @@ formulario.addEventListener('submit', (event) => {
     }
 
     const esEdicion = Boolean(idTurnoEdit);
+    if (obtenerHorasOcupadas(datosTurno.diaTurno, idTurnoEdit).includes(datosTurno.horaTurno)) {
+        mostrarMensaje("Ese horario ya está ocupado para la fecha seleccionada.", "warning");
+        actualizarHorasDisponibles();
+        return;
+    }
+
     if (esEdicion) {
         const indice = turnos.findIndex((m) => m.idTurno === idTurnoEdit);
         if (indice === -1) {
@@ -468,10 +475,7 @@ function actualizarHorasDisponibles() {
     const fechaSeleccionada = document.getElementById("diaTurno").value;
     const selectHora = document.getElementById("horaTurno");
 
-    const turnos = obtenerTurnos();
-    const horasOcupadas = turnos
-        .filter(t => t.diaTurno === fechaSeleccionada && t.idTurno !== idTurnoEdit)
-        .map(t => t.horaTurno);
+    const horasOcupadas = obtenerHorasOcupadas(fechaSeleccionada, idTurnoEdit);
 
     Array.from(selectHora.options).forEach(option => {
         if (!option.value) return;
