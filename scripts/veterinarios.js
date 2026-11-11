@@ -408,15 +408,17 @@ botonConfirmarEliminar.addEventListener("click", () => {
 
     if (indice === -1) return;
 
-    veterinarios.splice(indice, 1);
+    const [veterinarioEliminado] = veterinarios.splice(indice, 1);
+
     if (!guardarVeterinario()) {
-        veterinarios.splice(indice, 0, veterinario);
+        veterinarios.splice(indice, 0, veterinarioEliminado);
         return;
     }
     render();
 
     idVeterinarioEliminar = null;
     modalEliminar.hide();
+    mostrarMensaje("Veterinario eliminado con éxito.");
 });
 
 function editarVeterinario(id) {
@@ -480,6 +482,7 @@ formEditar.addEventListener("submit", async (e) => {
         }
         render();
         modalEditar.hide();
+        mostrarMensaje("Cambios guardados con éxito.");
     } catch (error) {
         Object.assign(veterinario, veterinarioAnterior);
         console.error(error);
