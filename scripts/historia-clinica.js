@@ -419,6 +419,10 @@ function render() {
     const hayHistorias = historiasMascota.length > 0;
     contenedorTablaHistoria.hidden = !hayHistorias;
     alertSinHistorias.hidden = hayHistorias;
+    const btnExportarPDF = document.getElementById("btnExportarPDF");
+    if (btnExportarPDF) {
+        btnExportarPDF.disabled = !hayHistorias;
+    }
 
     if (!hayHistorias) {
         return;

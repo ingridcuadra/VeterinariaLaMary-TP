@@ -193,6 +193,7 @@ label,
         background-color: var(--color-turquoise-500);
         opacity: 55%;
         cursor: not-allowed;
+        pointer-events: auto;
 
         &:hover {
             background-color: var(--color-turquoise-500) !important;
@@ -214,6 +215,8 @@ label,
     &:disabled {
         opacity: 55%;
         cursor: not-allowed;
+        pointer-events: auto;
+        background-color: var(--color-turquoise-700);
 
         &:hover {
             background-color: var(--color-turquoise-700) !important;
@@ -234,9 +237,13 @@ label,
 
     &:disabled {
         opacity: 55%;
+        pointer-events: auto;
         cursor: not-allowed;
+        color: var(--color-turquoise-900);
+        background-color: var(--color-turquoise-200);
 
         &:hover {
+            color: var(--color-turquoise-900);
             background-color: var(--color-turquoise-200) !important;
         }
     }
@@ -254,8 +261,9 @@ label,
 
     &:disabled {
         opacity: 55%;
+        pointer-events: auto;
         cursor: not-allowed;
-
+  
         &:hover {
             color: var(--color-turquoise-500) !important;
         }
@@ -274,6 +282,7 @@ label,
 
     &:disabled {
         opacity: 55%;
+        pointer-events: auto;
         cursor: not-allowed;
 
         &:hover {
