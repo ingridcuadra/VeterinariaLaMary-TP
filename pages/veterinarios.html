@@ -98,7 +98,7 @@
 
                         <div class="col-12 col-md-6">
                             <label for="nombre" class="form-label">
-                                Nombre
+                                Nombre y apellido
                             </label>
                             <input type="text" class="form-control" id="nombre" name="nombre"
                                 placeholder="Ingresá el nombre completo" required aria-describedby="nombre-feedback">
@@ -106,9 +106,9 @@
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <label for="imagenVeterinario" class="form-label">Imagen del profesional</label>
+                            <label for="imagenVeterinario" class="form-label">Imagen del profesional (opcional)</label>
                             <input type="file" class="form-control" id="imagenVeterinario" name="imagenVeterinario"
-                                accept="image/*" required aria-describedby="imagenVeterinario-feedback">
+                                accept="image/*" aria-describedby="imagenVeterinario-feedback">
                             <div id="imagenVeterinario-feedback" class="invalid-feedback"></div>
                             <img id="vistaPreviaImagenVeterinario" class="img-thumbnail mt-2 d-none"
                                 alt="Vista previa de la imagen del profesional" style="max-height: 180px;">
@@ -210,7 +210,7 @@
                                     <tr>
                                         <th scope="col">Imagen</th>
                                         <th scope="col">Matrícula</th>
-                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Nombre y apellido</th>
                                         <th scope="col">Especialidad</th>
                                         <th scope="col">Valor de consulta</th>
                                         <th scope="col" class="text-end pe-4"></th>
@@ -253,7 +253,7 @@
 
                             <div class="mb-3">
                                 <label for="editarNombre" class="form-label">
-                                    Nombre
+                                    Nombre y apellido
                                 </label>
                                 <input type="text" class="form-control" id="editarNombre" required
                                     aria-describedby="editarNombre-feedback">
@@ -261,12 +261,20 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="editarImagenVeterinario" class="form-label">Imagen del profesional</label>
+                                <label for="editarImagenVeterinario" class="form-label">
+                                    Imagen del profesional (opcional)</label>
                                 <input type="file" class="form-control" id="editarImagenVeterinario" accept="image/*"
                                     aria-describedby="editarImagenVeterinario-feedback">
                                 <div id="editarImagenVeterinario-feedback" class="invalid-feedback"></div>
-                                <img id="vistaPreviaEditarImagenVeterinario" class="img-thumbnail mt-2"
-                                    alt="Vista previa de la imagen del profesional" style="max-height: 180px;" hidden>
+                                <div class="d-flex flex-column">
+                                    <img id="vistaPreviaEditarImagenVeterinario" class="img-thumbnail mt-2 object-fit-contain col-6"
+                                        alt="Vista previa de la imagen del profesional" style="max-height: 180px;"
+                                        hidden>
+                                    <button type="button" class="btn btn-gray btn-sm mt-2 col-9"
+                                        id="botonQuitarImagenEdicion">
+                                        Quitar imagen y usar la predeterminada
+                                    </button>
+                                </div>
                             </div>
 
                             <div class="mb-3">

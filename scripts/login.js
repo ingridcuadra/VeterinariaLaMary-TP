@@ -3,6 +3,13 @@ const AUTH_URL = "https://dummyjson.com/auth/login";
 const form = document.getElementById("formInicio");
 const msjError = document.getElementById("msjError");
 const boton = document.getElementById("inicioSesion");
+const btnVolver = document.getElementById("btnVolver");
+
+if (btnVolver) {
+    btnVolver.addEventListener("click", () => {
+        window.history.back();
+    });
+}
 
 if (form && msjError && boton) {
     form.addEventListener("submit", async (e) => {
@@ -48,4 +55,3 @@ if (form && msjError && boton) {
         }
     });
 }
-

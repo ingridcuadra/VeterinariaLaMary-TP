@@ -215,7 +215,6 @@ label,
         opacity: 55%;
         cursor: not-allowed;
 
-
         &:hover {
             background-color: var(--color-turquoise-700) !important;
         }
@@ -237,7 +236,6 @@ label,
         opacity: 55%;
         cursor: not-allowed;
 
-
         &:hover {
             background-color: var(--color-turquoise-200) !important;
         }
@@ -257,7 +255,6 @@ label,
     &:disabled {
         opacity: 55%;
         cursor: not-allowed;
-
 
         &:hover {
             color: var(--color-turquoise-500) !important;
@@ -279,9 +276,30 @@ label,
         opacity: 55%;
         cursor: not-allowed;
 
-
         &:hover {
             background-color: var(--color-danger) !important;
+        }
+    }
+}
+
+.btn-gray {
+    background-color: var(--color-gray-400);
+    color: var(--color-gray-900);
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-gray-600) !important;
+    }
+
+    &:disabled {
+        opacity: 55%;
+        pointer-events: auto;
+        cursor: not-allowed !important;
+        background-color: var(--color-gray-400);
+
+        &:hover {
+            background-color: var(--color-gray-400) !important;
         }
     }
 }
@@ -326,6 +344,22 @@ label,
     &:focus,
     &:active {
         background-color: var(--color-info-lighter) !important;
+    }
+
+    &:disabled {
+        opacity: 55%;
+        cursor: not-allowed;
+    }
+}
+
+.btn-icon-gray {
+    background-color: transparent !important;
+    color: var(--color-gray-800) !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--color-gray-500) !important;
     }
 
     &:disabled {

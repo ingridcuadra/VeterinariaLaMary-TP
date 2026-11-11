@@ -3,6 +3,18 @@ main {
     padding-top: 100px;
 }
 
+.login-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+}
+
+#btnVolver {
+    position: absolute;
+    bottom: calc(100% + 0.25rem);
+    left: 0;
+}
+
 .login-container {
     width: 100%;
     max-width: 450px;

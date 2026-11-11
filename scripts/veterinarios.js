@@ -8,7 +8,7 @@ import {
 const veterinarios = obtenerVeterinarios();
 const TAMANIO_MAXIMO_IMAGEN = 1024 * 1024;
 const TIPOS_IMAGEN_PERMITIDOS = ["image/jpeg", "image/png", "image/webp", "image/avif"];
-const IMAGEN_PREDETERMINADA = "../assets/imgs/vet-predeterminada.png";
+const IMAGEN_PREDETERMINADA = new URL("../assets/imgs/vet-predeterminado.png", import.meta.url).href;
 
 const formulario = document.getElementById("form-veterinarios");
 const campoMatricula = document.getElementById("matricula");
@@ -39,6 +39,7 @@ const campoMatriculaEdicion = document.getElementById("editarMatricula");
 const campoImagenEdicion = document.getElementById("editarImagenVeterinario");
 const vistaPreviaImagenEdicion = document.getElementById("vistaPreviaEditarImagenVeterinario");
 const feedbackImagenEdicion = document.getElementById("editarImagenVeterinario-feedback");
+const botonQuitarImagenEdicion = document.getElementById("botonQuitarImagenEdicion");
 const botonGuardarEdicion = document.getElementById("botonGuardarEdicion");
 const camposEdicion = [
     campoMatriculaEdicion,
@@ -49,6 +50,7 @@ const camposEdicion = [
 let idVeterinarioEliminar = null;
 let urlPreviaImagen = null;
 let urlPreviaImagenEdicion = null;
+let imagenEdicionEliminada = false;
 const camposTocados = new Set();
 let mostrarErroresRegistro = false;
 let mostrarErroresEdicion = false;
@@ -124,7 +126,6 @@ function validarRegistro() {
     const imagenValida = actualizarEstadoImagen(
         campoImagen,
         feedbackImagen,
-        true,
         mostrarErroresRegistro || campoImagen.dataset.tocado === "true"
     );
 
@@ -132,13 +133,11 @@ function validarRegistro() {
     return registroValido && imagenValida;
 }
 
-function actualizarEstadoImagen(input, feedback, requerida, mostrarError) {
+function actualizarEstadoImagen(input, feedback, mostrarError) {
     const archivo = input.files[0];
     let mensajeError = "";
 
-    if (!archivo && requerida) {
-        mensajeError = "Seleccioná una imagen del profesional.";
-    } else if (archivo && !TIPOS_IMAGEN_PERMITIDOS.includes(archivo.type)) {
+    if (archivo && !TIPOS_IMAGEN_PERMITIDOS.includes(archivo.type)) {
         mensajeError = "Seleccioná una imagen PNG, JPG, WEBP o AVIF.";
     } else if (archivo && archivo.size > TAMANIO_MAXIMO_IMAGEN) {
         mensajeError = "La imagen no puede superar 1 MB.";
@@ -168,9 +167,26 @@ function mostrarVistaPrevia(archivo, imagen, urlActual) {
 }
 
 function mostrarImagenGuardada(imagen, fuente) {
+    imagen.onerror = () => {
+        imagen.onerror = null;
+        imagen.src = IMAGEN_PREDETERMINADA;
+    };
     imagen.src = fuente || IMAGEN_PREDETERMINADA;
     imagen.hidden = false;
     imagen.classList.remove("d-none");
+}
+
+function actualizarBotonQuitarImagen() {
+    const idEdicion = document.getElementById("editarIdVeterinario").value;
+    const veterinario = veterinarios.find(item => item.idVeterinario === idEdicion);
+    const archivo = campoImagenEdicion.files[0];
+    const archivoValido = archivo &&
+        TIPOS_IMAGEN_PERMITIDOS.includes(archivo.type) &&
+        archivo.size <= TAMANIO_MAXIMO_IMAGEN;
+
+    botonQuitarImagenEdicion.disabled = imagenEdicionEliminada
+        ? !archivoValido
+        : !archivoValido && !veterinario?.imagen;
 }
 
 function convertirImagenABase64(archivo) {
@@ -202,7 +218,6 @@ function validarEdicion() {
     const imagenValida = actualizarEstadoImagen(
         campoImagenEdicion,
         feedbackImagenEdicion,
-        false,
         mostrarErroresEdicion || Boolean(campoImagenEdicion.files[0])
     );
 
@@ -236,7 +251,7 @@ function render() {
     veterinariosFiltrados.forEach((veterinario) => {
         const fila = document.createElement("tr");
         const imagen = document.createElement("img");
-        imagen.src = veterinario.imagen || IMAGEN_PREDETERMINADA;
+        mostrarImagenGuardada(imagen, veterinario.imagen);
         imagen.alt = `Imagen de ${veterinario.nombre}`;
         imagen.width = 48;
         imagen.height = 48;
@@ -297,18 +312,40 @@ campoImagen.addEventListener("change", () => {
 });
 
 campoImagenEdicion.addEventListener("change", () => {
-    actualizarEstadoImagen(campoImagenEdicion, feedbackImagenEdicion, false, true);
+    const imagenValida = actualizarEstadoImagen(campoImagenEdicion, feedbackImagenEdicion, true);
     urlPreviaImagenEdicion = mostrarVistaPrevia(
         campoImagenEdicion.files[0],
         vistaPreviaImagenEdicion,
         urlPreviaImagenEdicion
     );
-    if (!campoImagenEdicion.files[0]) {
+    if (campoImagenEdicion.files[0] && imagenValida) {
+        imagenEdicionEliminada = false;
+    }
+    if (campoImagenEdicion.files[0] && imagenValida) {
+        mostrarImagenGuardada(vistaPreviaImagenEdicion, urlPreviaImagenEdicion);
+    } else if (!imagenEdicionEliminada) {
         const veterinario = veterinarios.find(item =>
             item.idVeterinario === document.getElementById("editarIdVeterinario").value
         );
         mostrarImagenGuardada(vistaPreviaImagenEdicion, veterinario?.imagen);
+    } else if (!campoImagenEdicion.files[0]) {
+        mostrarImagenGuardada(vistaPreviaImagenEdicion, IMAGEN_PREDETERMINADA);
     }
+    actualizarBotonQuitarImagen();
+    validarEdicion();
+});
+
+botonQuitarImagenEdicion.addEventListener("click", () => {
+    imagenEdicionEliminada = true;
+    campoImagenEdicion.value = "";
+    urlPreviaImagenEdicion = mostrarVistaPrevia(
+        null,
+        vistaPreviaImagenEdicion,
+        urlPreviaImagenEdicion
+    );
+    mostrarImagenGuardada(vistaPreviaImagenEdicion, IMAGEN_PREDETERMINADA);
+    actualizarEstadoImagen(campoImagenEdicion, feedbackImagenEdicion, false);
+    actualizarBotonQuitarImagen();
     validarEdicion();
 });
 
@@ -389,6 +426,7 @@ function editarVeterinario(id) {
 
     camposEdicion.forEach((campo) => camposTocados.delete(campo));
     mostrarErroresEdicion = false;
+    imagenEdicionEliminada = false;
     urlPreviaImagenEdicion = mostrarVistaPrevia(
         null,
         vistaPreviaImagenEdicion,
@@ -401,6 +439,7 @@ function editarVeterinario(id) {
     document.getElementById("editarValorConsulta").value = veterinario.valorConsulta;
     campoImagenEdicion.value = "";
     mostrarImagenGuardada(vistaPreviaImagenEdicion, veterinario.imagen);
+    actualizarBotonQuitarImagen();
     feedbackImagenEdicion.textContent = "";
     feedbackImagenEdicion.classList.remove("d-block");
 
@@ -431,6 +470,8 @@ formEditar.addEventListener("submit", async (e) => {
 
         if (campoImagenEdicion.files[0]) {
             veterinario.imagen = await convertirImagenABase64(campoImagenEdicion.files[0]);
+        } else if (imagenEdicionEliminada) {
+            delete veterinario.imagen;
         }
 
         if (!guardarVeterinario()) {
@@ -461,15 +502,16 @@ formulario.addEventListener("submit", async (e) => {
     const valorConsulta = Number(datos.get("valorConsulta").trim().replace(",", "."));
     botonRegistrar.disabled = true;
     try {
-        const imagen = await convertirImagenABase64(campoImagen.files[0]);
         const veterinario = {
             idVeterinario: crypto.randomUUID(),
             matricula,
             nombre,
             especializacion,
-            valorConsulta,
-            imagen
+            valorConsulta
         };
+        if (campoImagen.files[0]) {
+            veterinario.imagen = await convertirImagenABase64(campoImagen.files[0]);
+        }
         veterinarios.push(veterinario);
         if (!guardarVeterinario()) {
             veterinarios.pop();

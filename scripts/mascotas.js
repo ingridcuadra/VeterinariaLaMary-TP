@@ -133,7 +133,7 @@ function renderMascotas() {
 
       const historialButton = document.createElement("button");
       historialButton.type = "button";
-      historialButton.className = "btn btn-icon btn-icon-info";
+      historialButton.className = "btn btn-icon btn-icon-gray";
       historialButton.dataset.bsToggle = "tooltip";
       historialButton.dataset.bsTitle = "Ver historia clínica";
       historialButton.setAttribute(

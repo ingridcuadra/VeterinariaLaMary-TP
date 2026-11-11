@@ -15,31 +15,40 @@
 
 <body class="d-flex flex-column min-vh-100">
     <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5 mt-5">
-        <section class="container d-flex justify-content-center">
-            <div class="login-container mt-5">
-                <h2 class="text-center mb-4">Iniciar sesión</h2>
+        <section class="container d-flex justify-content-center align-items-center flex-column">
+            <div class="login-wrapper">
+                <button type="button" class="btn btn-link text-underline" id="btnVolver">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Volver
+                </button>
 
-                <form class="mt-4" id="formInicio">
-                    <div class="mb-3">
-                        <label for="usuario" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Ingresá tu nombre de usuario">
-                    </div>
+                <div class="login-container">
+                    <h2 class="text-center mb-4">Iniciar sesión</h2>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password"  name="password" placeholder="Ingresá tu contraseña">
-                    </div>
+                    <form class="mt-4" id="formInicio">
+                        <div class="mb-3">
+                            <label for="usuario" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" name="usuario" id="usuario"
+                                placeholder="Ingresá tu nombre de usuario">
+                        </div>
 
-                    <span id="msjError"></span>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Ingresá tu contraseña">
+                        </div>
 
-                    <button type="submit" class="btn btn-primary w-100" id="inicioSesion">
-                        <span id="texto-login">Iniciar sesión</span>
+                        <span id="msjError"></span>
 
-                        <span id="spinner-login" class="spinner-border spinner-border-sm ms-2 d-none" role="status"
-                            aria-hidden="true">
-                        </span>
-                    </button>
-                </form>
+                        <button type="submit" class="btn btn-primary w-100" id="inicioSesion">
+                            <span id="texto-login">Iniciar sesión</span>
+
+                            <span id="spinner-login" class="spinner-border spinner-border-sm ms-2 d-none" role="status"
+                                aria-hidden="true">
+                            </span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
