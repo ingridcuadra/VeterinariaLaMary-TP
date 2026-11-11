@@ -26,6 +26,7 @@ const listadoVete = document.getElementById("lista-veterinarios");
 inicializarTooltips(listadoVete);
 const alertSinResultados = document.getElementById("alert-sin-resultados");
 const inputBuscarVeterinario = document.getElementById("inputBuscarVeterinario");
+const contenedorBusquedaVeterinarios = document.getElementById("contenedor-busqueda-veterinarios");
 const contenedorTabla = document.getElementById("contenedor-tabla");
 const alertSinVeterinarios = document.getElementById("alert-sin-veterinarios");
 const contenedorTotal = document.getElementById("total-veterinarios-contenedor");
@@ -242,6 +243,7 @@ function render() {
     const hayVeterinariosRegistrados = veterinarios.length > 0;
     const hayResultados = veterinariosFiltrados.length > 0;
 
+    contenedorBusquedaVeterinarios.hidden = !hayVeterinariosRegistrados;
     contenedorTabla.hidden = !hayResultados;
     contenedorTotal.hidden = !hayResultados;
 
